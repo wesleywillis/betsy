@@ -1,6 +1,18 @@
 class ProductsController < ApplicationController
   def index
+    @products = get_products
     @products = Product.all
+  end
+
+  def get_products
+    if request.original_url.include?("category")
+      products = Product.where("category_id = ?", params[:id])
+    elsif request.original_url.include?("merchant")
+      products = Product.where("merchant_id = ?", params[:id])
+    else
+      products = Product.all
+    end
+    return products
   end
 
   def show
