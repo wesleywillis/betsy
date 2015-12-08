@@ -7,15 +7,16 @@
   </div>
 </div>
 
-
-<table class="table table-hover">
-    <tbody>
-      <% @products.each do |product| %>
-        <tr>
-          <td> <%= link_to product.name, product %></td>
-          <td> <%= product.price %></td>
-          <td> <%= image_tag(product.photo_url) %></td>
-        </tr>
-        <% end %>
-    </tbody>
-</table>
+<div class="row">
+  <% @products.each do |product| %>
+    <div class="col-md-4">
+      <div class="thumbnail">
+        <%= image_tag(product.photo_url) %>
+      </div>
+      <div class="caption">
+        <%= link_to product.name, product %>
+        <%= product.price %>
+      </div>
+    </div>
+  <% end %>
+</div>
