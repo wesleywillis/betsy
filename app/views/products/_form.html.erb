@@ -1,0 +1,38 @@
+<div class="row">
+  <div class="col-lg-12">
+    <fieldset>
+      <%= form_for product, url:{action: action}, :html => {:class => "form" } do |f| %>
+        <h2><%= title %></h2>
+        <div class="form-group">
+          <%= f.label :name %>
+          <%= f.text_field :name, class: "form-control" %>
+        </div>
+        <div class="form-group">
+          <%= f.label :price %>
+          <%= f.text_field :price, class: "form-control" %>
+        </div>
+        <div class="form-group">
+          <%= f.label :description %><br>
+          <%= f.text_area :description, class: "form-control" %><br>
+        </div>
+        <div class="form-group">
+          <%= f.label :photo_url %><br>
+          <%= f.text_area :photo_url, class: "form-control" %><br>
+        </div>
+        <%= f.hidden_field :rank, :value => rank_value %>
+        <%= f.submit "Save", class: "btn btn-default" %>
+      <% end %>
+
+    </fieldset>
+  </div>
+</div>
+
+t.string   "name"
+t.float    "price"
+t.integer  "merchant_id"
+t.string   "description"
+t.string   "photo_url"
+t.integer  "category_id"
+t.integer  "inventory"
+t.datetime "created_at",  null: false
+t.datetime "updated_at",  null: false
