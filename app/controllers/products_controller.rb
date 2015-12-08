@@ -4,9 +4,9 @@ class ProductsController < ApplicationController
   end
 
   def get_products
-    if request.original_url.include?("category")
+    if request.original_url.include?("categories")
       products = Product.where("category_id = ?", params[:id])
-    elsif request.original_url.include?("merchant")
+    elsif request.original_url.include?("merchants")
       products = Product.where("merchant_id = ?", params[:id])
     else
       products = Product.all
