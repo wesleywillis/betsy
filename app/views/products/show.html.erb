@@ -1,7 +1,17 @@
 <div class="col-md-12 text-center">
   <h1> <%= @product.name %> </h1>
-  <h4> Image goes here </h4>
+  <%= image_tag(@product.photo_url) %>
   <h4> Price: <%= @product.price %> </h4>
   <p> <%= @product.description %></p>
-  <h4>link to reviews</h4>
+
+  <table class="table table-hover">
+      <tbody>
+        <% @product.reviews.each do |review| %>
+          <tr>
+            <td> <%= review.rating %></td>
+            <td> <%= review.description %></td>
+          </tr>
+          <% end %>
+      </tbody>
+  </table>
 </div>
