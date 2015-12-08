@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+
+  root 'home#index'
+  
   resources :products do
     resources :reviews, except: [:index]
   end
