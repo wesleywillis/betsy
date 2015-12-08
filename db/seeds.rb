@@ -51,10 +51,10 @@ seed_orders.each do |seed|
 end
 
 seed_products = [
-  { name: "Wand", price: 50, merchant_id: 1, description: "Core of unicorn tail", photo_url: " http://vignette3.wikia.nocookie.net/harrypotter/images/a/ad/George_Weasley's_wand.jpg/revision/latest?cb=20110503105406", category_id: 1, inventory: 100 },
-  { name: "Caludrin", price: 50, merchant_id: 3, description: "Solid. Made in Romania ", photo_url: "http://www.madvapes.com/media/catalog/product/cache/1/image/9df78eab33525d08d6e5fb8d27136e95/c/a/cauldron.jpg", category_id: 2, inventory: 24 },
-  { name: "Extendable Ears", price: 30, merchant_id: 2, description: "Sneak a listen at a distance", photo_url: " http://www.kimlawlercreative.com/wp-content/uploads/2011/06/extendable-ear.jpg", category_id: 4, inventory: 10 },
-  { name: "horcrux", price: 500000, merchant_id: 4, description: "A piece of the puzzle - the ring", photo_url: " http://ecx.images-amazon.com/images/I/41vRx1M8JTL._SY300_.jpg", category_id: 3, inventory: 1 }
+  { name: "Wand", price: 50, merchant_id: 1, description: "Core of unicorn tail", photo_url: "http://vignette3.wikia.nocookie.net/harrypotter/images/a/ad/George_Weasley's_wand.jpg/revision/latest?cb=20110503105406", category_id: 1, inventory: 100 },
+  { name: "Cauldron", price: 50, merchant_id: 3, description: "Solid. Made in Romania ", photo_url: "http://www.madvapes.com/media/catalog/product/cache/1/image/9df78eab33525d08d6e5fb8d27136e95/c/a/cauldron.jpg", category_id: 2, inventory: 24 },
+  { name: "Extendable Ears", price: 30, merchant_id: 2, description: "Sneak a listen at a distance", photo_url: "http://www.kimlawlercreative.com/wp-content/uploads/2011/06/extendable-ear.jpg", category_id: 4, inventory: 10 },
+  { name: "horcrux", price: 500000, merchant_id: 4, description: "A piece of the puzzle - the ring", photo_url: "http://ecx.images-amazon.com/images/I/41vRx1M8JTL._SY300_.jpg", category_id: 3, inventory: 1 }
 ]
 
 seed_products.each do |seed|
