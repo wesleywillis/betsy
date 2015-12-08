@@ -1,4 +1,15 @@
-<h1> Link to categories goes here </h1>
-<h1> links to merchants goes here </h1>
+<h1> dropdown or nav to categories goes here </h1>
+<h1> dropdown merchants goes here </h1>
 
 <h1> all products go here </h1>
+<table class="table table-hover">
+    <tbody>
+      <% @products.each do |product| %>
+        <tr>
+          <td> <%= link_to product.name, product %></td>
+          <td> <%= product.price %></td>
+          <td> Product image url will go here </td>
+        </tr>
+        <% end %>
+    </tbody>
+</table>
