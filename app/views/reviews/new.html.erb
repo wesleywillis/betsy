@@ -2,11 +2,13 @@
   <div class="col-lg-12">
     <%= form_for @review, url: { action: "create" }, html: {class: "form-group"} do |f| %>
 
-    <%= f.label :rating, "Rate This Product" %>
+    <%= f.label :rating, "Rate This Product (1-5):" %>
     <%= f.number_field :rating, in: 1..5, class: "form_control" %>
 
-    <%= f.label :description, "Rate This Product" %>
-    <%= f.text_area :description, class: "form_control" %>
+    <%= f.label :description, "Write a Review:" %>
+    <%= f.text_area :description, size: "40x5", class: "form_control" %>
+
+    <%= f.hidden_field :product_id, value: params(:product_id) %>
 
     <%= f.submit "Submit Review", class: "btn btn-default" %>
 
