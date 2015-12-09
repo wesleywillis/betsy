@@ -1,3 +1,25 @@
 <p><%= @merchant.user_name%></p>
-<p><%= @products%></p>
-<p><%= %></p>
+<p>Total Revenue:
+  <% @products.each do |product| %>
+    <% product.order_items.each do |order|%>
+      <% cart_total= product.price * order.quantity %>
+      <%= cart_total += @revenue%>
+    <% end %>
+  <% end %>
+
+<p>Total Revenue by Status: NEED ORDER STATUS</p>
+
+<div class="row">
+  <% @products.each do |product| %>
+    <div class="col-md-4">
+      <div class="thumbnail">
+        <%= link_to image_tag(product.photo_url, class: "thumbnail-image"), product %>
+        <!-- <%= image_tag(product.photo_url, class: "thumbnail-image") %> -->
+      </div>
+      <div class="caption">
+        <%= link_to product.name, product %>
+        $<%= number_with_precision(product.price, :precision => 2, :delimiter => ',') %>
+      </div>
+    </div>
+  <% end %>
+</div>

@@ -31,7 +31,7 @@ end
 seed_order_items = [
   { product_id: 1, order_id: 1, quantity: 1 },
   { product_id: 2, order_id: 1, quantity: 1 },
-  { product_id: 3, order_id: 1, quantity: 1 },
+  { product_id: 3, order_id: 1, quantity: 3 },
   { product_id: 4, order_id: 1, quantity: 1 }
 ]
 
