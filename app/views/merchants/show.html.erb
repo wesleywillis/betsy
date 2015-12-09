@@ -2,10 +2,13 @@
 <p>Total Revenue:
   <% @products.each do |product| %>
     <% product.order_items.each do |order|%>
-      <% cart_total= product.price * order.quantity %>
-      <%= cart_total += @revenue%>
+      <% if order.order.status != "cancelled"%>
+        <% cart_total = product.price * order.quantity %>
+        <%cart_total += @revenue%>
+        $<%= number_with_precision(cart_total, :precision => 2, :delimiter => ',') %>
+      <% end %>
     <% end %>
-  <% end %>
+  <% end %> </p>
 
 <p>Total Revenue by Status: NEED ORDER STATUS</p>
 
