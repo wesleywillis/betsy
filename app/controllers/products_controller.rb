@@ -24,7 +24,7 @@ class ProductsController < ApplicationController
   end
 
   def create
-    @product = Product.create(product_params[:product])
+    @product = Product.create(product_params)
     if @product.save
       redirect_to product_path(@product)
     else
@@ -46,15 +46,7 @@ class ProductsController < ApplicationController
   def update
     id = params[:id]
     @product = Product.find(id)
-    @product.update(
-      name: product_params[:product][:name],
-      price: product_params[:product][:price],
-      merchant_id: product_params[:product][:merchant_id],
-      description: product_params[:product][:description],
-      photo_url: product_params[:product][:photo_url],
-      category_id: product_params[:product][:category_id],
-      inventory: product_params[:product][:inventory],
-    )
+    @product.update(product_params)
     if @product.save
       redirect_to product_path(@product.id)
     else
@@ -65,7 +57,7 @@ class ProductsController < ApplicationController
   private
 
 def product_params
-  params.permit(product:[:name, :price, :merchant_id, :description, :photo_url, :category_id, :inventory])
+  params.require(:product).permit(:name, :price, :merchant_id, :description, :photo_url, :inventory)
 end
 
 end
