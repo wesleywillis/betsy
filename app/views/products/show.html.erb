@@ -7,17 +7,17 @@
   <!-- this should only be visible for merchant if logged in -->
   <%= link_to "Edit Product", edit_merchant_product_path(@product.merchant_id, @product.id), class: "btn btn-default" %>
   <%= link_to "Delete Product", product_path(@product),method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger" %>
+  <%= link_to "Write a Review", new_product_review_path(@product.id), class: "btn btn-default" %>
 
-  <h4> LINK TO LEAVE A NEW REVIEW GOES HERE </h4>
+  <hr>
+  <h4>Reviews</h4>
 
-  <table class="table table-hover">
-      <tbody>
-        <% @product.reviews.each do |review| %>
-          <tr>
-            <td> <%= review.rating %></td>
-            <td> <%= review.description %></td>
-          </tr>
-          <% end %>
-      </tbody>
-  </table>
+  <div>
+    <% @product.reviews.each do |review| %>
+      <ul>
+        <li> <%= review.rating %> <p> <%= review.description %></p></li>
+      </ul>
+    <% end %>
+  </div>
+
 </div>
