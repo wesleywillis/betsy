@@ -69,23 +69,18 @@ RSpec.describe ProductsController, type: :controller do
   end
 
   describe "POST #create" do
-  #  it "responds successfully with an HTTP 200 status code" do
-  #    get :
-  #    expect(response).to be_success
-  #    expect(response).to have_http_status(200)
-  #  end
-    it "redirect to merchant show page"
+    it "redirect to merchant show page" do
       post :create, good_params
 
       expect(subject).to redirect_to merchant(good_params[:merchant_id])
     end
 
-    it "renders new template on error"
+    it "renders new template on error" do
       post :create, bad_params1
       expect(subject).to render_template :new
     end
 
-    it "renders new template on error"
+    it "renders new template on error" do
       post :create, bad_params2
       expect(subject).to render_template :new
     end
