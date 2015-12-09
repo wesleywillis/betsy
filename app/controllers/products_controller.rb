@@ -40,7 +40,7 @@ class ProductsController < ApplicationController
 
   def edit
     id = params[:id]
-    @products = Product.find(id)
+    @product = Product.find(id)
   end
 
   def update
