@@ -17,7 +17,7 @@
       </div>
       <div class="caption">
         <%= link_to product.name, product %>
-        <%= product.price %>
+        $<%= number_with_precision(product.price, :precision => 2, :delimiter => ',') %>
       </div>
     </div>
   <% end %>
