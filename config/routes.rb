@@ -2,6 +2,8 @@ Rails.application.routes.draw do
 
   root 'home#index'
 
+  resource :cart, only: [:show]
+
   resources :products do
     resources :reviews, except: [:index]
   end

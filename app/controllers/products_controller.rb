@@ -1,6 +1,7 @@
 class ProductsController < ApplicationController
   def index
     @products = get_products
+    @order_item = current_order.order_items.new
   end
 
   def get_products
@@ -64,8 +65,8 @@ class ProductsController < ApplicationController
 
   private
 
-def product_params
-  params.permit(product:[:name, :price, :merchant_id, :description, :photo_url, :category_id, :inventory])
-end
+  def product_params
+    params.permit(product:[:name, :price, :merchant_id, :description, :photo_url, :category_id, :inventory])
+  end
 
 end
