@@ -1,6 +1,7 @@
 class ProductsController < ApplicationController
   def index
     @products = get_products
+    @order_item = current_order.order_items.new
   end
 
   def get_products
@@ -24,7 +25,7 @@ class ProductsController < ApplicationController
   end
 
   def create
-    @product = Product.create(product_params[:product])
+    @product = Product.create(product_params)
     if @product.save
       redirect_to product_path(@product)
     else
@@ -40,21 +41,13 @@ class ProductsController < ApplicationController
 
   def edit
     id = params[:id]
-    @products = Product.find(id)
+    @product = Product.find(id)
   end
 
   def update
     id = params[:id]
     @product = Product.find(id)
-    @product.update(
-      name: product_params[:product][:name],
-      price: product_params[:product][:price],
-      merchant_id: product_params[:product][:merchant_id],
-      description: product_params[:product][:description],
-      photo_url: product_params[:product][:photo_url],
-      category_id: product_params[:product][:category_id],
-      inventory: product_params[:product][:inventory],
-    )
+    @product.update(product_params)
     if @product.save
       redirect_to product_path(@product.id)
     else
@@ -64,8 +57,14 @@ class ProductsController < ApplicationController
 
   private
 
+<<<<<<< HEAD
+  def product_params
+    params.permit(product:[:name, :price, :merchant_id, :description, :photo_url, :category_id, :inventory])
+  end
+=======
 def product_params
-  params.permit(product:[:name, :price, :merchant_id, :description, :photo_url, :category_id, :inventory])
+  params.require(:product).permit(:name, :price, :merchant_id, :description, :photo_url, :inventory)
 end
+>>>>>>> 7ee8c1cc54815e1d7b2764944c92c41caab3b82a
 
 end

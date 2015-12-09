@@ -1,8 +1,12 @@
 <div class="col-md-12 text-center">
   <h1> <%= @product.name %> </h1>
   <%= image_tag(@product.photo_url) %>
-  <h4> Price: <%= @product.price %> </h4>
+  <h4> Price: $<%= number_with_precision(@product.price, :precision => 2, :delimiter => ',') %> </h4>
   <p> <%= @product.description %></p>
+
+  <!-- this should only be visible for merchant if logged in -->
+  <%= link_to "Edit Product", edit_merchant_product_path(@product.merchant_id, @product.id), class: "btn btn-default" %>
+  <%= link_to "Delete Product", product_path(@product),method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger" %>
 
   <h4> LINK TO LEAVE A NEW REVIEW GOES HERE </h4>
 

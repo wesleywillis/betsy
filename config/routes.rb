@@ -2,12 +2,14 @@ Rails.application.routes.draw do
 
   root 'home#index'
 
-  resources :products do
+  resource :cart, only: [:show]
+
+  resources :products, except: [:new, :edit] do
     resources :reviews, except: [:index]
   end
 
   resources :merchants do
-    resources :products, only: [:index, :new]
+    resources :products, only: [:index, :new, :edit]
   end
 
   resources :categories do
