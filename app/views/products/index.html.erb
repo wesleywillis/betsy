@@ -3,7 +3,7 @@
 
   </div>
   <div class="col-md-4">
-    <h1>SWAGRID</h1>
+    <%= link_to "SWAGRID", "/" %>
     <!-- change to new_session_paths -->
   </div>
   <div class="col-md-1">
@@ -17,8 +17,8 @@
   </div>
 </div>
 
-<h1> dropdown or nav to categories goes here </h1>
-<h1> dropdown merchants goes here </h1>
+<h4> dropdown or nav to categories goes here </h4>
+<h4> dropdown merchants goes here </h4>
 
 <div class="row">
   <div class="col-md-12 text-center">
@@ -30,7 +30,8 @@
   <% @products.each do |product| %>
     <div class="col-md-4">
       <div class="thumbnail">
-        <%= image_tag(product.photo_url, class: "thumbnail-image") %>
+        <%= link_to image_tag(product.photo_url, class: "thumbnail-image"), product %>
+        <!-- <%= image_tag(product.photo_url, class: "thumbnail-image") %> -->
       </div>
       <div class="caption">
         <%= link_to product.name, product %>
