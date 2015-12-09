@@ -7,6 +7,21 @@
 <% end %>
 <%= link_to "All Products", products_path %>
 
-<% @featured_products.each do |product| %>
+<!-- <% @featured_products.each do |product| %>
   <%= link_to image_tag(product.photo_url), product_path(product) %>
-<% end %>
+<% end %> -->
+
+<div class="row">
+  <% @featured_products.each do |product| %>
+    <div class="col-md-4">
+      <div class="thumbnail">
+        <%= link_to image_tag(product.photo_url, class: "thumbnail-image"), product %>
+        <!-- <%= image_tag(product.photo_url, class: "thumbnail-image") %> -->
+      </div>
+      <div class="caption">
+        <%= link_to product.name, product %>
+        <%= product.price %>
+      </div>
+    </div>
+  <% end %>
+</div>

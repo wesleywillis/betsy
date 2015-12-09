@@ -8,6 +8,24 @@
 </head>
 <body>
 <div class="container">
+  <div class="row">
+    <div class="col-md-5">
+    </div>
+    <div class="col-md-4">
+      <%= link_to "SWAGRID", "/" %>
+      <!-- change to new_session_paths -->
+    </div>
+    <div class="col-md-1">
+      <%= link_to "LOGIN", "/", class: "btn btn-default" %>
+    </div>
+    <div class="col-md-1">
+      <%= link_to "LOGOUT", "/", class: "btn btn-default" %>
+    </div>
+    <div class="col-md-1">
+      <%= link_to "CART", "/", class: "btn btn-default" %>
+    </div>
+  </div>
+
   <%= yield %>
 </div>
 </body>
