@@ -1,0 +1,18 @@
+<div class="row">
+  <div class="col-lg-12">
+    <%= form_for @review, url: { action: "create" }, html: {class: "form-group"} do |f| %>
+
+    <%= f.label :rating, "Rate This Product" %>
+    <%= f.number_field :rating, in: 1..5, class: "form_control" %>
+
+    <%= f.label :description, "Rate This Product" %>
+    <%= f.text_area :description, class: "form_control" %>
+
+    <%= f.submit "Submit Review", class: "btn btn-default" %>
+
+
+
+
+    <% end %>
+  </div>
+</div>
