@@ -5,6 +5,7 @@
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
+  <link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
 </head>
 <body>
 <div class="container">
@@ -12,7 +13,7 @@
     <div class="col-md-5">
     </div>
     <div class="col-md-4">
-      <%= link_to "SWAGRID", "/" %>
+      <%= link_to "SWAGRID", "/", class: "nav-header" %>
       <!-- change to new_session_paths -->
     </div>
     <div class="col-md-1">
