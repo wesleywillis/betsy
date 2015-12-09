@@ -3,4 +3,10 @@ class Product < ActiveRecord::Base
   belongs_to :merchant
   has_and_belongs_to_many :categories
   has_many :order_items
+
+  validates :name, presence: true, uniqueness: true, length: { maximum: 100 }
+  validates :description, length: {maximum: 500 }
+  validates :price, presence: true, numericality: { greater_than: 0 }
+  validates :merchant_id, presence: true
+  validates :inventory, numericality: { greater_than_or_equal_to: 0 }
 end
