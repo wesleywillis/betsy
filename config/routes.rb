@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   end
 
   resources :merchants do
-    resources :products, only: [:index]
+    resources :products, only: [:index, :new]
   end
 
   resources :categories do

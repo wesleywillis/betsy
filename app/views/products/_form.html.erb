@@ -8,8 +8,8 @@
           <%= f.text_field :name, class: "form-control" %>
         </div>
         <div class="form-group">
-          <%= f.label :price %>
-          <%= f.text_field :price, class: "form-control" %>
+          <%= f.label :price, "Price $" %>
+          <%= f.number_field :price, class: "form-control", :value => 0, :min => 0, :step => 0.01 %>
         </div>
         <div class="form-group">
           <%= f.label :description %><br>
@@ -17,22 +17,15 @@
         </div>
         <div class="form-group">
           <%= f.label :photo_url %><br>
-          <%= f.text_area :photo_url, class: "form-control" %><br>
+          <%= f.url_field :photo_url, class: "form-control" %><br>
         </div>
-        <%= f.hidden_field :rank, :value => rank_value %>
+        <div class="form-group">
+          <%= f.label :inventory, "Number in Stock" %><br>
+          <%= f.number_field :inventory, class: "form-control" %><br>
+        </div>
+        <%= f.hidden_field :merchant_id, :value => merchant_id %>
         <%= f.submit "Save", class: "btn btn-default" %>
       <% end %>
-
     </fieldset>
   </div>
 </div>
-
-t.string   "name"
-t.float    "price"
-t.integer  "merchant_id"
-t.string   "description"
-t.string   "photo_url"
-t.integer  "category_id"
-t.integer  "inventory"
-t.datetime "created_at",  null: false
-t.datetime "updated_at",  null: false
