@@ -1,6 +1,7 @@
 class ProductsController < ApplicationController
   def index
     @products = get_products
+    @order_item = current_order.order_items.new
   end
 
   def get_products
