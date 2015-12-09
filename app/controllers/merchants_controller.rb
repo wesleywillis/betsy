@@ -12,8 +12,10 @@ class MerchantsController < ApplicationController
     id = params[:id]
     @merchant = Merchant.find(id)
     @products = @merchant.products
-    @revenue ||= 0
-
+    @pending_revenue ||= 0
+    @paid_revenue ||= 0
+    @complete_revenue ||= 0
+    @cancelled_revenue ||= 0
   end
 
   def edit
