@@ -1,5 +1,7 @@
 <div class="row">
-  <div class="col-md-5"
+  <div class="col-md-5">
+
+  </div>
   <div class="col-md-4">
     <h1>SWAGRID</h1>
     <!-- change to new_session_paths -->
@@ -28,7 +30,7 @@
   <% @products.each do |product| %>
     <div class="col-md-4">
       <div class="thumbnail">
-        <%= image_tag(product.photo_url) %>
+        <%= image_tag(product.photo_url, class: "thumbnail-image") %>
       </div>
       <div class="caption">
         <%= link_to product.name, product %>

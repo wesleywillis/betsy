@@ -16,3 +16,14 @@
 
  @import "bootstrap-sprockets";
  @import "bootstrap";
+
+.thumbnail {
+  width: 300px;
+  height: 300px;
+  overflow: hidden;
+}
+
+.thumbnail-image {
+  width: 100%;
+  height: auto;
+}
