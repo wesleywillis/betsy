@@ -36,7 +36,7 @@ class OrderItemsController < ApplicationController
     @product_id = params[:order_item][:product_id]
     product_in_cart = order.order_items.select {|order_item| order_item.product_id == @product_id.to_i}
 
-    if !product_in_cart.nil?
+    if !product_in_cart.empty?
       update_product_in_cart(product_in_cart[0])
     end
   end
