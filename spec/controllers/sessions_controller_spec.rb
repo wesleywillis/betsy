@@ -14,6 +14,14 @@ RSpec.describe SessionsController, type: :controller do
     }
   end
 
+  let (:bad_login_params) do
+    {
+      session_data:{
+        email: "hedwig@potter.gov", password: "hedwig"
+      }
+    }
+  end
+
   describe "GET #new" do
     it "responds successfully with an HTTP 200 status code" do
       get :new
@@ -26,20 +34,14 @@ RSpec.describe SessionsController, type: :controller do
     end
   end
 
-  let
-
   describe "POST #create" do
     it "redirects to merchant show page" do
+      post :create, login_params
       expect(subject).to redirect_to merchant_path(test_user)
     end
 
-    it "renders login template on error" do
-      post :create, bad_params1
-      expect(subject).to render_template :new
-    end
-
     it "renders new template on error" do
-      post :create, bad_params2
+      post :create, bad_login_params
       expect(subject).to render_template :new
     end
   end
