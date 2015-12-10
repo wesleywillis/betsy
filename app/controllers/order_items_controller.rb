@@ -17,6 +17,12 @@ class OrderItemsController < ApplicationController
     redirect_to(:back)
   end
 
+  def update
+    @order_item = OrderItem.find(params[:id])
+    @order_item.update_attributes(order_item_params)
+    redirect_to(:back)
+  end
+
   def current_order
     if session[:order_id]
       Order.find(session[:order_id])

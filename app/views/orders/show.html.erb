@@ -27,12 +27,17 @@
         </div>
         <div class="row">
           <div class="col-md-3">
-            <span>QUANTITY: <%= order_item.quantity %></span>
+            <%= form_for order_item do |f| %>
+              <div class="form-group">
+                <%= f.label :quantity %>
+                <%= f.number_field :quantity, class: "form-control" %>
+                <%= f.submit "Update", class: "btn btn-default" %>
+              </div>
+            <% end %>
           </div>
           <div class="col-md-3">
             <span>$<%= number_with_precision(order_item.product.price, :precision => 2, :delimiter => ',') %></span>
           </div>
-
         </div>
       </div>
     </div>
