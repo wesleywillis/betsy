@@ -1,5 +1,5 @@
 # Swagrid
-Diagon Alley is online! Get your cauldrons, broomsticks, potion ingredients and more with just a few clicks! Start shopping [here](http://swagrid.herokuapp.com). Swagrid is an online marketplace built with Ruby on Rails.
+Diagon Alley is online! Get your fancy cauldrons, broomsticks, potion ingredients and more with just a few clicks! Start shopping [here](http://swagrid.herokuapp.com). Swagrid is an online marketplace built with Ruby on Rails.
 
 ### Authors
 - [Emily Gordon](https://github.com/emgord)
