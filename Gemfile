@@ -44,6 +44,7 @@ group :development, :test do
   gem 'better_errors'
   gem 'rspec-rails' #for testing
   gem 'simplecov', require: false
+  gem 'pry'
 end
 
 group :development do
