@@ -10,4 +10,17 @@ class ApplicationController < ActionController::Base
       Order.new
     end
   end
+
+#stuff below is Hailey experimenting with stuff learned from codeacademy
+#  helper_method :current_user
+#
+#	def current_user
+#  	@current_user ||= Merchant.find(session[:merchant_id]) if 	session[:merchant_id]
+#	end
+#
+#  def require_user
+#  	redirect_to '/login' unless current_user
+#	end
+#
+
 end

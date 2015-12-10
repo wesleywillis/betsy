@@ -18,6 +18,7 @@ class ProductsController < ApplicationController
   def show
     id = params[:id]
     @product = Product.find(id)
+    @order_item = current_order.order_items.new
   end
 
   def new
@@ -57,8 +58,6 @@ class ProductsController < ApplicationController
 
   private
 
-def product_params
-  params.require(:product).permit(:name, :price, :merchant_id, :description, :photo_url, :inventory)
-end
-
-end
+  def product_params
+    params.require(:product).permit(:name, :price, :merchant_id, :description, :photo_url, :inventory)
+  end
