@@ -11,7 +11,8 @@ RSpec.describe OrderItemsController, type: :controller do
     end
 
     it "adds an order item to the order" do
-
+      post :create, params
+      expect(
     end
 
     it "updates the quantity of an order item when the order item is already in cart" do
