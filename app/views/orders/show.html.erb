@@ -21,14 +21,18 @@
           <div class="col-md-6">
             <h5><%= order_item.product.name %> from <%= order_item.product.merchant.user_name %></h5>
           </div>
+          <div class="col-md-3">
+            <%= link_to "x", order_item_path(id: order_item.id), method: :delete %>
+          </div>
         </div>
         <div class="row">
           <div class="col-md-3">
-              <span>QUANTITY: <%= order_item.quantity %></span>
+            <span>QUANTITY: <%= order_item.quantity %></span>
           </div>
           <div class="col-md-3">
-                <span>$<%= number_with_precision(order_item.product.price, :precision => 2, :delimiter => ',') %></span>
+            <span>$<%= number_with_precision(order_item.product.price, :precision => 2, :delimiter => ',') %></span>
           </div>
+
         </div>
       </div>
     </div>
