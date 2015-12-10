@@ -3,9 +3,18 @@ class MerchantsController < ApplicationController
   end
 
   def new
+    @merchant = Merchant.new
   end
 
   def create
+    #code below based on the code academy stuff
+  #  @merchant = Merchant.new(merchant_params)
+  #  if @merchant.save
+  #    sessions[:user_id] = @merchant.id
+  #    redirect_to '/'
+  #  else
+  #    redirect_to root_path
+  #  end
   end
 
   def show
