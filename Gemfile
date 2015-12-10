@@ -26,6 +26,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'bcrypt', '~> 3.1.7'
 
 gem 'bootstrap-sass', '~> 3.3.6'
+gem "font-awesome-rails"
 
 # Use Unicorn as the app server
 # gem 'unicorn'
@@ -44,6 +45,7 @@ group :development, :test do
   gem 'better_errors'
   gem 'rspec-rails' #for testing
   gem 'simplecov', require: false
+  gem "rails-erd"
 end
 
 group :development do
