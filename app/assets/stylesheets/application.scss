@@ -73,7 +73,6 @@
 }
 
 .cat-link-container {
-  // width: 150px;
   display: inline-block;
   margin-left: 20px;
 }
@@ -103,6 +102,10 @@ h1 {
   color: #000000;
 }
 
+.nav-link-container {
+  margin-top: 10px;
+}
+
 // the merchant dropdown object
 .merchant-dropdown {
   background-color: #FFFFFF;
@@ -113,4 +116,5 @@ h1 {
 // the merchant dropdown div
 .dropdown {
   display: inline;
+  margin-left: 15px;
 }

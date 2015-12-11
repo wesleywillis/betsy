@@ -11,17 +11,20 @@
 <body>
 <div class="container">
   <div class="row">
-    <div class="col-md-6 col-md-offset-3 text-center">
+    <div class="col-md-2 nav-link-container">
+      <p class= nav-link>Hello <%= @user_name if !@user_name.nil? %><p>
+    </div>
+    <div class="col-md-6 col-md-offset-1 text-center">
       <%= link_to "SWAGRID", "/", class: "nav-header" %>
       <!-- change to new_session_paths -->
     </div>
-    <div class="col-md-1">
+    <div class="col-md-1 nav-link-container">
       <%= link_to "LOGIN", new_session_path, class: "nav-link" %>
     </div>
-    <div class="col-md-1">
+    <div class="col-md-1 nav-link-container">
       <%= link_to "SIGN UP", "/", class: "nav-link" %>
     </div>
-    <div class="col-md-1">
+    <div class="col-md-1 nav-link-container">
       <%= link_to "CART", "/cart", class: "nav-link" %>
     </div>
   </div>
