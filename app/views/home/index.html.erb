@@ -1,11 +1,15 @@
-<h1>Welcome to Swagrid!</h1>
-
-<h3>Hello <%= @user_name if !@user_name.nil? %>!</h3>
-
-<% @categories.each do |category| %>
-  <%= link_to category.name, category_products_path(category) %>
-<% end %>
-<%= link_to "All Products", products_path %>
+<!-- <h3>Hello <%= @user_name if !@user_name.nil? %>!</h3> -->
+<div class="row cat-container">
+  <% @categories.each do |category| %>
+    <div class="cat-link-container">
+      <%= link_to category.name, category_products_path(category), class: "cat-link" %>
+    </div>
+  <% end %>
+  <div class="cat-link-container">
+    <%= link_to "All Products", products_path, class: "cat-link" %>
+  </div>
+</div>
+<hr>
 
 <!-- <% @featured_products.each do |product| %>
   <%= link_to image_tag(product.photo_url), product_path(product) %>

@@ -41,11 +41,11 @@
 
 .nav-header {
   font-family: 'Raleway', sans-serif;
-  font-size: 48px;
+  font-size: 50px;
   color: #000000;
 }
 
-.nav-header:hover {
+.nav-header:hover, .nav-header:active, .cat-link:hover {
   text-decoration: none;
 }
 
@@ -59,4 +59,19 @@
 .product-image {
   width: 100%;
   height: auto;
+}
+
+.cat-link {
+  color: #000000;
+}
+
+.cat-link-container {
+  // width: 150px;
+  display: inline-block;
+  margin-left: 20px;
+}
+
+.cat-container {
+  width:500px;
+  margin: auto;
 }
