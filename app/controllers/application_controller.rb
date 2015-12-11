@@ -4,10 +4,13 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   def current_order
+    return @order if @order
     if !session[:order_id].nil?
-      Order.find(session[:order_id])
+      @order = Order.find(session[:order_id])
     else
-      Order.new
+      @order = Order.create
+      session[:order_id] = @order.id
+      return @order
     end
   end
 

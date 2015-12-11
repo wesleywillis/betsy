@@ -46,6 +46,7 @@ group :development, :test do
   gem 'rspec-rails' #for testing
   gem 'simplecov', require: false
   gem "rails-erd"
+  gem 'pry'
 end
 
 group :development do

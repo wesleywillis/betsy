@@ -4,7 +4,6 @@ class OrderItemsController < ApplicationController
   def create
     @order = current_order
     @order_item = @order.order_items.create(order_item_params)
-    session[:order_id] = @order.id
     redirect_to cart_path
   end
 
@@ -14,21 +13,13 @@ class OrderItemsController < ApplicationController
     @order_item.destroy
     @order_items = @order.order_items
 
-    redirect_to(:back)
+    redirect_to cart_path
   end
 
   def update
     @order_item = OrderItem.find(params[:id])
     @order_item.update_attributes(order_item_params)
-    redirect_to(:back)
-  end
-
-  def current_order
-    if session[:order_id]
-      Order.find(session[:order_id])
-    else
-      Order.create
-    end
+    redirect_to cart_path
   end
 
   def check_if_product_is_in_cart
@@ -36,7 +27,7 @@ class OrderItemsController < ApplicationController
     @product_id = params[:order_item][:product_id]
     product_in_cart = order.order_items.select {|order_item| order_item.product_id == @product_id.to_i}
 
-    if !product_in_cart.nil?
+    if !product_in_cart.empty?
       update_product_in_cart(product_in_cart[0])
     end
   end
