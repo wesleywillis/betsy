@@ -23,10 +23,12 @@
       </div>
     </div>
   <% end %>
-  
-  <!-- this should only be visible for merchant if logged in -->
-  <%= link_to "Edit Product", edit_merchant_product_path(@product.merchant_id, @product.id), class: "btn btn-default" %>
-  <%= link_to "Delete Product", product_path(@product),method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger" %>
+
+  <% if @current_user_id == @product.merchant_id %>
+    <%= link_to "Edit Product", edit_merchant_product_path(@product.merchant_id, @product.id), class: "btn btn-default" %>
+    <%= link_to "Delete Product", product_path(@product),method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger" %>
+  <% end %>
+
   <%= link_to "Write a Review", new_product_review_path(@product.id), class: "btn btn-default" %>
 
   <hr>
