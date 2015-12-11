@@ -79,7 +79,7 @@
 }
 
 .cat-container {
-  width:500px;
+  width:600px;
   margin: auto;
 }
 
@@ -103,8 +103,14 @@ h1 {
   color: #000000;
 }
 
+// the merchant dropdown object
 .merchant-dropdown {
   background-color: #FFFFFF;
   border-style: none;
   font-size: 12px;
+}
+
+// the merchant dropdown div
+.dropdown {
+  display: inline;
 }
