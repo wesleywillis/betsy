@@ -3,6 +3,7 @@ class ProductsController < ApplicationController
     @products = get_products
     @order_item = current_order.order_items.new
     @categories = Category.all
+    @merchants = Merchant.all
     @header = get_header
   end
 
