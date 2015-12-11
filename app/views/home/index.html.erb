@@ -1,25 +1,39 @@
 <h1>Hello <%= @user_name %></h1>
 
-<h3>Welcome to Swagrid!</h3>
-
-<% @categories.each do |category| %>
-  <%= link_to category.name, category_products_path(category) %>
-<% end %>
-<%= link_to "All Products", products_path %>
-
-<!-- <% @featured_products.each do |product| %>
-  <%= link_to image_tag(product.photo_url), product_path(product) %>
-<% end %> -->
+<div class="row cat-container">
+  <% @categories.each do |category| %>
+    <div class="cat-link-container">
+      <%= link_to category.name, category_products_path(category), class: "cat-link" %>
+    </div>
+  <% end %>
+  <div class="cat-link-container">
+    <%= link_to "All Products", products_path, class: "cat-link" %>
+  </div>
+  <div class="dropdown">
+    <button class="merchant-dropdown" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+      Merchants
+      <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+      <% @merchants.each do |merchant| %>
+        <li><%= link_to merchant.user_name, merchant_products_path(merchant) %></li>
+      <% end %>
+    </ul>
+  </div>
+</div>
+<hr>
 
 <div class="row">
+  <div class="col-md-12 text-center">
+    <h1>Dumbledore's Picks</h1>
+  </div>
   <% @featured_products.each do |product| %>
     <div class="col-md-4">
       <div class="thumbnail">
         <%= link_to image_tag(product.photo_url, class: "thumbnail-image"), product %>
-        <!-- <%= image_tag(product.photo_url, class: "thumbnail-image") %> -->
       </div>
       <div class="caption">
-        <%= link_to product.name, product %>
+        <%= link_to product.name, product, class: "caption-name" %>
         $<%= number_with_precision(product.price, :precision => 2, :delimiter => ',') %>
       </div>
     </div>

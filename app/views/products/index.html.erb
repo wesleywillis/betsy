@@ -1,10 +1,32 @@
 
-<h4> dropdown or nav to categories goes here </h4>
-<h4> dropdown merchants goes here </h4>
+<div class="row cat-container">
+  <% @categories.each do |category| %>
+    <div class="cat-link-container">
+      <%= link_to category.name, category_products_path(category), class: "cat-link" %>
+    </div>
+  <% end %>
+  <div class="cat-link-container">
+    <%= link_to "All Products", products_path, class: "cat-link" %>
+  </div>
+  <div class="dropdown">
+    <button class="merchant-dropdown" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+      Merchants
+      <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+      <% @merchants.each do |merchant| %>
+        <li><%= link_to merchant.user_name, merchant_products_path(merchant) %></li>
+      <% end %>
+    </ul>
+  </div>
+</div>
+<hr>
+
+<!-- <h4> dropdown merchants goes here </h4> -->
 
 <div class="row">
   <div class="col-md-12 text-center">
-    <h1> All Products </h1>
+    <h1> <%= @header %> </h1>
   </div>
 </div>
 
@@ -13,10 +35,9 @@
     <div class="col-md-4">
       <div class="thumbnail">
         <%= link_to image_tag(product.photo_url, class: "thumbnail-image"), product %>
-        <!-- <%= image_tag(product.photo_url, class: "thumbnail-image") %> -->
       </div>
       <div class="caption">
-        <%= link_to product.name, product %>
+        <%= link_to product.name, product, class: "caption-name" %>
         $<%= number_with_precision(product.price, :precision => 2, :delimiter => ',') %>
       </div>
     </div>

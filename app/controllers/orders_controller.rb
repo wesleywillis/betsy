@@ -4,6 +4,10 @@ class OrdersController < ApplicationController
   end
 
   def show
+    #@order_items = current_merchant.order_items.where(order_id: params[:order_id])
+  end
+
+  def cart
     @order_items = current_order.order_items
     @subtotal = subtotal(@order_items)
   end

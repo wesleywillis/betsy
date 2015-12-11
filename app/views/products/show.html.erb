@@ -1,6 +1,10 @@
 <div class="col-md-12 text-center">
   <h1> <%= @product.name %> </h1>
-  <%= image_tag(@product.photo_url) %>
+  <div class ="row">
+    <div class="product-image-container">
+      <%= image_tag(@product.photo_url, class: "product-image") %>
+    </div>
+  </div>
   <h4> Price: $<%= number_with_precision(@product.price, :precision => 2, :delimiter => ',') %> </h4>
   <p> <%= @product.description %></p>
 
@@ -35,7 +39,6 @@
 
   <hr>
   <h4>Reviews</h4>
-
   <div>
     <% @product.reviews.each do |review| %>
       <ul>
@@ -43,5 +46,4 @@
       </ul>
     <% end %>
   </div>
-
 </div>

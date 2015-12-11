@@ -6,6 +6,7 @@
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
   <link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Quicksand' rel='stylesheet' type='text/css'>
 </head>
 <body>
 <div class="container">
@@ -15,16 +16,16 @@
       <!-- change to new_session_paths -->
     </div>
     <div class="col-md-1">
-      <%= link_to "LOGIN", new_session_path, class: "btn btn-default" %>
+      <%= link_to "LOGIN", new_session_path, class: "nav-link" %>
     </div>
     <div class="col-md-1">
-      <%= link_to "SIGN UP", "/", class: "btn btn-default" %>
+      <%= link_to "SIGN UP", "/", class: "nav-link" %>
     </div>
     <div class="col-md-1">
-      <%= link_to "CART", "/cart", class: "btn btn-default" %>
+      <%= link_to "CART", "/cart", class: "nav-link" %>
     </div>
   </div>
-
+  <hr>
   <%= yield %>
 </div>
 </body>
