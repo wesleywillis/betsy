@@ -56,3 +56,4 @@
   <% end %> </p>
   <p>Total Net Revenue: $<%= number_with_precision((@pending_revenue + @paid_revenue + @complete_revenue), :precision => 2, :delimiter => ',') %></p>
   <p> </p>
+  <%= link_to "Add a Product", new_merchant_product_path(@merchant) %>
