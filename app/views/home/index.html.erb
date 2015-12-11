@@ -1,6 +1,6 @@
-<h1>Welcome to Swagrid!</h1>
+<h1>Hello <%= @user_name %></h1>
 
-<h3>Hello <%= @user_name if !@user_name.nil? %>!</h3>
+<h3>Welcome to Swagrid!</h3>
 
 <% @categories.each do |category| %>
   <%= link_to category.name, category_products_path(category) %>

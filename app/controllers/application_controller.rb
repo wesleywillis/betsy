@@ -14,13 +14,14 @@ class ApplicationController < ActionController::Base
 #stuff below is Hailey experimenting with stuff learned from codeacademy
 #  helper_method :current_user
 #
-#	def current_user
-#  	@current_user ||= Merchant.find(session[:merchant_id]) if 	session[:merchant_id]
-#	end
-#
-#  def require_user
-#  	redirect_to '/login' unless current_user
-#	end
-#
+	def current_user
+ 	  @current_user ||= Merchant.find(session[:merchant_id]) if session[:merchant_id]
+	end
 
+  def require_user
+    if current_user.nil?
+      flash[:error] = "Please log in to view this section"
+ 	    redirect_to new_session_path
+    end
+  end
 end

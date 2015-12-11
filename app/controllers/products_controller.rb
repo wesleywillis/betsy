@@ -19,6 +19,7 @@ class ProductsController < ApplicationController
     id = params[:id]
     @product = Product.find(id)
     @order_item = current_order.order_items.new
+    @current_user_id = current_user.id
   end
 
   def new
