@@ -12,18 +12,24 @@
 <div class="container">
   <div class="row">
     <div class="col-md-2 nav-link-container">
-      <p class= nav-link>Hello <%= @user_name if !@user_name.nil? %><p>
+      <p class= nav-link>Hello <%= @current_user.user_name if !@current_user.nil? %><p>
     </div>
     <div class="col-md-6 col-md-offset-1 text-center">
       <%= link_to "SWAGRID", "/", class: "nav-header" %>
       <!-- change to new_session_paths -->
     </div>
-    <div class="col-md-1 nav-link-container">
-      <%= link_to "LOGIN", new_session_path, class: "nav-link" %>
-    </div>
-    <div class="col-md-1 nav-link-container">
-      <%= link_to "SIGN UP", "/", class: "nav-link" %>
-    </div>
+    <% if !@current_user.nil? %>
+      <div class="col-md-1 nav-link-container">
+        <%= link_to "LOGOUT", new_session_path, class: "nav-link" %>
+      </div>
+    <% else %>
+      <div class="col-md-1 nav-link-container">
+        <%= link_to "LOGIN", new_session_path, class: "nav-link" %>
+      </div>
+      <div class="col-md-1 nav-link-container">
+        <%= link_to "SIGN UP", "/", class: "nav-link" %>
+      </div>
+    <% end %>
     <div class="col-md-1 nav-link-container">
       <%= link_to "CART", "/cart", class: "nav-link" %>
     </div>
