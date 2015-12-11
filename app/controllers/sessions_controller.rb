@@ -7,6 +7,21 @@ class SessionsController < ApplicationController
   end
 
   def create
-  # session_data is created in our form_for in sessions view page.
+  data = params[:session_data]
+  @merchant = Merchant.find_by_email(data[:email])
+    if !@merchant.nil?
+      if @merchant.authenticate(data[:password])
+        session[:merchant_id] = @merchant.id
+        redirect_to merchant_path(@merchant)
+      else # if password doesn't match:
+        flash.now[:error] = "Incorrect email or password"
+        render :new
+      end
+    else # user is not in the system (email doesn't match any in database):
+      flash.now[:error] = "Incorrect email or password"
+      render :new
+    end
   end
+
+
 end
