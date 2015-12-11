@@ -12,11 +12,10 @@
 <div class="container">
   <div class="row">
     <div class="col-md-2 nav-link-container">
-      <p class= nav-link>Hello <%= @current_user.user_name if !@current_user.nil? %><p>
+      <p class= nav-link>Hello <%= @current_user.user_name if !@current_user.nil? %></p>
     </div>
     <div class="col-md-6 col-md-offset-1 text-center">
       <%= link_to "SWAGRID", "/", class: "nav-header" %>
-      <!-- change to new_session_paths -->
     </div>
     <% if !@current_user.nil? %>
       <div class="col-md-1 nav-link-container">
