@@ -13,13 +13,13 @@ class OrderItemsController < ApplicationController
     @order_item.destroy
     @order_items = @order.order_items
 
-    redirect_to(:back)
+    redirect_to cart_path
   end
 
   def update
     @order_item = OrderItem.find(params[:id])
     @order_item.update_attributes(order_item_params)
-    redirect_to(:back)
+    redirect_to cart_path
   end
 
   def check_if_product_is_in_cart

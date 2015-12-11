@@ -1,6 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe OrderItemsController, type: :controller do
+  let (:order_item) do
+    OrderItem.create(quantity: 1, product_id: 2, order_id: 1)
+  end
+
   describe "POST 'create'" do
     let (:params) do
       {
@@ -27,6 +31,18 @@ RSpec.describe OrderItemsController, type: :controller do
 
     it "redirects to cart once order item is added" do
       post :create, params
+      expect(subject).to redirect_to cart_path
+    end
+  end
+
+  describe "DELETE 'destroy'" do
+    it "removes the order item from the order" do
+      delete :destroy, id: order_item.id
+      expect(Order.find(order_item.id).order_items.count).to eq 0
+    end
+
+    it "redirects to the cart page once order item is deleted" do
+      delete :destroy, id: order_item.id
       expect(subject).to redirect_to cart_path
     end
   end
