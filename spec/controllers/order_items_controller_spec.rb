@@ -46,4 +46,32 @@ RSpec.describe OrderItemsController, type: :controller do
       expect(subject).to redirect_to cart_path
     end
   end
+
+  describe "PATCH 'update'" do
+    let (:update_params) do
+      {
+        order_item:{
+          quantity: 3, product_id: 2, order_id: 1
+        },
+        id: order_item.id
+      }
+    end
+
+    it "updates the quantity of the order item" do
+      patch :update, update_params
+      expect(OrderItem.find(order_item.id).quantity).to eq update_params[:order_item][:quantity]
+    end
+
+    it "redirects to the cart page once the order item is updated" do
+      update_params =
+        {
+          order_item:{
+            quantity: 3, product_id: 2, order_id: 1
+          },
+          id: order_item.id
+        }
+      patch :update, update_params
+      expect(subject).to redirect_to cart_path
+    end
+  end
 end
