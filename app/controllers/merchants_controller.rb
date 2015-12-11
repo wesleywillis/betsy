@@ -1,4 +1,7 @@
 class MerchantsController < ApplicationController
+  #code below based on the code academy stuff
+  #before_action :require_user, only: [:index, :show]
+
   def index
   end
 
@@ -10,7 +13,7 @@ class MerchantsController < ApplicationController
     #code below based on the code academy stuff
   #  @merchant = Merchant.new(merchant_params)
   #  if @merchant.save
-  #    session[:user_id] = @merchant.id
+  #    session[:merchant_id] = @merchant.id
   #    redirect_to '/'
   #  else
   #    redirect_to root_path
@@ -21,6 +24,7 @@ class MerchantsController < ApplicationController
     id = params[:id]
     @merchant = Merchant.find(id)
     @products = @merchant.products
+    @orders = @merchant.orders
     @pending_revenue ||= 0
     @paid_revenue ||= 0
     @complete_revenue ||= 0
