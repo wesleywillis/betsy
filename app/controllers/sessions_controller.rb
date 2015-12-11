@@ -1,7 +1,7 @@
 class SessionsController < ApplicationController
   # require login needs to be created in the ApplicationController to create flash message
   # skip_before_action :require_login, only: [:new, :create]
-
+  before_action :redirect_if_logged_in, only: [:new, :create]
   def new
 
   end
@@ -21,6 +21,11 @@ class SessionsController < ApplicationController
       flash.now[:error] = "Incorrect email or password"
       render :new
     end
+  end
+
+  def redirect_if_logged_in
+    # if the session merchant id exists, find the merchant from that id and if they exist, redirect to their show_page.
+
   end
 
 

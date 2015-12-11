@@ -2,8 +2,8 @@ require 'rails_helper'
 
 RSpec.describe SessionsController, type: :controller do
 
-  let (:test_user) do
-    Merchant.create(user_name: "Harry Potter", email: "hp@potter.gov", password: "hedwig", password_confirmation: "hedwig")
+  before :each do
+    @test_user = Merchant.create(user_name: "Harry Potter", email: "hp@potter.gov", password: "hedwig", password_confirmation: "hedwig")
   end
 
   let (:login_params) do
@@ -32,12 +32,14 @@ RSpec.describe SessionsController, type: :controller do
       get :new
       expect(response).to render_template :new
     end
+
+    
   end
 
   describe "POST #create" do
     it "redirects to merchant show page" do
       post :create, login_params
-      expect(subject).to redirect_to merchant_path(test_user)
+      expect(subject).to redirect_to merchant_path(@test_user)
     end
 
     it "renders new template on error" do
