@@ -1,6 +1,6 @@
 class MerchantsController < ApplicationController
-  #code below based on the code academy stuff
-  #before_action :require_user, only: [:index, :show]
+
+  before_action :require_user, only: [:edit, :show]
 
   def index
   end
