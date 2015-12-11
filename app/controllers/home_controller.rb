@@ -2,7 +2,7 @@ class HomeController < ApplicationController
 
   def index
     @categories = Category.all
-    if current_user.user_name.nil?
+    if current_user.nil?
       @user_name = "Guest"
     else
       @user_name = current_user.user_name
