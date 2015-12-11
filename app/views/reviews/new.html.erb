@@ -8,8 +8,6 @@
     <%= f.label :description, "Write a Review:" %>
     <%= f.text_area :description, class: "form-control" %>
 
-    <%= f.hidden_field :product_id, value: params[:product_id] %>
-
     <%= f.submit "Submit Review", class: "btn btn-default" %>
 
     <% end %>
