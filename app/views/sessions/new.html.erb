@@ -3,18 +3,12 @@
 <% end %>
 
 <%= form_for(:session_data, url: sessions_path, html: { class: "form-group" }) do |f| %>
-  <div class = "form_group">
-    <%= f.label :email %>
-    <%= f.email_field :email, class: "form-control" %>
-  </div>
-  <div class = "form_group">
-    <%= f.label :password %>
-    <%= f.password_field :password, class: "form-control" %>
-  </div>
-  <br>
-  <div class = "form_group">
-    <%= f.submit "Login", class:"btn btn-info" %>
-  </div>
+  <%= f.label :email %>
+  <%= f.email_field :email, class: "form-control" %>
+
+  <%= f.label :password %>
+  <%= f.password_field :password, class: "form-control" %>
+<%= f.submit "login", class:"btn btn-info" %>
 <% end %>
 
 <%= link_to "Become a new merchant", new_merchant_path %>

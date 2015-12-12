@@ -19,10 +19,7 @@
     </div>
     <% if !@current_user.nil? %>
       <div class="col-md-1 nav-link-container">
-        <%= link_to "LOGOUT", logout_path, method: :delete, class: "nav-link" %>
-      </div>
-      <div class="col-md-1 nav-link-container">
-        <%= link_to "DASHBOARD", merchant_path(@current_user.id), class: "nav-link" %>
+        <%= link_to "LOGOUT", new_session_path, class: "nav-link" %>
       </div>
     <% else %>
       <div class="col-md-1 nav-link-container">

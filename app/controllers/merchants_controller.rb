@@ -21,7 +21,7 @@ class MerchantsController < ApplicationController
   end
 
   def show
-    id = @current_user.id
+    id = params[:id]
     @merchant = Merchant.find(id)
     @products = @merchant.products
     @orders = @merchant.orders
