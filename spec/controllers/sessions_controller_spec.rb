@@ -32,8 +32,6 @@ RSpec.describe SessionsController, type: :controller do
       get :new
       expect(response).to render_template :new
     end
-
-
   end
 
   describe "POST #create" do
@@ -52,6 +50,14 @@ RSpec.describe SessionsController, type: :controller do
     it "redirects to index page" do
       delete :destroy
       expect(response).to redirect_to root_path
+    end
+  end
+
+  describe "#redirect_if_logged_in" do
+    it "redirects to merchant show page if already logged in" do
+      post :create, login_params
+      get :new
+      expect(subject).to redirect_to merchant_path(@test_user)
     end
   end
 end
