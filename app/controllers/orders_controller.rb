@@ -1,7 +1,7 @@
 class OrdersController < ApplicationController
-  def new
-    @order = Order.new
-  end
+  # def new
+  #   @order = Order.new
+  # end
 
   def show
     #@order_items = current_merchant.order_items.where(order_id: params[:order_id])
@@ -13,7 +13,7 @@ class OrdersController < ApplicationController
   end
 
   def create
-    @order = Order.create(order_params)
+    @order = Order.create
     if @order.save
       redirect_to root_path
     else
@@ -28,4 +28,5 @@ class OrdersController < ApplicationController
     end
     return sum
   end
+
 end
