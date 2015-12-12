@@ -7,7 +7,8 @@ class OrderItem < ActiveRecord::Base
 
   validates :product_id, presence: true
   validates :order_id, presence: true
-  validates :quantity, presence: true, inclusion: 1..inventory
+  #How to make this inclusion: 1... inventory???
+  validates :quantity, presence: true, inclusion: 1..10000
   # validate :quantity_cannot_be_greater_than_inventory
   #
   # def quantity_cannot_be_greater_than_inventory
