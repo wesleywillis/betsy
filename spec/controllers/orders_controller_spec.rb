@@ -18,16 +18,26 @@ RSpec.describe OrdersController, type: :controller do
 
   end
 
+  # Need to fill in once method is written in controller
   describe "GET 'show'" do
 
   end
 
   describe "GET 'cart'" do
+    it "renders the cart template" do
+      get :cart
+      expect(response).to render_template :cart
+    end
 
+    # Not sure how to make this test work... what to put in expect(???)
+    # it "displays the total cost of all items in cart" do
+    #   order = Order.create
+    #   OrderItem.create(quantity: 1, product_id: 2, order_id: order.id)
+    #   OrderItem.create(quantity: 2, product_id: 1, order_id: order.id)
+    #   OrderItem.create(quantity: 1, product_id: 3, order_id: order.id)
+    #   OrderItem.create(quantity: 4, product_id: 4, order_id: order.id)
+    #   get :cart
+    #   expect(subtotal).to eq 8000
+    # end
   end
-
-  describe "subtotal" do
-
-  end
-
 end

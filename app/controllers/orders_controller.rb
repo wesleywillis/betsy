@@ -14,11 +14,13 @@ class OrdersController < ApplicationController
 
   def create
     @order = Order.create
-    if @order.save
+    # Commenting this out... I don't think it will
+    # ever get here
+    # if @order.save
       redirect_to root_path
-    else
-      render :new
-    end
+    # else
+    #   render :new
+    # end
   end
 
   def subtotal(order_items)

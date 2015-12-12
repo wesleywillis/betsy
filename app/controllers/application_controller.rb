@@ -7,13 +7,14 @@ class ApplicationController < ActionController::Base
   def current_order
 
     return @order if @order
-    if !session[:order_id].nil?
-      @order = Order.find(session[:order_id])
-    else
+    # I don't think this condition will ever happen
+    # if !session[:order_id].nil?
+    #   @order = Order.find(session[:order_id])
+    # else
       @order = Order.create
       session[:order_id] = @order.id
       return @order
-    end
+    # end
   end
 
 	def current_user
