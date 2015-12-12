@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Swagrid</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+  <link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Quicksand:400,700' rel='stylesheet' type='text/css'>
+</head>
+<body>
+<div class="container">
+  <div class="row">
+    <div class="col-md-2 nav-link-container">
+      <p class= nav-link>Hello <%= @current_user.user_name if !@current_user.nil? %></p>
+    </div>
+    <div class="col-md-6 col-md-offset-1 text-center">
+      <%= link_to "SWAGRID", "/", class: "nav-header" %>
+    </div>
+    <% if !@current_user.nil? %>
+      <div class="col-md-1 nav-link-container">
+        <%= link_to "LOGOUT", logout_path, method: :delete, class: "nav-link" %>
+      </div>
+      <div class="col-md-1 nav-link-container">
+        <%= link_to "DASHBOARD", merchant_path(@current_user.id), class: "nav-link" %>
+      </div>
+    <% else %>
+      <div class="col-md-1 nav-link-container">
+        <%= link_to "LOGIN", new_session_path, class: "nav-link" %>
+      </div>
+      <div class="col-md-1 nav-link-container">
+        <%= link_to "SIGN UP", "/", class: "nav-link" %>
+      </div>
+    <% end %>
+    <div class="col-md-1 nav-link-container">
+      <%= link_to "CART", "/cart", class: "nav-link" %>
+    </div>
+  </div>
+  <hr>
+  <%= yield %>
+</div>
+</body>
+</html>

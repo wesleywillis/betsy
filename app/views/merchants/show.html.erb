@@ -1,0 +1,58 @@
+<h1><%= @merchant.user_name%></h1>
+
+<p>Total Net Revenue: $<%= number_with_precision((@pending_revenue + @paid_revenue + @complete_revenue), :precision => 2, :delimiter => ',') %></p>
+<p> Number of orders by status
+
+<table class="table table-bordered" >
+  <thead>
+    <tr>
+      <th> Order Id</th>
+      <th> Items </th>
+      <th> Status </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <% @orders.each do |order| %>
+        <td><%= order.id%><br><small> Ordered on: <%= order.order_time %></small></td>
+          <td>
+            <% order.products.each do |product| %>
+              <% if product.merchant_id == @merchant.id%>
+                <%= link_to product.name, product %>
+                <% product.order_items.each do |item|%>
+                  <%= "   Quantity: " + item.quantity.to_s %>
+                  <%= "   Total: $" + (item.quantity * product.price).to_s + "0" %>
+
+                  <% end %>
+              <% end %>
+            <% end %>
+          </td>
+        <td><%= order.status %></td>
+      <% end %>
+  </tbody>
+</table>
+<p>
+  <% @products.each do |product| %>
+    <% product.order_items.each do |order|%>
+      <% if order.order.status == "pending"%>
+        <% cart_total = product.price * order.quantity %>
+        <%@pending_revenue += cart_total%>
+        Total Revenue for Pending Orders: $<%= number_with_precision(cart_total, :precision => 2, :delimiter => ',') %>
+      <% elsif order.order.status == "paid"%>
+        <% cart_total = product.price * order.quantity %>
+        <%@paid_revenue += cart_total%>
+        Total Revenue for Paid Orders: $<%= number_with_precision(cart_total, :precision => 2, :delimiter => ',') %>
+      <% elsif order.order.status == "complete"%>
+        <% cart_total = product.price * order.quantity %>
+        <%@complete_revenue += cart_total%>
+        Total Revenue for Completed Orders:$<%= number_with_precision(cart_total, :precision => 2, :delimiter => ',') %>
+      <% elsif order.order.status == "cancelled"%>
+        <% cart_total = product.price * order.quantity %>
+        <%@cancelled_revenue += cart_total%>
+        Total Revenue for Cancelled Orders: - $<%= number_with_precision(cart_total, :precision => 2, :delimiter => ',') %>
+      <% end %>
+    <% end %>
+  <% end %> </p>
+  <p>Total Net Revenue: $<%= number_with_precision((@pending_revenue + @paid_revenue + @complete_revenue), :precision => 2, :delimiter => ',') %></p>
+  <p> </p>
+  <%= link_to "Add a Product", new_merchant_product_path(@merchant) %>

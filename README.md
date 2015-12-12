@@ -1,3 +1,25 @@
+# Swagrid
+Diagon Alley is online! Get your fancy cauldrons, broomsticks, potion ingredients and more with just a few clicks! Start shopping [here](http://swagrid.herokuapp.com). Swagrid is an online marketplace built with Ruby on Rails.
+
+### Authors
+- [Emily Gordon](https://github.com/emgord)
+- [Brittany Kohler](https://github.com/brittanykohler)
+- [Rebecca Tolmach](https://github.com/rmtolmach)
+- [Hailey Willis](https://github.com/wesleywillis)
+
+### Company
+All authors are students at [Ada Developers Academy](http://adadevelopersacademy.org/)
+
+### Ruby version
+- using Ruby version 2.2.3
+
+### Rails version
+- 4.2.5
+
+### Known Bugs
+
+####[Swagrid Trello Board](https://trello.com/b/j4Wo3GDY/swagrid)
+
 # bEtsy
 [b]Etsy will be an online store where a wide variety of products can be listed and sold by any user. In this project we will focus on reinforcing the major components of Rails, Model Validation, as well as introducing some more complex logic such as user authentication.
 
