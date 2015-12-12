@@ -21,14 +21,14 @@ class MerchantsController < ApplicationController
   end
 
   def show
-    id = params[:id]
-    @merchant = Merchant.find(id)
-    @products = @merchant.products
-    @orders = @merchant.orders
-    @pending_revenue ||= 0
-    @paid_revenue ||= 0
-    @complete_revenue ||= 0
-    @cancelled_revenue ||= 0
+      id = @current_user.id
+      @merchant = Merchant.find(id)
+      @products = @merchant.products
+      @orders = @merchant.orders
+      @pending_revenue ||= 0
+      @paid_revenue ||= 0
+      @complete_revenue ||= 0
+      @cancelled_revenue ||= 0
   end
 
   def edit

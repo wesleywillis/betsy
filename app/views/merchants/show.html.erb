@@ -1,6 +1,5 @@
 <h1><%= @merchant.user_name%></h1>
 
-
 <p>Total Net Revenue: $<%= number_with_precision((@pending_revenue + @paid_revenue + @complete_revenue), :precision => 2, :delimiter => ',') %></p>
 <p> Number of orders by status
 
