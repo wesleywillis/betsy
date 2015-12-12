@@ -23,9 +23,13 @@ class SessionsController < ApplicationController
     end
   end
 
+  def destroy
+    session[:merchant_id] = nil
+    redirect_to root_path
+  end
+
   def redirect_if_logged_in
     # if the session merchant id exists, find the merchant from that id and if they exist, redirect to their show_page.
-
   end
 
 

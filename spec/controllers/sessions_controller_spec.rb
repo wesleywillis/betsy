@@ -33,7 +33,7 @@ RSpec.describe SessionsController, type: :controller do
       expect(response).to render_template :new
     end
 
-    
+
   end
 
   describe "POST #create" do
@@ -45,6 +45,13 @@ RSpec.describe SessionsController, type: :controller do
     it "renders new template on error" do
       post :create, bad_login_params
       expect(subject).to render_template :new
+    end
+  end
+
+  describe "DELETE #destroy" do
+    it "redirects to index page" do
+      delete :destroy
+      expect(response).to redirect_to root_path
     end
   end
 end
