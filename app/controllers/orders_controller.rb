@@ -1,8 +1,7 @@
 class OrdersController < ApplicationController
-  def new
-    @order = Order.new
-    raise
-  end
+  # def new
+  #   @order = Order.new
+  # end
 
   def show
     #@order_items = current_merchant.order_items.where(order_id: params[:order_id])
@@ -14,12 +13,14 @@ class OrdersController < ApplicationController
   end
 
   def create
-    @order = Order.create(order_params)
-    if @order.save
+    @order = Order.create
+    # Commenting this out... I don't think it will
+    # ever get here
+    # if @order.save
       redirect_to root_path
-    else
-      render :new
-    end
+    # else
+    #   render :new
+    # end
   end
 
   def subtotal(order_items)
@@ -29,4 +30,5 @@ class OrdersController < ApplicationController
     end
     return sum
   end
+
 end
