@@ -53,9 +53,16 @@ class OrderItemsController < ApplicationController
 
   end
 
+  def shipped?
+    @order_item = OrderItem.find(params[:id])
+    if @order_item.status != "shipped"
+      @order_item.update_attributes(status: "shipped")
+    end
+  end
+
   private
 
   def order_item_params
-    params.require(:order_item).permit(:quantity, :product_id, :order_id)
+    params.require(:order_item).permit(:quantity, :product_id, :order_id, :status)
   end
 end
