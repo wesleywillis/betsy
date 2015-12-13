@@ -16,7 +16,7 @@ require "sprockets/railtie"
 Bundler.require(*Rails.groups)
 
 # add custom validators path
-config.autoload_paths += %W["#{config.root}/app/validators/"]
+#config.autoload_paths += %W["#{config.root}/app/validators/"]
 
 module Betsy
   class Application < Rails::Application

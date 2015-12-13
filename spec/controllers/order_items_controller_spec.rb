@@ -1,15 +1,19 @@
 require 'rails_helper'
 
 RSpec.describe OrderItemsController, type: :controller do
+  let (:product) do
+    Product.create(name: "testy", price: 10, merchant_id: 1, description: "hi", photo_url: "www.google.com", inventory: 4)
+  end
+
   let (:order_item) do
-    OrderItem.create(quantity: 1, product_id: 2, order_id: 1)
+    OrderItem.create(quantity: 1, product_id: product.id, order_id: 1)
   end
 
   describe "POST 'create'" do
     let (:params) do
       {
         order_item:{
-          quantity: 1, product_id: 2, order_id: 1
+          quantity: 1, product_id: product.id, order_id: 1
         }
       }
     end
@@ -51,7 +55,7 @@ RSpec.describe OrderItemsController, type: :controller do
     let (:update_params) do
       {
         order_item:{
-          quantity: 3, product_id: 2, order_id: 1
+          quantity: 3, product_id: product.id, order_id: 1
         },
         id: order_item.id
       }
@@ -63,13 +67,13 @@ RSpec.describe OrderItemsController, type: :controller do
     end
 
     it "redirects to the cart page once the order item is updated" do
-      update_params =
-        {
-          order_item:{
-            quantity: 3, product_id: 2, order_id: 1
-          },
-          id: order_item.id
-        }
+      # update_params =
+      #   {
+      #     order_item:{
+      #       quantity: 3, product_id: product.id, order_id: 1
+      #     },
+      #     id: order_item.id
+      #   }
       patch :update, update_params
       expect(subject).to redirect_to cart_path
     end

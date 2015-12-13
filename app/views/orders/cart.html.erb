@@ -4,6 +4,13 @@
   </div>
 </div>
 
+<% if !flash[:error].nil? %>
+  <div class="col-md-12 text-center error-message">
+    <%= flash[:error] %>
+  </div>
+<% end %>
+
+
 <% if @order_items.size == 0 %>
   <p class="text-center">
     There are no items in your shopping cart.  Please <%= link_to "go back", root_path %> to accio some items to your cart.
@@ -41,7 +48,7 @@
             <%= form_for order_item do |f| %>
               <div class="form-group">
                 <%= f.label :quantity, class: "quantity-title" %>
-                <%= f.number_field :quantity, class: "cart-quantity form-control" %>
+                <%= f.number_field :quantity, class: "cart-quantity form-control", min: 1 %>
                 <%= f.submit "Update", class: "btn btn-default" %>
               </div>
             <% end %>

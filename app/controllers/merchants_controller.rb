@@ -1,5 +1,4 @@
 class MerchantsController < ApplicationController
-
   before_action :require_user, only: [:edit, :show]
 
   def index
@@ -10,14 +9,7 @@ class MerchantsController < ApplicationController
   end
 
   def create
-    #code below based on the code academy stuff
-  #  @merchant = Merchant.new(merchant_params)
-  #  if @merchant.save
-  #    session[:merchant_id] = @merchant.id
-  #    redirect_to '/'
-  #  else
-  #    redirect_to root_path
-  #  end
+
   end
 
   def show

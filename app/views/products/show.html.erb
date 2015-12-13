@@ -1,3 +1,10 @@
+<% if !flash[:error].nil? %>
+  <div class="col-md-12 text-center error-message">
+    <%= flash[:error] %>
+  </div>
+<% end %>
+
+
 <div class="col-md-12 text-center">
   <h1> <%= @product.name %> </h1>
   <div class ="row">
