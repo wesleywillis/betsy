@@ -13,7 +13,7 @@ class ApplicationController < ActionController::Base
       @order = Order.create
       session[:order_id] = @order.id
       return @order
-     end
+    end
   end
 
 	def current_user
