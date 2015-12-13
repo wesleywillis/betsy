@@ -7,7 +7,7 @@ class OrderItemsController < ApplicationController
     if @order_item.save
       redirect_to cart_path
     else
-      flash[:error] = "Sorry, there are only #{@order_item.product.inventory} #{@order_item.product.name.pluralize} availible."
+      flash[:error] = "Sorry, there are only #{@order_item.product.inventory} #{@order_item.product.name.pluralize} available."
       redirect_to product_path(@order_item.product)
     end
   end
@@ -27,7 +27,7 @@ class OrderItemsController < ApplicationController
     if @order_item.save
       redirect_to cart_path
     else
-      flash[:error] = "Sorry, there are only #{@order_item.product.inventory} #{@order_item.product.name.pluralize} availible."
+      flash[:error] = "Sorry, there are only #{@order_item.product.inventory} #{@order_item.product.name.pluralize} available."
       redirect_to cart_path
     end
   end
