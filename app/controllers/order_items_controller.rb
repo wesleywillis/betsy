@@ -24,7 +24,12 @@ class OrderItemsController < ApplicationController
   def update
     @order_item = OrderItem.find(params[:id])
     @order_item.update_attributes(order_item_params)
-    redirect_to cart_path
+    if @order_item.save
+      redirect_to cart_path
+    else
+      flash[:error] = "Sorry, there are only #{@order_item.product.inventory} #{@order_item.product.name.pluralize} availible."
+      redirect_to cart_path
+    end
   end
 
   def check_if_product_is_in_cart
