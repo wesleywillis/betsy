@@ -24,7 +24,7 @@ class MerchantsController < ApplicationController
     id = @current_user.id
     @merchant = Merchant.find(id)
     @products = @merchant.products
-    @orders = @merchant.orders
+    @orders = @merchant.orders.order(params[:sort])
     @pending_revenue ||= 0
     @paid_revenue ||= 0
     @complete_revenue ||= 0
