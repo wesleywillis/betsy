@@ -61,3 +61,19 @@
   <p><strong>Total Orders: <%= @orders.count %></strong></p>
 
   <%= link_to "Add a Product", new_merchant_product_path(@merchant) %>
+
+<%= link_to(merchant_path(sort:'all'), :class => "btn btn-default", :id => 'all-button') do %>
+ All Orders
+<% end %>
+<%= link_to(merchant_path(sort:'pending'), :class => "btn btn-default", :id => 'pending-button') do %>
+  Pending
+<% end %>
+<%= link_to(merchant_path(sort:'paid'), :class => "btn btn-default", :id => 'paid-button') do %>
+  Paid
+<% end %>
+<%= link_to(merchant_path(sort:'complete'), :class => "btn btn-default", :id => 'complete-button') do %>
+  Complete
+<% end %>
+<%= link_to(merchant_path(sort:'cancelled'), :class => "btn btn-default", :id => 'cancelled-button') do %>
+  Cancelled
+<% end %>

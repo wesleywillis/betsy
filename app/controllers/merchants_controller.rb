@@ -16,7 +16,14 @@ class MerchantsController < ApplicationController
     id = @current_user.id
     @merchant = Merchant.find(id)
     @products = @merchant.products
-    @orders = @merchant.orders
+    status = params[:sort]
+
+    if status == "all" || status == nil
+      @orders = @merchant.orders
+    else
+      @orders = @merchant.orders.where(status: status)
+    end
+
     @pending_revenue ||= 0
     @paid_revenue ||= 0
     @complete_revenue ||= 0
