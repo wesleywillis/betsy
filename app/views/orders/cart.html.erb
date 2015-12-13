@@ -48,7 +48,7 @@
             <%= form_for order_item do |f| %>
               <div class="form-group">
                 <%= f.label :quantity, class: "quantity-title" %>
-                <%= f.number_field :quantity, class: "cart-quantity form-control" %>
+                <%= f.number_field :quantity, class: "cart-quantity form-control", min: 1 %>
                 <%= f.submit "Update", class: "btn btn-default" %>
               </div>
             <% end %>
