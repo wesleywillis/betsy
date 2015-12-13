@@ -4,6 +4,13 @@
   </div>
 </div>
 
+<% if !flash[:error].nil? %>
+  <div class="col-md-12 text-center error-message">
+    <%= flash[:error] %>
+  </div>
+<% end %>
+
+
 <% if @order_items.size == 0 %>
   <p class="text-center">
     There are no items in your shopping cart.  Please <%= link_to "go back", root_path %> to accio some items to your cart.
