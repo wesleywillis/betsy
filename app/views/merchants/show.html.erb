@@ -5,7 +5,19 @@
     <tr>
       <th> Order Id</th>
       <th> Items </th>
-      <th> Status </th>
+      <th><div class="dropdown">
+        <button class="merchant-dropdown" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+          Order Status
+          <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+          <li><%= link_to "All", merchant_path(sort:'all')%></li>
+          <li><%= link_to "Pending", merchant_path(sort:'pending')%></li>
+          <li><%= link_to "Paid", merchant_path(sort:'paid')%></li>
+          <li><%= link_to "Complete", merchant_path(sort:'complete')%></li>
+          <li><%= link_to "Cancelled", merchant_path(sort:'cancelled')%></li>
+        </ul>
+      </div></th>
     </tr>
   </thead>
   <tbody>
@@ -29,7 +41,7 @@
                       <% end %>
                     <% end %>
                   <% end %>
-                <% end %>  
+                <% end %>
               <% end %>
             <% end %>
           </td>
@@ -68,19 +80,3 @@
   <p><strong>Total Orders: <%= @orders.count %></strong></p>
 
   <%= link_to "Add a Product", new_merchant_product_path(@merchant) %>
-
-<%= link_to(merchant_path(sort:'all'), :class => "btn btn-default", :id => 'all-button') do %>
- All Orders
-<% end %>
-<%= link_to(merchant_path(sort:'pending'), :class => "btn btn-default", :id => 'pending-button') do %>
-  Pending
-<% end %>
-<%= link_to(merchant_path(sort:'paid'), :class => "btn btn-default", :id => 'paid-button') do %>
-  Paid
-<% end %>
-<%= link_to(merchant_path(sort:'complete'), :class => "btn btn-default", :id => 'complete-button') do %>
-  Complete
-<% end %>
-<%= link_to(merchant_path(sort:'cancelled'), :class => "btn btn-default", :id => 'cancelled-button') do %>
-  Cancelled
-<% end %>
