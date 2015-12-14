@@ -21,6 +21,7 @@ Rails.application.routes.draw do
   end
 
   resources :order_items do
+    put :shipped, on: :member
   end
 
   resources :sessions, :only => [:new, :create]

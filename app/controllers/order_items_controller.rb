@@ -53,11 +53,10 @@ class OrderItemsController < ApplicationController
 
   end
 
-  def shipped?
+  def shipped
     @order_item = OrderItem.find(params[:id])
-    if @order_item.status != "shipped"
-      @order_item.update_attributes(status: "shipped")
-    end
+    @order_item.update_attribute(:shipped, 'true')
+    redirect_to merchant_path
   end
 
   private
