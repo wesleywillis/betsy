@@ -1,4 +1,7 @@
 class ProductsController < ApplicationController
+
+  before_action :require_user, only: [:new, :create, :edit, :update, :destroy]
+
   def index
     @products = get_products
     @order_item = current_order.order_items.new
