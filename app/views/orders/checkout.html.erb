@@ -4,17 +4,26 @@
   </div>
 </div>
 
-<% if !flash.now[:error].nil? %>
-  <div class="col-md-12 text-center error-message">
-    <%= flash.now[:error] %>
-  </div>
-<% end %>
-
 <div class="row">
   <div class="col-md-12 text-center subtotal">
     <h5>SUBTOTAL: $<%= number_with_precision(@subtotal, :precision => 2, :delimiter => ',') %></h5>
   </div>
 </div>
+
+<!-- # <% if !flash.now[:error].nil? %>
+#   <div class="col-md-12 text-center error-message">
+#     <%= flash.now[:error] %>
+#   </div>
+# <% end %> -->
+
+<ul>
+  <% @order.errors.full_messages.each do |message| %>
+    <li>
+      <strong><%= message %> </strong>
+    </li>
+  <% end %>
+</ul>
+
 
 <%= form_for @order, :url => "/confirmation", :action => :confirmation, :html => { :method => :post } do |f| %>
   <h2>Shipping Information</h2>

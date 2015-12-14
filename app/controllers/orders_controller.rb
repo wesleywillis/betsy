@@ -37,6 +37,7 @@ class OrdersController < ApplicationController
     @order.card_number = params[:order][:card_number].last(4)
     if !@order.save
       flash.now[:error] = "hi errors"
+      @subtotal = subtotal(@order.order_items)
       render :checkout
     else
       update_inventory
