@@ -116,9 +116,10 @@ RSpec.describe ProductsController, type: :controller do
 
   describe "DELETE #destroy" do
     it "redirects to merchant show page" do
-      Merchant.create(user_name: "Ollivanders", email: "ollie@diagonalley.com", password: "p", password_confirmation: "p")
-      delete :destroy, id: @product.id, session: { merchant_id: 1 }
-      expect(subject).to redirect_to merchant_path(assigns(:merchant))
+      @merchant = Merchant.create(user_name: "Ollie", email: "o@diagonalley.com", password: "p", password_confirmation: "p")
+      session[:merchant_id] = @merchant.id
+      delete :destroy, id: @product.id
+      expect(subject).to redirect_to merchant_path(@merchant)
     end
   end
 end

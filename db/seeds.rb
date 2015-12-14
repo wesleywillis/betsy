@@ -60,20 +60,26 @@ end
 
 seed_orders = [
   { status: "pending", order_time: Time.now, customer_name: "Minerva McGonagall", customer_email: "miverva@hogwarts.com", customer_address: "Hogwarts Castle, UK", customer_card_last_four: 1234, customer_card_exp_month: 10, customer_card_exp_year: 2018 },
-  { status: "paid", order_time: Time.now, customer_name: "Severus Snape", customer_email: "severus@hogwarts.com", customer_address: "Hogwarts Castle, UK", customer_card_last_four: 2345, customer_card_exp_month: 04, customer_card_exp_year: 2018 },
-  { status: "complete", order_time: Time.now, customer_name: "Lucius Malfoy", customer_email: "iheartvoldy@dark.com", customer_address: "Malfoy Mansion, UK", customer_card_last_four: 1234, customer_card_exp_month: 10, customer_card_exp_year: 2018 },
-  { status: "cancelled", order_time: Time.now, customer_name: "Molly Weasley", customer_email: "burrowbad-ass@magic.com", customer_address: "The Burrow, PS25 ILT, UK", customer_card_last_four: 1234, customer_card_exp_month: 10, customer_card_exp_year: 2018 },
-  { status: "paid", order_time: Time.now, customer_name: "Severus Snape", customer_email: "severus@hogwarts.com", customer_address: "Hogwarts Castle, UK", customer_card_last_four: 2345, customer_card_exp_month: 04, customer_card_exp_year: 2018 },
-  { status: "paid", order_time: Time.now, customer_name: "Severus Snape", customer_email: "severus@hogwarts.com", customer_address: "Hogwarts Castle, UK", customer_card_last_four: 2345, customer_card_exp_month: 04, customer_card_exp_year: 2018 },
-  { status: "paid", order_time: Time.now, customer_name: "Severus Snape", customer_email: "severus@hogwarts.com", customer_address: "Hogwarts Castle, UK", customer_card_last_four: 2345, customer_card_exp_month: 04, customer_card_exp_year: 2018 },
-  { status: "complete", order_time: Time.now, customer_name: "Severus Snape", customer_email: "severus@hogwarts.com", customer_address: "Hogwarts Castle, UK", customer_card_last_four: 2345, customer_card_exp_month: 04, customer_card_exp_year: 2018 },
-  { status: "complete", order_time: Time.now, customer_name: "Severus Snape", customer_email: "severus@hogwarts.com", customer_address: "Hogwarts Castle, UK", customer_card_last_four: 2345, customer_card_exp_month: 04, customer_card_exp_year: 2018 },
-  { status: "complete", order_time: Time.now, customer_name: "Severus Snape", customer_email: "severus@hogwarts.com", customer_address: "Hogwarts Castle, UK", customer_card_last_four: 2345, customer_card_exp_month: 04, customer_card_exp_year: 2018 }
+  { status: "pending", order_time: Time.now, customer_name: "Severus Snape", customer_email: "severus@hogwarts.com", customer_address: "Hogwarts Castle, UK", customer_card_last_four: 2345, customer_card_exp_month: 04, customer_card_exp_year: 2018 },
+  { status: "pending", order_time: Time.now, customer_name: "Lucius Malfoy", customer_email: "iheartvoldy@dark.com", customer_address: "Malfoy Mansion, UK", customer_card_last_four: 1234, customer_card_exp_month: 10, customer_card_exp_year: 2018 },
+  { status: "pending", order_time: Time.now, customer_name: "Molly Weasley", customer_email: "burrowbad-ass@magic.com", customer_address: "The Burrow, PS25 ILT, UK", customer_card_last_four: 1234, customer_card_exp_month: 10, customer_card_exp_year: 2018 },
+  { status: "pending", order_time: Time.now, customer_name: "Severus Snape", customer_email: "severus@hogwarts.com", customer_address: "Hogwarts Castle, UK", customer_card_last_four: 2345, customer_card_exp_month: 04, customer_card_exp_year: 2018 },
+  { status: "pending", order_time: Time.now, customer_name: "Severus Snape", customer_email: "severus@hogwarts.com", customer_address: "Hogwarts Castle, UK", customer_card_last_four: 2345, customer_card_exp_month: 04, customer_card_exp_year: 2018 },
+  { status: "pending", order_time: Time.now, customer_name: "Severus Snape", customer_email: "severus@hogwarts.com", customer_address: "Hogwarts Castle, UK", customer_card_last_four: 2345, customer_card_exp_month: 04, customer_card_exp_year: 2018 },
+  { status: "pending", order_time: Time.now, customer_name: "Severus Snape", customer_email: "severus@hogwarts.com", customer_address: "Hogwarts Castle, UK", customer_card_last_four: 2345, customer_card_exp_month: 04, customer_card_exp_year: 2018 },
+  { status: "pending", order_time: Time.now, customer_name: "Severus Snape", customer_email: "severus@hogwarts.com", customer_address: "Hogwarts Castle, UK", customer_card_last_four: 2345, customer_card_exp_month: 04, customer_card_exp_year: 2018 },
+  { status: "pending", order_time: Time.now, customer_name: "Severus Snape", customer_email: "severus@hogwarts.com", customer_address: "Hogwarts Castle, UK", customer_card_last_four: 2345, customer_card_exp_month: 04, customer_card_exp_year: 2018 }
 
 ]
 
 seed_orders.each do |seed|
   Order.create(seed)
+end
+
+status_array = ["paid", "cancelled"]
+
+Order.last(5).each do |order|
+  order.update_attribute(:status, status_array[rand(0..1)] )
 end
 
 seed_categories_products = [
