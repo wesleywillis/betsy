@@ -52,7 +52,7 @@ class ProductsController < ApplicationController
   def destroy
     id = params[:id]
     Product.delete(id)
-    redirect_to products_path
+    redirect_to merchant_path(@current_user.id)
   end
 
   def edit
