@@ -8,6 +8,12 @@ class OrdersController < ApplicationController
   end
 
   def cart
+    @order = current_order
+    @order_items = current_order.order_items
+    @subtotal = subtotal(@order_items)
+  end
+
+  def checkout
     @order_items = current_order.order_items
     @subtotal = subtotal(@order_items)
   end
