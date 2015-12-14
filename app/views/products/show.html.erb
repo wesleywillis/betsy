@@ -57,11 +57,11 @@
 
 
   <hr>
-  <h4>Reviews</h4>
+  <h4 class="review-title">Reviews</h4>
   <div>
     <% @product.reviews.each do |review| %>
-      <ul>
-        <li> <%= review.rating %> <p> <%= review.description %></p></li>
+      <ul class="review-list">
+        <li> <% review.rating.times do %><i class="fa fa-star-o fa-spin star"></i><% end %> <p class="review-description"> <%= review.description %></p></li><hr class="review-line">
       </ul>
     <% end %>
   </div>
