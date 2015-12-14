@@ -4,6 +4,12 @@
   </div>
 </div>
 
+<% if !flash.now[:error].nil? %>
+  <div class="col-md-12 text-center error-message">
+    <%= flash.now[:error] %>
+  </div>
+<% end %>
+
 <div class="row">
   <div class="col-md-12 text-center subtotal">
     <h5>SUBTOTAL: $<%= number_with_precision(@subtotal, :precision => 2, :delimiter => ',') %></h5>
@@ -45,8 +51,11 @@
     <%= f.label :expiration_date_year %>
     <%= f.number_field :customer_card_exp_year, class: "form-control" %>
 
-    <label for="ccv">Security Code</label>
-    <input name="ccv" type="number_field" class="form-control" />
+    <%= f.label :security_code %>
+    <%= f.number_field :security_code, class: "form-control" %>
+
+    <!-- <label for="ccv">Security Code</label>
+    <input name="ccv" type="number_field" class="form-control" /> -->
 
     <%= f.label :billing_zip_code %>
     <%= f.number_field :billing_zip_code, class: "form-control" %>

@@ -11,6 +11,7 @@ class ApplicationController < ActionController::Base
       @order = Order.find(session[:order_id])
     else
       @order = Order.create
+      @order.update(status: "pending")
       session[:order_id] = @order.id
       return @order
     end

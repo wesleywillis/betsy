@@ -17,28 +17,31 @@ class OrdersController < ApplicationController
     @order_items = current_order.order_items
     @subtotal = subtotal(@order_items)
   end
-
-  def create
-    @order = Order.create
-    @order.status = "pending"
-    @order.save
-    # Commenting this out... I don't think it will
-    # ever get here
-    # if @order.save
-    redirect_to root_path
-    # else
-    #   render :new
-    # end
-  end
+  #
+  # def create
+  #   @order = Order.create
+  #   @order.update(status: "pending")
+  #   # Commenting this out... I don't think it will
+  #   # ever get here
+  #   # if @order.save
+  #   redirect_to root_path
+  #   # else
+  #   #   render :new
+  #   # end
+  # end
 
   def confirmation
     @order = current_order
-    @order.update(order_params) do |o|
-      o.card_number = params[:card_number].last(4)
-      o.status = "paid"
+    @order.status = "paid"
+    @order.attributes = order_params
+    @order.card_number = params[:order][:card_number].last(4)
+    if !@order.save
+      flash.now[:error] = "hi errors"
+      render :checkout
+    else
+      update_inventory
+      session[:order_id] = nil
     end
-    update_inventory
-    session[:order_id] = nil
   end
 
   def update_inventory
@@ -58,7 +61,7 @@ class OrdersController < ApplicationController
   private
 
   def order_params
-    params.require(:order).permit(:customer_name, :customer_email, :customer_card_exp_month,
+    params.require(:order).permit(:customer_name, :customer_email, :customer_card_exp_month, :security_code,
     :customer_card_exp_year, :street_address, :zip_code, :state, :city, :name_on_card, :billing_zip_code)
   end
 

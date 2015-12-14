@@ -2,6 +2,19 @@ class Order < ActiveRecord::Base
   has_many :order_items
   has_many :products, :through => :order_items
   validate :must_have_order_items
+  validates :customer_email, presence: true, on: :update, if: :paid?
+  validates :street_address, presence: true, on: :update, if: :paid?
+  validates :city, presence: true, on: :update, if: :paid?
+  validates :zip_code, presence: true, on: :update, if: :paid?
+  validates :name_on_card, presence: true, on: :update, if: :paid?
+  validates :card_number, presence: true, on: :update, if: :paid?
+  validates :customer_card_exp_month, presence: true, on: :update, if: :paid?
+  validates :billing_zip_code, presence: true, on: :update, if: :paid?
+  validates :security_code, presence: true, on: :update, if: :paid?
+
+  def paid?
+    status == "paid"
+  end
 
   def must_have_order_items
     if status == "paid" || status == "cancelled" || status == "complete"
