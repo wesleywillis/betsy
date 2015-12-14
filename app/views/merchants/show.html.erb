@@ -21,8 +21,15 @@
                   <% if item.order.id == order.id%><br>
                     <%= "   Quantity: " + item.quantity.to_s %>
                     <%= "   Total: $" + (item.quantity * product.price).to_s + "0" %>
+                      <%if item.shipped?%>
+                        Item has shipped
+                      <% else %>
+                        <%= link_to(shipped_order_item_path(item), :method => :put, :class => "btn btn-default", :id => 'all-button') do %>
+                        Mark As Shipped
+                      <% end %>
                     <% end %>
                   <% end %>
+                <% end %>  
               <% end %>
             <% end %>
           </td>
