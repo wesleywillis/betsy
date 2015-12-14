@@ -8,7 +8,7 @@ RSpec.describe ProductsController, type: :controller do
   let (:update_params) do
     {
       product:{
-        name: "Screaming Mandrake", price: 15.0, merchant_id: 9, description: "hello", inventory: 100
+        name: "Screaming Mandrake", price: 15.0, description: "hello", inventory: 100
       },
       id: @product.id
     }
@@ -42,7 +42,7 @@ RSpec.describe ProductsController, type: :controller do
 
   let (:good_params) do
     {
-      product:{ name: "bowwow", price: 15.0, merchant_id: 9, description: "hello", inventory: 100 }
+      product:{ name: "bowwow", price: 15.0, description: "hello", inventory: 100 }
     }
 
   end
@@ -211,6 +211,11 @@ RSpec.describe ProductsController, type: :controller do
         get :edit, merchant_id: @product.merchant_id, id: @product.id
         expect(subject).to render_template :edit
       end
+      it "does not allow merchant to render edit page for another merchant's product" do
+        another_product = Product.create(name: "not mine", price: 15.0, merchant_id: 2, description: "somethingsomething", photo_url: "stringthing", inventory: 4)
+        get :edit, merchant_id: another_product.merchant_id, id: another_product.id
+        expect(subject).to redirect_to product_path(another_product)
+      end
     end
 
     describe "PATCH #update" do
@@ -221,6 +226,18 @@ RSpec.describe ProductsController, type: :controller do
       it "updates the product" do
         patch :update, update_params
         expect(Product.find(@product.id).attributes).not_to eq @product.attributes
+      end
+      it "does not allow merchant to edit another merchant's product" do
+        another_product = Product.create(name: "not mine", price: 15.0, merchant_id: 2, description: "somethingsomething", photo_url: "stringthing", inventory: 4)
+        update_another_merchant_params = {
+          product:{
+            name: "Screaming Mandrake", price: 15.0, merchant_id: 2, description: "hello", inventory: 100
+          },
+          id: another_product.id
+        }
+        patch :update, update_another_merchant_params
+        expect(Product.find(another_product.id).attributes).to eq another_product.attributes
+        expect(subject).to redirect_to product_path(another_product)
       end
       it "renders edit template on error" do
         patch :update, badupdate_params1
@@ -240,6 +257,12 @@ RSpec.describe ProductsController, type: :controller do
       it "deletes the product" do
         delete :destroy, id: @product.id
         expect(Product.all).to_not include(@product)
+      end
+      it "does not allow merchant to delete another merchants product" do
+        another_product = Product.create(name: "not mine", price: 15.0, merchant_id: 2, description: "somethingsomething", photo_url: "stringthing", inventory: 4)
+        delete :destroy, id: another_product.id
+        expect(Product.all).to include(another_product)
+        expect(subject).to redirect_to product_path(another_product)
       end
     end
 

@@ -5,12 +5,12 @@ Rails.application.routes.draw do
   get "/cart" => "orders#cart", as: "cart"
   get "/checkout" => "orders#checkout", as: "checkout"
 
-  resources :products, except: [:new, :edit] do
+  resources :products do
     resources :reviews, except: [:index]
   end
 
   resources :merchants do
-    resources :products, only: [:index, :new, :edit]
+    resources :products, only: [:index]
   end
 
   resources :categories do
