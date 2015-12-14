@@ -8,4 +8,10 @@ class Order < ActiveRecord::Base
       validates_presence_of :order_items
     end
   end
+
+  def complete?
+    if order_items.all? {|item| item.shipped == true}
+      update_attribute(:status, "complete")
+    end
+  end
 end

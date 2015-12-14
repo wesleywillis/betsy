@@ -36,5 +36,4 @@ class OrdersController < ApplicationController
     end
     return sum
   end
-
 end
