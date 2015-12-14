@@ -32,11 +32,25 @@ RSpec.describe MerchantsController, type: :controller do
           },
         }
       end
-      
-      it "creates a new merchant" do
+
+        let (:bad_params) do
+          {
+            merchant:{
+              email: "ginny@hogwarts.com", password: "p", password_confirmation: "p"
+            }
+          }
+      end
+
+      it "redirects to merchant show page when merchant is created" do
         post :create, params
         expect(subject).to redirect_to merchant_path(session[:merchant_id])
       end
+
+      it "renders a new page when user already exists or if info doesn't pass validations" do
+        post :create, bad_params
+        expect(subject).to render_template :new
+      end
+
     end
   end
 
