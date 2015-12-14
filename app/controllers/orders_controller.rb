@@ -20,13 +20,23 @@ class OrdersController < ApplicationController
 
   def create
     @order = Order.create
+    @order.status = "pending"
+    @order.save
     # Commenting this out... I don't think it will
     # ever get here
     # if @order.save
-      redirect_to root_path
+    redirect_to root_path
     # else
     #   render :new
     # end
+  end
+
+  def update
+    @order = current_order
+    @order.update(order_params) do |o|
+      o.card_number = params[:card_number].last(4)
+      o.status = "paid"
+    end
   end
 
   def subtotal(order_items)
@@ -35,6 +45,13 @@ class OrdersController < ApplicationController
       sum += order_item.quantity * order_item.product.price
     end
     return sum
+  end
+
+  private
+
+  def order_params
+    params.require(:order).permit(:customer_name, :customer_email, :customer_card_exp_month,
+    :customer_card_exp_year, :street_address, :zip_code, :state, :city, :name_on_card, :billing_zip_code)
   end
 
 end

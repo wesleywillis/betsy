@@ -45,8 +45,11 @@
     <%= f.label :expiration_date_year %>
     <%= f.number_field :customer_card_exp_year, class: "form-control" %>
 
-    <%= f.label :security_code %>
-    <%= f.number_field :security_code, class: "form-control" %>
+    <label for="ccv">Security Code</label>
+    <input name="ccv" type="number_field" class="form-control" />
+
+    <!-- <%= f.label :security_code %>
+    <%= f.number_field :security_code, class: "form-control" %> -->
 
     <%= f.label :billing_zip_code %>
     <%= f.number_field :billing_zip_code, class: "form-control" %>
