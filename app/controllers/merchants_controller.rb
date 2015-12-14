@@ -15,8 +15,8 @@ class MerchantsController < ApplicationController
       session[:merchant_id] = @merchant.id
       redirect_to merchant_path(@merchant)
     else
-      flash[:error] = "Username already exists. Please login"
-      redirect_to new_session_path
+      flash[:error] = "Try again. Or you may already be a user. Try logging in."
+      render :new
     end
 
   end

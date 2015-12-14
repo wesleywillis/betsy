@@ -1,3 +1,11 @@
+<div class="col-md-12 text-center error-message">
+<% if !flash.now[:error].nil? || !flash[:error].nil? %>
+  <%= flash.now[:error] %>
+<% else %>
+  <%= flash[:error] %>
+<% end %>
+</div>
+
 <h3>Sell your swag. Become a merchant</h4>
   <%= form_for @merchant, url: { action: "create" }, html: { class: "form-group" } do |f| %>
     <%= f.label :user_name, "Username" %>
