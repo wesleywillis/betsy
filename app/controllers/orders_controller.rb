@@ -37,6 +37,14 @@ class OrdersController < ApplicationController
       o.card_number = params[:card_number].last(4)
       o.status = "paid"
     end
+    update_inventory
+    session[:order_id] = nil
+  end
+
+  def update_inventory
+    @order.order_items.each do |order_item|
+      order_item.product.update(inventory: order_item.product.inventory - order_item.quantity)
+    end
   end
 
   def subtotal(order_items)
