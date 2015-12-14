@@ -89,6 +89,11 @@ RSpec.describe ProductsController, type: :controller do
         post :create, good_params
         expect(response).to have_http_status(302)
       end
+      it "does not create a new product" do
+        original_count = Product.all.count
+        post :create, good_params
+        expect(Product.all.count).to eq original_count
+      end
       it "redirects to the log in page" do
         post :create, good_params
         expect(subject).to redirect_to new_session_path
@@ -97,34 +102,42 @@ RSpec.describe ProductsController, type: :controller do
 
     describe "GET #edit" do
       it "is not successful and redirects" do
-        post :create, good_params
+        get :edit, merchant_id: @product.merchant_id, id: @product.id
         expect(response).to have_http_status(302)
       end
       it "redirects to the log in page" do
-        post :create, good_params
+        get :edit, merchant_id: @product.merchant_id, id: @product.id
         expect(subject).to redirect_to new_session_path
       end
     end
 
     describe "PATCH #update" do
       it "is not successful and redirects" do
-        post :create, good_params
+        patch :update, update_params
         expect(response).to have_http_status(302)
       end
       it "redirects to the log in page" do
-        post :create, good_params
+        patch :update, update_params
         expect(subject).to redirect_to new_session_path
+      end
+      it "does not update the product" do
+        patch :update, update_params
+        expect(Product.find(@product.id).attributes).to eq @product.attributes
       end
     end
 
     describe "DELETE #destroy" do
       it "is not successful and redirects" do
-        post :create, good_params
+        delete :destroy, id: @product.id
         expect(response).to have_http_status(302)
       end
       it "redirects to the log in page" do
-        post :create, good_params
+        delete :destroy, id: @product.id
         expect(subject).to redirect_to new_session_path
+      end
+      it "does not delete the product" do
+        delete :destroy, id: @product.id
+        expect(Product.all).to include(@product)
       end
     end
   end
@@ -176,6 +189,11 @@ RSpec.describe ProductsController, type: :controller do
         post :create, good_params
         expect(subject).to redirect_to product_path(assigns(:product))
       end
+      it "creates a new product" do
+        original_count = Product.all.count
+        post :create, good_params
+        expect(Product.all.count).to eq original_count + 1
+      end
 
       it "renders new template on error" do
         post :create, bad_params1
@@ -200,6 +218,10 @@ RSpec.describe ProductsController, type: :controller do
         patch :update, update_params
         expect(subject).to redirect_to product_path(update_params[:id])
       end
+      it "updates the product" do
+        patch :update, update_params
+        expect(Product.find(@product.id).attributes).not_to eq @product.attributes
+      end
       it "renders edit template on error" do
         patch :update, badupdate_params1
         expect(subject).to render_template :edit
@@ -214,6 +236,10 @@ RSpec.describe ProductsController, type: :controller do
       it "redirects to merchant show page" do
         delete :destroy, id: @product.id
         expect(subject).to redirect_to merchant_path(@merchant)
+      end
+      it "deletes the product" do
+        delete :destroy, id: @product.id
+        expect(Product.all).to_not include(@product)
       end
     end
 
