@@ -1,20 +1,19 @@
-<% if !flash.now[:error].nil? %>
+<div class="col-md-12 text-center error-message">
+<% if !flash.now[:error].nil? || !flash[:error].nil? %>
   <%= flash.now[:error] %>
+<% else %>
+  <%= flash[:error] %>
 <% end %>
+</div>
 
-<%= form_for(:session_data, url: sessions_path, html: { class: "form-group" }) do |f| %>
-  <div class = "form_group">
-    <%= f.label :email %>
-    <%= f.email_field :email, class: "form-control" %>
-  </div>
-  <div class = "form_group">
-    <%= f.label :password %>
-    <%= f.password_field :password, class: "form-control" %>
-  </div>
+
+<%= form_for(:session_data, url: sessions_path, html: {class: "form-group" }) do |f| %>
+  <%= f.label :email %>
+  <%= f.email_field :email, class: "form-control" %>
+  <%= f.label :password %>
+  <%= f.password_field :password, class: "form-control" %>
   <br>
-  <div class = "form_group">
-    <%= f.submit "Login", class:"btn btn-info" %>
-  </div>
+  <%= f.submit "Login", class:"btn btn-info" %>
 <% end %>
 
 <%= link_to "Become a new merchant", new_merchant_path %>

@@ -9,6 +9,15 @@ class MerchantsController < ApplicationController
   end
 
   def create
+    @merchant = Merchant.create(merchant_params)
+    if @merchant.save
+# makes it so they don't have to login after they sign up. Takes the session data so it can run the redirect.
+      session[:merchant_id] = @merchant.id
+      redirect_to merchant_path(@merchant)
+    else
+      flash[:error] = "Username already exists. Please login"
+      redirect_to new_session_path
+    end
 
   end
 
@@ -42,6 +51,6 @@ class MerchantsController < ApplicationController
   private
 
   def merchant_params
-    params.permit(merchant:[:user_name, :email, :password_digest])
+    params.require(:merchant).permit(:user_name, :email, :password, :password_confirmation)
   end
 end

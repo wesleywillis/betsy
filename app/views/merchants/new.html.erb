@@ -1,0 +1,16 @@
+<h3>Sell your swag. Become a merchant</h4>
+  <%= form_for @merchant, url: { action: "create" }, html: { class: "form-group" } do |f| %>
+    <%= f.label :user_name, "Username" %>
+    <%= f.text_field :user_name, class: "form-control" %>
+
+    <%= f.label :email %>
+    <%= f.email_field :email, class: "form-control" %>
+
+    <%= f.label :password %>
+    <%= f.password_field :password, class: "form-control" %>
+
+    <%= f.label :password_confirmation, "Confirm Password" %>
+    <%= f.password_field :password_confirmation, class: "form-control" %>
+
+    <%= f.submit "Submit", class: "btn btn-info" %>
+  <% end %>
