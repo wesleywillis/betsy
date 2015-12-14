@@ -10,7 +10,7 @@
   </div>
 </div>
 
-<%= form_for @order do |f| %>
+<%= form_for @order, :url => "/confirmation", :action => :confirmation, :html => { :method => :post } do |f| %>
   <h2>Shipping Information</h2>
   <div class="form-group">
     <%= f.label :name %>
@@ -48,12 +48,9 @@
     <label for="ccv">Security Code</label>
     <input name="ccv" type="number_field" class="form-control" />
 
-    <!-- <%= f.label :security_code %>
-    <%= f.number_field :security_code, class: "form-control" %> -->
-
     <%= f.label :billing_zip_code %>
     <%= f.number_field :billing_zip_code, class: "form-control" %>
 
-    <%= f.submit "Submit Order", class: "btn btn-default" %>
+    <%= f.submit "Submit Order", :action => "confirmation", class: "btn btn-default" %>
   </div>
 <% end %>

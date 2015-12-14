@@ -31,7 +31,7 @@ class OrdersController < ApplicationController
     # end
   end
 
-  def update
+  def confirmation
     @order = current_order
     @order.update(order_params) do |o|
       o.card_number = params[:card_number].last(4)
