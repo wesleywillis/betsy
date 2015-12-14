@@ -4,7 +4,9 @@ class OrdersController < ApplicationController
   # end
 
   def show
-    #@order_items = current_merchant.order_items.where(order_id: params[:order_id])
+    id = params[:id]
+    @order = Order.find(id)
+    @order_items = @current_user.order_items.where(order_id: id)
   end
 
   def cart
