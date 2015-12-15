@@ -2,22 +2,23 @@ require 'rails_helper'
 
 RSpec.describe OrdersController, type: :controller do
 
-  describe "POST 'create'" do
-    it "creates a new order" do
-      order_count = Order.all.count
-      post :create
-      expect(Order.all.count).to eq order_count + 1
-    end
-
-    # A user won't actually see this-- they will be redirected
-    # to the cart page, because an order is created when
-    # an order item is created for the first time
-    it "redirects to the home page when the order is created" do
-      post :create
-      expect(subject).to redirect_to root_path
-    end
-
-  end
+# This controller method isn't used... I think we can delete this test
+  # describe "POST 'create'" do
+  #   it "creates a new order" do
+  #     order_count = Order.all.count
+  #     post :create
+  #     expect(Order.all.count).to eq order_count + 1
+  #   end
+  #
+  #   # A user won't actually see this-- they will be redirected
+  #   # to the cart page, because an order is created when
+  #   # an order item is created for the first time
+  #   it "redirects to the home page when the order is created" do
+  #     post :create
+  #     expect(subject).to redirect_to root_path
+  #   end
+  #
+  # end
 
   # Need to fill in once method is written in controller
   describe "GET 'show'" do
@@ -56,7 +57,7 @@ RSpec.describe OrdersController, type: :controller do
     end
 
     let (:order) do
-      Order.create(status: "pending", order_time: Time.now, customer_name: "Minerva McGonagall", customer_email: "miverva@hogwarts.com", customer_address: "Hogwarts Castle, UK", customer_card_last_four: 1234, customer_card_exp_month: 10, customer_card_exp_year: 2018 )
+      Order.create(status: "pending", order_time: Time.now, customer_name: "Minerva McGonagall", customer_email: "miverva@hogwarts.com", street_address: "Hogwarts Castle", zip_code: 12345, state: "Washington", city: "Hogwarts", card_number: 1234, customer_card_exp_month: 10, customer_card_exp_year: 2018, security_code: 123, name_on_card: "Minerva McGonagall" )
     end
 
     before (:each) do
@@ -65,13 +66,13 @@ RSpec.describe OrdersController, type: :controller do
 
     describe "GET #show" do
       it "responds successfully with an HTTP 200 status code" do
-        get :show, id: merchant.id
+        get :show, id: order.id
         expect(response).to be_success
         expect(response).to have_http_status(200)
       end
 
       it "renders the show template" do
-        get :show, id: merchant.id
+        get :show, id: order.id
         expect(subject).to render_template :show
       end
     end
