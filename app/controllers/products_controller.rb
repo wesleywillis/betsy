@@ -47,9 +47,11 @@ class ProductsController < ApplicationController
 
   def new
     @product = Product.new
+    @categories = Category.all
   end
 
   def create
+    raise
     @product = Product.new(product_params)
     @product.merchant_id = @current_user.id
     if @product.save
