@@ -32,7 +32,7 @@ class MerchantsController < ApplicationController
     else
       @orders = @merchant.orders.where(status: status)
     end
-
+    @all_orders = @merchant.orders
     @pending_revenue ||= 0
     @paid_revenue ||= 0
     @complete_revenue ||= 0
