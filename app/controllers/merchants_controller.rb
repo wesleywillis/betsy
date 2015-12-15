@@ -18,7 +18,6 @@ class MerchantsController < ApplicationController
       flash[:error] = "Try again. Or you may already be a user. Try logging in."
       render :new
     end
-
   end
 
   def show
@@ -32,7 +31,7 @@ class MerchantsController < ApplicationController
     else
       @orders = @merchant.orders.where(status: status)
     end
-
+    @all_orders = @merchant.orders
     @pending_revenue ||= 0
     @paid_revenue ||= 0
     @complete_revenue ||= 0

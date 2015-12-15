@@ -80,8 +80,8 @@
 
   <% end %> </p>
   <p><strong>Total Net Revenue: $<%= number_with_precision((@paid_revenue + @complete_revenue), :precision => 2, :delimiter => ',') %></strong></p>
-  <p>Total Pending Orders: <%= @orders.where(status: "pending").count %></p>
-  <p>Total Cancelled Orders: <%= @orders.where(status: "cancelled").count %></p>
-  <p>Total Paid Orders: <%= @orders.where(status: "paid").count %></p>
-  <p>Total Completed Orders: <%= @orders.where(status: "complete").count %></p>
-  <p><strong>Total Orders: <%= @orders.count %></strong></p>
+  <p>Total Pending Orders: <%= @all_orders.where(status: "pending").count %></p>
+  <p>Total Cancelled Orders: <%= @all_orders.where(status: "cancelled").count %></p>
+  <p>Total Paid Orders: <%= @all_orders.where(status: "paid").count %></p>
+  <p>Total Completed Orders: <%= @all_orders.where(status: "complete").count %></p>
+  <p><strong>Total Orders: <%= @all_orders.count %></strong></p>

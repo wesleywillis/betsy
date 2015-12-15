@@ -41,9 +41,11 @@ class ProductsController < ApplicationController
 
   def new
     @product = Product.new
+    @categories = Category.all
   end
 
   def create
+    raise
     @product = Product.new(product_params)
     @product.merchant_id = @current_user.id
     if @product.save
@@ -85,6 +87,16 @@ class ProductsController < ApplicationController
         render "edit"
       end
     end
+  end
+
+  def retire
+    item = Product.find(params[:id])
+    if item.retire == false
+      item.update(retire: true)
+    else
+      item.update(retire: false)
+    end
+    redirect_to :back
   end
 
   private
