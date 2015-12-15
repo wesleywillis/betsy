@@ -18,7 +18,6 @@ class MerchantsController < ApplicationController
       flash[:error] = "Try again. Or you may already be a user. Try logging in."
       render :new
     end
-
   end
 
   def show
