@@ -1,34 +1,55 @@
 require 'rails_helper'
 
 RSpec.describe OrdersController, type: :controller do
-
-# This controller method isn't used... I think we can delete this test
-  # describe "POST 'create'" do
-  #   it "creates a new order" do
-  #     order_count = Order.all.count
-  #     post :create
-  #     expect(Order.all.count).to eq order_count + 1
-  #   end
-  #
-  #   # A user won't actually see this-- they will be redirected
-  #   # to the cart page, because an order is created when
-  #   # an order item is created for the first time
-  #   it "redirects to the home page when the order is created" do
-  #     post :create
-  #     expect(subject).to redirect_to root_path
-  #   end
-  #
-  # end
-
-  # Need to fill in once method is written in controller
-  describe "GET 'show'" do
-
-  end
-
   describe "GET 'checkout'" do
     it "renders the checkout template" do
       get :checkout
       expect(response).to render_template :checkout
+    end
+
+    describe "inventory/quantity conflict error messages" do
+      # order = Order.create(status: "pending")
+      # p1 = Product.create(name: "testy", price: 10, merchant_id: 1, description: "hi", photo_url: "www.google.com", inventory: 1)
+      # p2 = Product.create(name: "testy", price: 10, merchant_id: 1, description: "hi", photo_url: "www.google.com", inventory: 0)
+      # p3 = Product.create(name: "testy", price: 10, merchant_id: 1, description: "hi", photo_url: "www.google.com", inventory: 2)
+      # @order_item = OrderItem.create(quantity: 5, product_id: p1.id , order_id: order.id)
+      # @order_item = OrderItem.create(quantity: 5, product_id: p2.id , order_id: order.id)
+      # @order_item = OrderItem.create(quantity: 5, product_id: p3.id , order_id: order.id)
+      # session[:order_id] = order.id
+      #
+
+      it "provides the gramatically-correct error message if the item quantity is greater than the product inventory" do
+        order = Order.create(status: "pending")
+        p1 = Product.create(name: "test thing", price: 10, merchant_id: 1, description: "hi", photo_url: "www.google.com", inventory: 1)
+        @order_item = OrderItem.create(quantity: 1, product_id: p1.id , order_id: order.id)
+        p1.inventory = 0
+        p1.save
+        session[:order_id] = order.id
+        get :checkout
+        expect(flash[:error]).to be_truthy
+      end
+
+      it "provides the gramatically-correct error message if the item quantity is greater than the product inventory" do
+        order = Order.create(status: "pending")
+        p1 = Product.create(name: "test thing", price: 10, merchant_id: 1, description: "hi", photo_url: "www.google.com", inventory: 4)
+        @order_item = OrderItem.create(quantity: 2, product_id: p1.id , order_id: order.id)
+        p1.inventory = 1
+        p1.save
+        session[:order_id] = order.id
+        get :checkout
+        expect(flash[:error]).to be_truthy
+      end
+
+      it "provides the gramatically-correct error message if the item quantity is greater than the product inventory" do
+        order = Order.create(status: "pending")
+        p1 = Product.create(name: "test thing", price: 10, merchant_id: 1, description: "hi", photo_url: "www.google.com", inventory: 4)
+        @order_item = OrderItem.create(quantity: 3, product_id: p1.id , order_id: order.id)
+        p1.inventory = 2
+        p1.save
+        session[:order_id] = order.id
+        get :checkout
+        expect(flash[:error]).to be_truthy
+      end
     end
   end
 
@@ -77,17 +98,6 @@ RSpec.describe OrdersController, type: :controller do
       get :cart
       expect(response).to render_template :cart
     end
-
-    # Not sure how to make this test work... what to put in expect(???)
-    # it "displays the total cost of all items in cart" do
-    #   order = Order.create
-    #   OrderItem.create(quantity: 1, product_id: 2, order_id: order.id)
-    #   OrderItem.create(quantity: 2, product_id: 1, order_id: order.id)
-    #   OrderItem.create(quantity: 1, product_id: 3, order_id: order.id)
-    #   OrderItem.create(quantity: 4, product_id: 4, order_id: order.id)
-    #   get :cart
-    #   expect(subtotal).to eq 8000
-    # end
   end
 
   describe "Logged in functions" do
@@ -96,7 +106,7 @@ RSpec.describe OrdersController, type: :controller do
     end
 
     let (:product) do
-      Product.create(name: "testy", price: 10, merchant_id: 1, description: "hi", photo_url: "www.google.com", inventory: 4)
+      Product.create(name: "test thing", price: 10, merchant_id: 1, description: "hi", photo_url: "www.google.com", inventory: 4)
     end
 
     let (:order_item) do

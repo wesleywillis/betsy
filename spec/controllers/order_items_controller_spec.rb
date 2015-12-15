@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe OrderItemsController, type: :controller do
   let (:product) do
-    Product.create(name: "testy", price: 10, merchant_id: 1, description: "hi", photo_url: "www.google.com", inventory: 4)
+    Product.create(name: "test thing", price: 10, merchant_id: 1, description: "hi", photo_url: "www.google.com", inventory: 4)
   end
 
   let (:order_item) do

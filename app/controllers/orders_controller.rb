@@ -1,8 +1,4 @@
 class OrdersController < ApplicationController
-  # def new
-  #   @order = Order.new
-  # end
-
   def show
     id = params[:id]
     @order = Order.find(id)
@@ -21,18 +17,6 @@ class OrdersController < ApplicationController
     @subtotal = subtotal(@order_items)
   end
 
-  #   # Commenting this out... I don't think it will
-  #   # ever get here
-  # def create
-  #   @order = Order.create
-  #   @order.update(status: "pending")
-  #   # if @order.save
-  #   redirect_to root_path
-  #   # else
-  #   #   render :new
-  #   # end
-  # end
-
   def confirmation
     @order = current_order
     @order.status = "paid"
@@ -48,6 +32,7 @@ class OrdersController < ApplicationController
   end
 
   def check_if_quantity_is_available(order_items)
+    # binding.pry
     order_items.each do |item|
       if item.quantity > item.product.inventory
         if item.product.inventory == 1
