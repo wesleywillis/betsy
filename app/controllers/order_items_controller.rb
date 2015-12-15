@@ -62,6 +62,8 @@ class OrderItemsController < ApplicationController
   def shipped
     @order_item = OrderItem.find(params[:id])
     @order_item.update_attribute(:shipped, 'true')
+    @order = Order.find(@order_item.order_id)
+    @order.complete?
     redirect_to merchant_path
   end
 

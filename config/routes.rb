@@ -6,12 +6,12 @@ Rails.application.routes.draw do
   get "/checkout" => "orders#checkout", as: "checkout"
   post "/confirmation" => "orders#confirmation", as: "confirmation"
 
-  resources :products, except: [:new, :edit] do
+  resources :products do
     resources :reviews, except: [:index]
   end
 
   resources :merchants do
-    resources :products, only: [:index, :new, :edit]
+    resources :products, only: [:index]
   end
 
   resources :categories do

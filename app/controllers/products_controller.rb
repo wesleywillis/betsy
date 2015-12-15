@@ -1,4 +1,7 @@
 class ProductsController < ApplicationController
+
+  before_action :require_user, only: [:new, :create, :edit, :update, :destroy]
+
   def index
     @products = get_products
     @order_item = current_order.order_items.new
@@ -41,7 +44,8 @@ class ProductsController < ApplicationController
   end
 
   def create
-    @product = Product.create(product_params)
+    @product = Product.new(product_params)
+    @product.merchant_id = @current_user.id
     if @product.save
       redirect_to product_path(@product)
     else
@@ -51,30 +55,42 @@ class ProductsController < ApplicationController
 
   def destroy
     id = params[:id]
-    Product.delete(id)
-    redirect_to merchant_path(@current_user.id)
+    product = Product.find(id)
+    if product.merchant_id == @current_user.id
+      Product.delete(id)
+      redirect_to merchant_path(@current_user.id)
+    else
+      redirect_to product_path(id)
+    end
   end
 
   def edit
     id = params[:id]
     @product = Product.find(id)
+    if @product.merchant_id != @current_user.id
+      redirect_to product_path(id)
+    end
   end
 
   def update
     id = params[:id]
     @product = Product.find(id)
-    @product.update(product_params)
-    if @product.save
-      redirect_to product_path(@product.id)
+    if @product.merchant_id != @current_user.id
+      redirect_to product_path(@product)
     else
-      render "edit"
+      @product.update(product_params)
+      if @product.save
+        redirect_to product_path(@product.id)
+      else
+        render "edit"
+      end
     end
   end
 
   private
 
   def product_params
-    params.require(:product).permit(:name, :price, :merchant_id, :description, :photo_url, :inventory)
+    params.require(:product).permit(:name, :price, :description, :photo_url, :inventory)
   end
 
 end

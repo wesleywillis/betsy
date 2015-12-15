@@ -1,5 +1,7 @@
 <h1><%= @merchant.user_name%></h1>
-<h1><%= link_to "Add a Product", new_merchant_product_path(@merchant), :class => 'btn btn-large btn-primary' %></h1>
+<h2><%= link_to "Add a Product", new_product_path, :class => 'btn btn-large btn-primary' %>
+  <%= link_to "View Products", merchant_products_path(@merchant), :class => 'btn btn-large btn-info' %>
+</h2>
 
 <table class="table table-bordered" >
   <thead>
@@ -24,7 +26,7 @@
   <tbody>
     <tr>
       <% @orders.each do |order| %>
-        <td><%= order.id%><br><small> Ordered on: <%= order.order_time %></small></td>
+        <td><%= link_to order.id, order %><br><small> Ordered on: <%= order.order_time %></small></td>
           <td>
             <% order.products.each do |product| %>
               <% if product.merchant_id == @merchant.id%>
