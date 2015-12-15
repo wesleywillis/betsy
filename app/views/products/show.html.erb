@@ -19,8 +19,6 @@
     <div class="input-group">
       <% if @product.inventory != 0 %>
         <%= f.number_field :quantity, value: 1, class: "form-control", min: 1 %>
-      <% else %>
-        <%= f.number_field :quantity, placeholder: "Item out of stock", class: "form-control" %>
       <% end %>
 
       <div class="input-group-btn">
@@ -28,8 +26,6 @@
         <%= f.hidden_field :order_id %>
         <% if @product.inventory != 0  %>
           <%= f.submit "Add to Cart", class: "btn btn-primary" %>
-        <% else %>
-          <%= f.submit "Add to Cart", class: "btn btn-primary disabled" %>
         <% end %>
       </div>
     </div>
@@ -37,7 +33,11 @@
 
   <div class="row">
     <div class="col-md-12">
-      <%= @product.inventory %> in stock
+      <% if @product.inventory == 0 %>
+        ITEM OUT OF STOCK
+      <% else %>
+        <%= @product.inventory %> in stock
+      <% end %>
     </div>
   </div>
 

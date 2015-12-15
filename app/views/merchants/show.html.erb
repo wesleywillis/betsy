@@ -1,5 +1,7 @@
 <h1><%= @merchant.user_name%></h1>
-<h1><%= link_to "Add a Product", new_product_path, :class => 'btn btn-large btn-primary' %></h1>
+<h2><%= link_to "Add a Product", new_product_path, :class => 'btn btn-large btn-primary' %>
+  <%= link_to "View Products", merchant_products_path(@merchant), :class => 'btn btn-large btn-info' %>
+</h2>
 
 <table class="table table-bordered" >
   <thead>
