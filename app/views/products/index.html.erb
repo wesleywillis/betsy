@@ -39,7 +39,7 @@
           <div class="btn-group btn-group-xs" role="group">
             <%= link_to '<i class="fa fa-pencil-square-o"> Edit</i>'.html_safe, edit_product_path(product.id), class: "btn btn-default" %>
             <%= link_to '<i class="fa fa-times"> Delete</i>'.html_safe, product_path(product),method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger" %>
-            <%= link_to '<i class="fa fa-minus-square"> Retire</i>'.html_safe, edit_product_path(product.id), class: "btn btn-default" %>
+            <%= link_to '<i class="fa fa-minus-square"> Retire</i>'.html_safe, retire_product_path(product.id), class: "btn btn-default" %>
             <% if product.inventory != 0 %>
                 <%= product.inventory %> in stock
             <% else %>
