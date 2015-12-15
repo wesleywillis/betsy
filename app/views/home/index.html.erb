@@ -29,13 +29,15 @@
   </div>
   <% @featured_products.each do |product| %>
     <div class="col-md-4">
-      <div class="thumbnail">
-        <%= link_to image_tag(product.photo_url, class: "thumbnail-image"), product %>
-      </div>
-      <div class="caption">
-        <%= link_to product.name, product, class: "caption-name" %>
-        $<%= number_with_precision(product.price, :precision => 2, :delimiter => ',') %>
-      </div>
+      <% if !product.retire? %>
+        <div class="thumbnail">
+          <%= link_to image_tag(product.photo_url, class: "thumbnail-image"), product %>
+        </div>
+        <div class="caption">
+          <%= link_to product.name, product, class: "caption-name" %>
+          $<%= number_with_precision(product.price, :precision => 2, :delimiter => ',') %>
+        </div>
+      <% end %>
     </div>
   <% end %>
 </div>
