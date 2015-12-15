@@ -35,7 +35,11 @@
     <div class="col-sm-6 col-md-4">
       <div class="thumbnail">
         <div class="thumbnail-container">
-          <%= link_to image_tag(product.photo_url, class: "thumbnail-image"), product %>
+          <% if product.retire %>
+            <%= link_to image_tag(product.photo_url, class: "thumbnail-image", class: "retired-product"), product %>
+          <% else %>
+            <%= link_to image_tag(product.photo_url, class: "thumbnail-image"), product %>
+          <% end %>
         </div>
         <div class="caption">
           <strong><%= link_to product.name, product, class: "caption-name" %></strong>
