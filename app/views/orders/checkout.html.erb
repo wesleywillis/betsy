@@ -42,9 +42,9 @@
 
     <%= f.label :state %>
     <%= f.select :state, options_for_select(us_states), class: "form-control" %>
-
+    <br>
     <%= f.label :zip_code %>
-    <%= f.text_field :zip_code, class: "form-control" %>
+    <%= f.number_field :zip_code, class: "form-control" %>
 
     <h2>Billing Information</h2>
 
@@ -54,12 +54,16 @@
     <%= f.label :card_number %>
     <%= f.number_field :card_number, class: "form-control" %>
 
-    <%= f.label :expiration_date_month %>
-    <%= f.number_field :customer_card_exp_month, class: "form-control" %>
-
-    <%= f.label :expiration_date_year %>
-    <%= f.number_field :customer_card_exp_year, class: "form-control" %>
-
+    <%= f.label :expiration_date %>
+    <%= f.select :customer_card_exp_month, options_for_select(["Month", "01", "02", "03", "04", "05", "06", "07",
+       "08", "09", "10", "11", "12"]),
+      class: "form-control" %>
+    <span> / </span>
+    <!-- <%= f.label :expiration_date_year %> -->
+    <%= f.select :customer_card_exp_year, options_for_select(["Year", "2015", "2016", "2017", "2018", "2019", "2020", "2021",
+      "2022", "2023", "2024", "2025"]),
+     class: "form-control" %>
+     <br>
     <%= f.label :security_code %>
     <%= f.number_field :security_code, class: "form-control" %>
 
