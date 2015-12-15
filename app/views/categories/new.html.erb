@@ -1,5 +1,8 @@
 <div class="row">
   <div class="col-lg-12">
+  <% @category.errors.each do |column, message| %>
+  <%= column.capitalize %> <%= message %>
+  <% end %>
     <fieldset>
       <%= form_for @category, :html => {:class => "form" } do |f| %>
         <h2>New Category</h2>

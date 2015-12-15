@@ -7,8 +7,8 @@ class CategoriesController < ApplicationController
   end
 
   def create
-    category = Category.new(category_params)
-    if category.save
+    @category = Category.new(category_params)
+    if @category.save
       if params[:commit] == "Save and Add Another"
         redirect_to new_category_path
       else
