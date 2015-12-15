@@ -23,7 +23,6 @@
           <%= f.label :inventory, "Number in Stock" %><br>
           <%= f.number_field :inventory, class: "form-control" %><br>
         </div>
-        <%= f.hidden_field :merchant_id, :value => merchant_id %>
         <%= f.submit "Save", class: "btn btn-default" %>
       <% end %>
     </fieldset>

@@ -13,7 +13,7 @@
  *= require_tree .
  *= require_self
  */
-
+ @import "font-awesome";
  @import "bootstrap-sprockets";
  @import "bootstrap";
 
@@ -22,6 +22,12 @@
  }
 
 .thumbnail {
+  width: 300px;
+  height: 350px;
+  overflow: hidden;
+}
+
+.thumbnail-container {
   width: 300px;
   height: 300px;
   overflow: hidden;
@@ -117,4 +123,34 @@ h1 {
 .dropdown {
   display: inline;
   margin-left: 15px;
+}
+
+.error-message {
+  color: red;
+}
+
+// reviews on product show page
+.review-title {
+  font-weight: bold;
+}
+
+.review-list {
+  list-style-type: none;
+  text-align: left;
+}
+
+.star {
+  font-size: 25px;
+  color: gold;
+  padding: 3px;
+}
+
+// text fields for forms
+.form-group {
+  max-width: 350px;
+}
+
+// new merchant page
+.signup {
+  margin-bottom: 22px;
 }

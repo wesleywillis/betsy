@@ -3,25 +3,25 @@ Rails.application.routes.draw do
   root 'home#index'
 
   get "/cart" => "orders#cart", as: "cart"
+  get "/checkout" => "orders#checkout", as: "checkout"
 
-  resources :products, except: [:new, :edit] do
+  resources :products do
     resources :reviews, except: [:index]
   end
 
   resources :merchants do
-    resources :products, only: [:index, :new, :edit]
+    resources :products, only: [:index]
   end
 
   resources :categories do
     resources :products, only: [:index]
   end
 
-  resources :order do
-    resources :orderitem do
-    end
+  resources :orders do
   end
 
   resources :order_items do
+    put :shipped, on: :member
   end
 
   resources :sessions, :only => [:new, :create]

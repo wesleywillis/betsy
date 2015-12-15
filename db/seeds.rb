@@ -28,11 +28,32 @@ seed_merchants.each do |seed|
   Merchant.create(seed)
 end
 
+seed_products = [
+  { name: "Wand", price: 50, merchant_id: 1, description: "Core of unicorn tail", photo_url: "http://vignette3.wikia.nocookie.net/harrypotter/images/a/ad/George_Weasley's_wand.jpg/revision/latest?cb=20110503105406", inventory: 100 },
+  { name: "Cauldron", price: 50, merchant_id: 3, description: "Solid. Made in Romania ", photo_url: "http://www.madvapes.com/media/catalog/product/cache/1/image/9df78eab33525d08d6e5fb8d27136e95/c/a/cauldron.jpg", inventory: 24 },
+  { name: "Extendable Ears", price: 30, merchant_id: 2, description: "Sneak a listen at a distance", photo_url: "http://www.kimlawlercreative.com/wp-content/uploads/2011/06/extendable-ear.jpg", inventory: 20 },
+  { name: "horcrux", price: 500000, merchant_id: 4, description: "A piece of the puzzle - the ring", photo_url: "http://ecx.images-amazon.com/images/I/41vRx1M8JTL._SY300_.jpg", inventory: 1 }
+]
+
+seed_products.each do |seed|
+  Product.create(seed)
+end
+
 seed_order_items = [
-  { product_id: 1, order_id: 1, quantity: 1 },
-  { product_id: 2, order_id: 1, quantity: 1 },
-  { product_id: 3, order_id: 4, quantity: 3 },
-  { product_id: 4, order_id: 1, quantity: 1 }
+  { product_id: 1, order_id: 7, quantity: 1, shipped: false },
+  { product_id: 1, order_id: 10, quantity: 1, shipped: false },
+  { product_id: 1, order_id: 1, quantity: 1, shipped: false },
+  { product_id: 2, order_id: 1, quantity: 1, shipped: false },
+  { product_id: 3, order_id: 4, quantity: 3, shipped: false },
+  { product_id: 4, order_id: 1, quantity: 1, shipped: false },
+  { product_id: 3, order_id: 5, quantity: 1, shipped: false },
+  { product_id: 3, order_id: 6, quantity: 1, shipped: false },
+  { product_id: 3, order_id: 7, quantity: 1, shipped: false },
+  { product_id: 3, order_id: 8, quantity: 1, shipped: false },
+  { product_id: 3, order_id: 9, quantity: 1, shipped: false },
+  { product_id: 3, order_id: 10, quantity: 1, shipped: false }
+
+
 ]
 
 seed_order_items.each do |seed|
@@ -41,24 +62,26 @@ end
 
 seed_orders = [
   { status: "pending", order_time: Time.now, customer_name: "Minerva McGonagall", customer_email: "miverva@hogwarts.com", customer_address: "Hogwarts Castle, UK", customer_card_last_four: 1234, customer_card_exp_month: 10, customer_card_exp_year: 2018 },
-  { status: "paid", order_time: Time.now, customer_name: "Severus Snape", customer_email: "severus@hogwarts.com", customer_address: "Hogwarts Castle, UK", customer_card_last_four: 2345, customer_card_exp_month: 04, customer_card_exp_year: 2018 },
-  { status: "complete", order_time: Time.now, customer_name: "Lucius Malfoy", customer_email: "iheartvoldy@dark.com", customer_address: "Malfoy Mansion, UK", customer_card_last_four: 1234, customer_card_exp_month: 10, customer_card_exp_year: 2018 },
-  { status: "cancelled", order_time: Time.now, customer_name: "Molly Weasley", customer_email: "burrowbad-ass@magic.com", customer_address: "The Burrow, PS25 ILT, UK", customer_card_last_four: 1234, customer_card_exp_month: 10, customer_card_exp_year: 2018 }
+  { status: "pending", order_time: Time.now, customer_name: "Severus Snape", customer_email: "severus@hogwarts.com", customer_address: "Hogwarts Castle, UK", customer_card_last_four: 2345, customer_card_exp_month: 04, customer_card_exp_year: 2018 },
+  { status: "pending", order_time: Time.now, customer_name: "Lucius Malfoy", customer_email: "iheartvoldy@dark.com", customer_address: "Malfoy Mansion, UK", customer_card_last_four: 1234, customer_card_exp_month: 10, customer_card_exp_year: 2018 },
+  { status: "pending", order_time: Time.now, customer_name: "Molly Weasley", customer_email: "burrowbad-ass@magic.com", customer_address: "The Burrow, PS25 ILT, UK", customer_card_last_four: 1234, customer_card_exp_month: 10, customer_card_exp_year: 2018 },
+  { status: "pending", order_time: Time.now, customer_name: "Severus Snape", customer_email: "severus@hogwarts.com", customer_address: "Hogwarts Castle, UK", customer_card_last_four: 2345, customer_card_exp_month: 04, customer_card_exp_year: 2018 },
+  { status: "pending", order_time: Time.now, customer_name: "Severus Snape", customer_email: "severus@hogwarts.com", customer_address: "Hogwarts Castle, UK", customer_card_last_four: 2345, customer_card_exp_month: 04, customer_card_exp_year: 2018 },
+  { status: "pending", order_time: Time.now, customer_name: "Severus Snape", customer_email: "severus@hogwarts.com", customer_address: "Hogwarts Castle, UK", customer_card_last_four: 2345, customer_card_exp_month: 04, customer_card_exp_year: 2018 },
+  { status: "pending", order_time: Time.now, customer_name: "Severus Snape", customer_email: "severus@hogwarts.com", customer_address: "Hogwarts Castle, UK", customer_card_last_four: 2345, customer_card_exp_month: 04, customer_card_exp_year: 2018 },
+  { status: "pending", order_time: Time.now, customer_name: "Severus Snape", customer_email: "severus@hogwarts.com", customer_address: "Hogwarts Castle, UK", customer_card_last_four: 2345, customer_card_exp_month: 04, customer_card_exp_year: 2018 },
+  { status: "pending", order_time: Time.now, customer_name: "Severus Snape", customer_email: "severus@hogwarts.com", customer_address: "Hogwarts Castle, UK", customer_card_last_four: 2345, customer_card_exp_month: 04, customer_card_exp_year: 2018 }
+
 ]
 
 seed_orders.each do |seed|
   Order.create(seed)
 end
 
-seed_products = [
-  { name: "Wand", price: 50, merchant_id: 1, description: "Core of unicorn tail", photo_url: "http://vignette3.wikia.nocookie.net/harrypotter/images/a/ad/George_Weasley's_wand.jpg/revision/latest?cb=20110503105406", inventory: 100 },
-  { name: "Cauldron", price: 50, merchant_id: 3, description: "Solid. Made in Romania ", photo_url: "http://www.madvapes.com/media/catalog/product/cache/1/image/9df78eab33525d08d6e5fb8d27136e95/c/a/cauldron.jpg", inventory: 24 },
-  { name: "Extendable Ears", price: 30, merchant_id: 2, description: "Sneak a listen at a distance", photo_url: "http://www.kimlawlercreative.com/wp-content/uploads/2011/06/extendable-ear.jpg", inventory: 10 },
-  { name: "horcrux", price: 500000, merchant_id: 4, description: "A piece of the puzzle - the ring", photo_url: "http://ecx.images-amazon.com/images/I/41vRx1M8JTL._SY300_.jpg", inventory: 1 }
-]
+status_array = ["paid", "cancelled"]
 
-seed_products.each do |seed|
-  Product.create(seed)
+Order.last(5).each do |order|
+  order.update_attribute(:status, status_array[rand(0..1)] )
 end
 
 seed_categories_products = [

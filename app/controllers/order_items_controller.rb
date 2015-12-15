@@ -4,7 +4,12 @@ class OrderItemsController < ApplicationController
   def create
     @order = current_order
     @order_item = @order.order_items.create(order_item_params)
-    redirect_to cart_path
+    if @order_item.save
+      redirect_to cart_path
+    else
+      flash[:error] = "Sorry, there are only #{@order_item.product.inventory} #{@order_item.product.name.pluralize} available."
+      redirect_to product_path(@order_item.product)
+    end
   end
 
   def destroy
@@ -19,7 +24,12 @@ class OrderItemsController < ApplicationController
   def update
     @order_item = OrderItem.find(params[:id])
     @order_item.update_attributes(order_item_params)
-    redirect_to cart_path
+    if @order_item.save
+      redirect_to cart_path
+    else
+      flash[:error] = "Sorry, there are only #{@order_item.product.inventory} #{@order_item.product.name.pluralize} available."
+      redirect_to cart_path
+    end
   end
 
   def check_if_product_is_in_cart
@@ -43,9 +53,17 @@ class OrderItemsController < ApplicationController
 
   end
 
+  def shipped
+    @order_item = OrderItem.find(params[:id])
+    @order_item.update_attribute(:shipped, 'true')
+    @order = Order.find(@order_item.order_id)
+    @order.complete?
+    redirect_to merchant_path
+  end
+
   private
 
   def order_item_params
-    params.require(:order_item).permit(:quantity, :product_id, :order_id)
+    params.require(:order_item).permit(:quantity, :product_id, :order_id, :status)
   end
 end

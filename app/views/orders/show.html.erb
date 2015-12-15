@@ -1,58 +1,11 @@
-<div class="row">
-  <div class="col-md-12 text-center">
-    <h1>YOUR CART</h1>
-  </div>
-</div>
-
-<% if @order_items.size == 0 %>
-  <p class="text-center">
-    There are no items in your shopping cart.  Please <%= link_to "go back", root_path %> to accio some items to your cart.
-  </p>
-<% else %>
-  <% @order_items.each do |order_item| %>
-    <div class="row">
-      <div class="col-md-2 col-md-offset-3">
-        <div class="cart-image-container"><%= link_to image_tag(order_item.product.photo_url,
-                class: "cart-image"), product_path(order_item.product.id) %>
-        </div>
-      </div>
-      <div class="col-md-6">
-        <div class="row">
-          <div class="col-md-6">
-            <h5><%= order_item.product.name %> from <%= order_item.product.merchant.user_name %></h5>
-          </div>
-          <div class="col-md-3">
-            <%= link_to "x", order_item_path(id: order_item.id), method: :delete %>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-3">
-            <%= form_for order_item do |f| %>
-              <div class="form-group">
-                <%= f.label :quantity %>
-                <%= f.number_field :quantity, class: "form-control" %>
-                <%= f.submit "Update", class: "btn btn-default" %>
-              </div>
-            <% end %>
-          </div>
-          <div class="col-md-3">
-            <span>$<%= number_with_precision(order_item.product.price, :precision => 2, :delimiter => ',') %></span>
-          </div>
-        </div>
-      </div>
-    </div>
-    <hr>
-  <% end %>
-  <div class="row">
-    <div class="col-md-12 text-center">
-      <h4>SUBTOTAL: $<%= number_with_precision(@subtotal, :precision => 2, :delimiter => ',') %></h4>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col-md-12 text-center">
-      <!-- UPDATE TO CHECKOUT PATH -->
-      <%= link_to "CHECKOUT", root_path %>
-    </div>
-  </div>
+<h1> Order details for Order # <%= @order.id %> </h1>
+<h1> Customer Name: <%= @order.customer_name %> </h1>
+<h5> Address: <%=@order.customer_address%> </h5>
+<h5> Email: <%=@order.customer_email%> </h5>
+<h1> Payment Information </h1>
+<h5> Card Number: XXXX-XXXX-XXXX-<%=@order.customer_card_last_four%> </h5>
+<h5> Exp: <%=@order.customer_card_exp_month%> / <%=@order.customer_card_exp_year%></h5>
+<h1> Items Ordered </h1>
+<% @order_items.each do |item| %>
+  <%= item.product.name %>
 <% end %>

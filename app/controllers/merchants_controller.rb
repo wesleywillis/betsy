@@ -1,5 +1,4 @@
 class MerchantsController < ApplicationController
-
   before_action :require_user, only: [:edit, :show]
 
   def index
@@ -10,21 +9,30 @@ class MerchantsController < ApplicationController
   end
 
   def create
-    #code below based on the code academy stuff
-  #  @merchant = Merchant.new(merchant_params)
-  #  if @merchant.save
-  #    session[:merchant_id] = @merchant.id
-  #    redirect_to '/'
-  #  else
-  #    redirect_to root_path
-  #  end
+    @merchant = Merchant.create(merchant_params)
+    if @merchant.save
+# makes it so they don't have to login after they sign up. Takes the session data so it can run the redirect.
+      session[:merchant_id] = @merchant.id
+      redirect_to merchant_path(@merchant)
+    else
+      flash[:error] = "Try again. Or you may already be a user. Try logging in."
+      render :new
+    end
+
   end
 
   def show
     id = @current_user.id
     @merchant = Merchant.find(id)
     @products = @merchant.products
-    @orders = @merchant.orders
+    status = params[:sort]
+
+    if status == "all" || status == nil
+      @orders = @merchant.orders
+    else
+      @orders = @merchant.orders.where(status: status)
+    end
+
     @pending_revenue ||= 0
     @paid_revenue ||= 0
     @complete_revenue ||= 0
@@ -43,6 +51,6 @@ class MerchantsController < ApplicationController
   private
 
   def merchant_params
-    params.permit(merchant:[:user_name, :email, :password_digest])
+    params.require(:merchant).permit(:user_name, :email, :password, :password_confirmation)
   end
 end

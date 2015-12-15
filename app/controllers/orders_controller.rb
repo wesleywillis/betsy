@@ -1,25 +1,34 @@
 class OrdersController < ApplicationController
-  def new
-    @order = Order.new
-    raise
-  end
+  # def new
+  #   @order = Order.new
+  # end
 
   def show
-    #@order_items = current_merchant.order_items.where(order_id: params[:order_id])
+    id = params[:id]
+    @order = Order.find(id)
+    @order_items = @current_user.order_items.where(order_id: id)
   end
 
   def cart
+    @order = current_order
+    @order_items = current_order.order_items
+    @subtotal = subtotal(@order_items)
+  end
+
+  def checkout
     @order_items = current_order.order_items
     @subtotal = subtotal(@order_items)
   end
 
   def create
-    @order = Order.create(order_params)
-    if @order.save
+    @order = Order.create
+    # Commenting this out... I don't think it will
+    # ever get here
+    # if @order.save
       redirect_to root_path
-    else
-      render :new
-    end
+    # else
+    #   render :new
+    # end
   end
 
   def subtotal(order_items)
