@@ -40,6 +40,8 @@ seed_products.each do |seed|
 end
 
 seed_order_items = [
+  { product_id: 1, order_id: 7, quantity: 1, shipped: false },
+  { product_id: 1, order_id: 10, quantity: 1, shipped: false },
   { product_id: 1, order_id: 1, quantity: 1, shipped: false },
   { product_id: 2, order_id: 1, quantity: 1, shipped: false },
   { product_id: 3, order_id: 4, quantity: 3, shipped: false },
