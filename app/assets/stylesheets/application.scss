@@ -23,6 +23,12 @@
 
 .thumbnail {
   width: 300px;
+  height: 350px;
+  overflow: hidden;
+}
+
+.thumbnail-container {
+  width: 300px;
   height: 300px;
   overflow: hidden;
   margin:auto;
