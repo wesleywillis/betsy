@@ -25,6 +25,53 @@ RSpec.describe OrdersController, type: :controller do
 
   end
 
+  describe "GET 'checkout'" do
+    it "renders the checkout template" do
+      get :checkout
+      expect(response).to render_template :checkout
+    end
+  end
+
+  describe "POST 'confirmation'" do
+    let (:good_params) do
+      {
+        order:{
+          customer_name: "Minerva McGonagall", customer_email: "miverva@hogwarts.com", street_address: "Hogwarts Castle", zip_code: 12345, state: "Washington", city: "Hogwarts", card_number: 1234567812345678, customer_card_exp_month: 10, customer_card_exp_year: 2018, security_code: 123, name_on_card: "Minerva McGonagall", billing_zip_code: 12345
+        }
+      }
+    end
+
+    let (:bad_params) do
+      {
+        order:{
+          status: "pending", order_time: Time.now, customer_name: "Minerva McGonagall", customer_email: "miverva@hogwarts.com", street_address: "Hogwarts Castle", zip_code: 12345, state: "Washington", city: "Hogwarts", card_number: 1234, customer_card_exp_month: 10, customer_card_exp_year: 2018, security_code: 1, name_on_card: "Minerva McGonagall"
+        }
+      }
+    end
+
+    before (:each) do
+      order = Order.create(status: "pending")
+      Product.create(name: "testy", price: 10, merchant_id: 1, description: "hi", photo_url: "www.google.com", inventory: 4)
+      @order_item = OrderItem.create(quantity: 1, product_id: 1, order_id: order.id)
+      session[:order_id] = order.id
+    end
+
+    it "renders the confirmation template if validations pass" do
+      post :confirmation, good_params
+      expect(response).to render_template :confirmation
+    end
+
+    it "renders the checkout page if validations do not pass" do
+      post :confirmation, bad_params
+      expect(response).to render_template :checkout
+    end
+
+    it "updates inventory if validations pass" do
+      post :confirmation, good_params
+      expect(@order_item.product.inventory).to eq 3
+    end
+  end
+
   describe "GET 'cart'" do
     it "renders the cart template" do
       get :cart

@@ -5,7 +5,6 @@ class ApplicationController < ActionController::Base
   before_action :current_user
 
   def current_order
-
     return @order if @order
     if !session[:order_id].nil?
       @order = Order.find(session[:order_id])
