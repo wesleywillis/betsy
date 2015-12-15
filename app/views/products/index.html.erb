@@ -34,23 +34,27 @@
   <% @products.each do |product| %>
     <div class="col-sm-6 col-md-4">
       <div class="thumbnail">
-        <%= link_to image_tag(product.photo_url, class: "thumbnail-image"), product %>
+        <div class="thumbnail-container">
+          <%= link_to image_tag(product.photo_url, class: "thumbnail-image"), product %>
+        </div>
+        <div class="caption">
+          <strong><%= link_to product.name, product, class: "caption-name" %></strong>
+          $<%= number_with_precision(product.price, :precision => 2, :delimiter => ',') %></h3>
+
         <% if !@current_user.nil? && @current_user.id == product.merchant_id %>
-          <div class="btn-group btn-group-xs" role="group">
-            <%= link_to '<i class="fa fa-pencil-square-o"> Edit</i>'.html_safe, edit_product_path(product.id), class: "btn btn-default" %>
-            <%= link_to '<i class="fa fa-times"> Delete</i>'.html_safe, product_path(product),method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger" %>
-            <%= link_to '<i class="fa fa-minus-square"> Retire</i>'.html_safe, edit_product_path(product.id), class: "btn btn-default" %>
-            <% if product.inventory != 0 %>
-                <%= product.inventory %> in stock
-            <% else %>
-                 ITEM OUT OF STOCK
-            <% end %>
+
+          <div class="btn-group dropup">
+            <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Update <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu btn-group-xs">
+              <li><%= link_to '<i class="fa fa-pencil-square-o"> Edit</i>'.html_safe, edit_product_path(product.id) %></li>
+              <li><%= link_to '<i class="fa fa-times"> Delete</i>'.html_safe, product_path(product),method: :delete, data: { confirm: "Are you sure?" } %></li>
+              <li><%= link_to '<i class="fa fa-minus-square"> Retire</i>'.html_safe, retire_product_path(product.id) %></li>
+            </ul>
           </div>
       <% end %>
-    </div>
-    <div class="caption">
-      <%= link_to product.name, product, class: "caption-name" %>
-      $<%= number_with_precision(product.price, :precision => 2, :delimiter => ',') %></h3>
+      </div>
     </div>
   </div>
   <% end %>

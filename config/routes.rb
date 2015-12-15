@@ -8,6 +8,7 @@ Rails.application.routes.draw do
 
   resources :products do
     resources :reviews, except: [:index]
+    get :retire, on: :member
   end
 
   resources :merchants do

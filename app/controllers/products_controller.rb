@@ -87,6 +87,16 @@ class ProductsController < ApplicationController
     end
   end
 
+  def retire
+    item = Product.find(params[:id])
+    if item.retire == false
+      item.update(retire: true)
+    else
+      item.update(retire: false)
+    end
+    redirect_to :back
+  end
+
   private
 
   def product_params
