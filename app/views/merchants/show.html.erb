@@ -1,3 +1,9 @@
+<div class="col-md-12 text-center error-message">
+<% if !flash[:error].nil? %>
+  <%= flash[:error] %>
+<% end %>
+</div>
+
 <h1><%= @merchant.user_name%></h1>
 <h2><%= link_to "Add a Product", new_product_path, :class => 'btn btn-large btn-primary' %>
   <%= link_to "View Products", merchant_products_path(@merchant), :class => 'btn btn-large btn-info' %>
@@ -61,7 +67,7 @@
     <% product.order_items.each do |order|%>
       <% if order.order.status == "pending"%>
         <% cart_total = product.price * order.quantity %>
-        <%@pending_revenue += cart_total%>
+        <% @pending_revenue += cart_total%>
       <% elsif order.order.status == "paid"%>
         <% cart_total = product.price * order.quantity %>
         <%@paid_revenue += cart_total%>
@@ -73,12 +79,12 @@
         <%@cancelled_revenue += cart_total%>
       <% end %>
     <% end %>
-    <p>Total Revenue for Pending Orders: $<%= number_with_precision(@pending_revenue, :precision => 2, :delimiter => ',') %></p>
-    <p>Total Revenue for Paid Orders: $<%= number_with_precision(@paid_revenue, :precision => 2, :delimiter => ',') %></p>
-    <p>Total Revenue for Cancelled Orders: - $<%= number_with_precision(@cancelled_revenue, :precision => 2, :delimiter => ',') %></p>
-    <p>Total Revenue for Completed Orders:$<%= number_with_precision(@complete_revenue, :precision => 2, :delimiter => ',') %></p>
-
   <% end %> </p>
+
+  <p>Total Revenue for Pending Orders: $<%= number_with_precision(@pending_revenue, :precision => 2, :delimiter => ',') %></p>
+  <p>Total Revenue for Paid Orders: $<%= number_with_precision(@paid_revenue, :precision => 2, :delimiter => ',') %></p>
+  <p>Total Revenue for Cancelled Orders: - $<%= number_with_precision(@cancelled_revenue, :precision => 2, :delimiter => ',') %></p>
+  <p>Total Revenue for Completed Orders:$<%= number_with_precision(@complete_revenue, :precision => 2, :delimiter => ',') %></p>
   <p><strong>Total Net Revenue: $<%= number_with_precision((@paid_revenue + @complete_revenue), :precision => 2, :delimiter => ',') %></strong></p>
   <p>Total Pending Orders: <%= @all_orders.where(status: "pending").count %></p>
   <p>Total Cancelled Orders: <%= @all_orders.where(status: "cancelled").count %></p>
