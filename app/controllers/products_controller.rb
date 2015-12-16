@@ -53,7 +53,9 @@ class ProductsController < ApplicationController
   def create
     @product = Product.new(product_params)
     @product.merchant_id = @current_user.id
+    @categories = Category.all
     if @product.save
+      update_categories(@product)
       redirect_to product_path(@product)
     else
       render "new"
@@ -74,18 +76,21 @@ class ProductsController < ApplicationController
   def edit
     id = params[:id]
     @product = Product.find(id)
+    @categories = Category.all
     if @product.merchant_id != @current_user.id
       redirect_to product_path(id)
     end
   end
 
   def update
+
     id = params[:id]
     @product = Product.find(id)
     if @product.merchant_id != @current_user.id
       redirect_to product_path(@product)
     else
       @product.update(product_params)
+      update_categories(@product)
       if @product.save
         redirect_to product_path(@product.id)
       else
@@ -110,4 +115,11 @@ class ProductsController < ApplicationController
     params.require(:product).permit(:name, :price, :description, :photo_url, :inventory)
   end
 
+  def update_categories(product)
+    categories_array = params[:categories]
+    product.categories = []
+    categories_array.each do |category|
+      product.categories << Category.find(category)
+    end
+  end
 end

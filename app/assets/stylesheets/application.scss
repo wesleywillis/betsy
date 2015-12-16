@@ -150,6 +150,7 @@ h1 {
 // text fields for forms
 .form-group {
   max-width: 350px;
+  margin: auto;
 }
 
 // new merchant page
@@ -160,4 +161,11 @@ h1 {
 // retired product
 .retired-product {
   opacity: .3;
+}
+
+// error messages on checkout page
+.checkout-errors {
+  max-width: 400px;
+  margin: auto;
+  color: red;
 }

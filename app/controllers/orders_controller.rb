@@ -22,8 +22,9 @@ class OrdersController < ApplicationController
     @order.status = "paid"
     @order.attributes = order_params
     @order.card_number = params[:order][:card_number].last(4)
+    @subtotal = subtotal(@order.order_items)
+    @order.order_time = Time.now
     if !@order.save
-      @subtotal = subtotal(@order.order_items)
       render :checkout
     else
       update_inventory
@@ -32,7 +33,6 @@ class OrdersController < ApplicationController
   end
 
   def check_if_quantity_is_available(order_items)
-    # binding.pry
     order_items.each do |item|
       if item.quantity > item.product.inventory
         if item.product.inventory == 1
