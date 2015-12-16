@@ -54,10 +54,14 @@
             <ul class="dropdown-menu btn-group-xs">
               <li><%= link_to '<i class="fa fa-pencil-square-o"> Edit</i>'.html_safe, edit_product_path(product.id) %></li>
               <li><%= link_to '<i class="fa fa-times"> Delete</i>'.html_safe, product_path(product),method: :delete, data: { confirm: "Are you sure?" } %></li>
-              <li><%= link_to '<i class="fa fa-minus-square"> Retire</i>'.html_safe, retire_product_path(product.id) %></li>
+              <% if product.retire %>
+                <li><%= link_to '<i class="fa fa-minus-square"> Activate</i>'.html_safe, retire_product_path(product.id) %></li>
+              <% else %>
+                <li><%= link_to '<i class="fa fa-minus-square"> Retire</i>'.html_safe, retire_product_path(product.id) %></li>
+              <% end %>
             </ul>
           </div>
-      <% end %>
+        <% end %>
       </div>
     </div>
   </div>
