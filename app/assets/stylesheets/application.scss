@@ -169,3 +169,22 @@ h1 {
   margin: auto;
   color: red;
 }
+
+#search-form {
+  display: inline;
+}
+
+.search-box {
+  display: inline;
+  float: right;
+  font-size: 12px;
+}
+
+.search-button {
+  border-style: none;
+}
+
+hr {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
