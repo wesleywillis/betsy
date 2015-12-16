@@ -42,4 +42,18 @@ RSpec.describe Product, type: :model do
       expect(Product.new(name: "a", price: 1, merchant_id: 1, description: "a", photo_url: "http://example.com/picture.jpg", inventory: 0)).to be_valid
     end
   end
+
+  describe "search" do
+    let(:product) do
+      Product.create(name: "apple pie", price: 1.00, merchant_id: 1, description:"so tasty", photo_url: "http://example.com/picture.jpg", inventory: 1)
+    end
+
+    it "returns the item with the search query in the name" do
+      expect(Product.search("apple")).to include(product)
+    end
+
+    it "returns the item with the search query in the description" do
+      expect(Product.search("tasty")).to include(product)
+    end
+  end
 end
