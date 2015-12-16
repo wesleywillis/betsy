@@ -51,7 +51,6 @@ class ProductsController < ApplicationController
   end
 
   def create
-    raise
     @product = Product.new(product_params)
     @product.merchant_id = @current_user.id
     if @product.save
