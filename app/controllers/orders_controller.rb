@@ -32,7 +32,6 @@ class OrdersController < ApplicationController
   end
 
   def check_if_quantity_is_available(order_items)
-    # binding.pry
     order_items.each do |item|
       if item.quantity > item.product.inventory
         if item.product.inventory == 1

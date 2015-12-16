@@ -9,7 +9,7 @@ class OrderItemsController < ApplicationController
     else
       if @order_item.product.inventory == 1
         flash[:error] = "Sorry, there is only #{@order_item.product.inventory} #{@order_item.product.name} available."
-      elsif item.product.inventory == 0
+      elsif @order_item.product.inventory == 0
         flash[:error] = "Sorry, there are no #{@order_item.product.name.pluralize} available."
       else
         flash[:error] = "Sorry, there are only #{@order_item.product.inventory} #{@order_item.product.name.pluralize} available."
