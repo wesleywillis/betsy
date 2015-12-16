@@ -23,18 +23,6 @@ class Order < ActiveRecord::Base
     end
   end
 
-#  def complete?
-#    if order_items.all? {|item| item.shipped == true}
-#      if status == "paid"
-#        update_attribute(:status, "complete")
-#      else
-#        flash[:error] = "Cannot ship item that is not in 'paid' status"
-#      end
-#      redirect_to :back
-#    end
-#  end
-
-#this method would only be used by an admin, which we do not have yet
   def admin_cancel
     if status == "paid"
       update_attribute(:status, "cancelled")
