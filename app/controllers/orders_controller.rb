@@ -22,8 +22,9 @@ class OrdersController < ApplicationController
     @order.status = "paid"
     @order.attributes = order_params
     @order.card_number = params[:order][:card_number].last(4)
+    @subtotal = subtotal(@order.order_items)
+    @order.order_time = Time.now
     if !@order.save
-      @subtotal = subtotal(@order.order_items)
       render :checkout
     else
       update_inventory
