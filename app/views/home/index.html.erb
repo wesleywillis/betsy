@@ -46,10 +46,11 @@
           <% if !product.retire? %>
           <div class="item <%= first_class %> product-image-container">
               <%= link_to image_tag(product.photo_url, class: "thumbnail-image"), product %>
-              <div class="carousel-caption">
-                <%= link_to product.name, product, class: "caption-name" %>
-                $<%= number_with_precision(product.price, :precision => 2, :delimiter => ',') %>
-              </div>
+
+            <div class="carousel-caption">
+            <strong><%= link_to product.name, product, class: "caption-name" %></strong>
+            $<%= number_with_precision(product.price, :precision => 2, :delimiter => ',') %>
+            </div>
           </div>
           <% end %>
         <% end %>
@@ -65,3 +66,4 @@
       <span class="sr-only">Next</span>
     </a>
   </div>
+  <div class="new-caption-area text-center"></div>
