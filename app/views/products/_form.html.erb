@@ -17,11 +17,7 @@
         </div>
         <div class="form-group">
           <label for=:category>Select a Category for Your Product (hold shift to select more than one):</label>
-          <select multiple class="form-control" id="sel2">
-            <% @categories.each do |cat| %>
-              <option><%= cat.name %></option>
-            <%end%>
-          </select>
+          <%= select_tag "categories[]", options_for_select(@categories.collect{|x| [x.name,x.id]}, @product.categories.collect{|x| x.id}), {:multiple => :multiple, :size => 10} %>
         </div>
         <div class="form-group">
           <%= f.label :photo_url %><br>
