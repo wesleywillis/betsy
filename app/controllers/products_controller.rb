@@ -13,12 +13,20 @@ class ProductsController < ApplicationController
   def get_products
     if request.original_url.include?("categories")
       products = Category.find(params[:category_id]).products
+      products = products.where("retire = ?", false)
     elsif request.original_url.include?("merchants")
       products = Product.where("merchant_id = ?", params[:merchant_id])
+      if current_user && params[:merchant_id].to_i == current_user.id
+        products = Product.where("merchant_id = ?", params[:merchant_id])
+      else
+        products = Product.where("merchant_id = ?", params[:merchant_id])
+        products = products.where("retire = ?", false)
+      end
     elsif params[:search]
       products = Product.search(params[:search]).order("created_at DESC")
+      products = products.where("retire = ?", false)
     else
-      products = Product.all
+      products = Product.where("retire = ?", false)
     end
     return products
   end

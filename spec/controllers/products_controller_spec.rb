@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe ProductsController, type: :controller do
   before :each do
-    @product = Product.create(name: "magic thing", price: 15.0, merchant_id: 1, description: "somethingsomething", photo_url: "stringthing", inventory: 4)
+    @product = Product.create(name: "magic thing", price: 15.0, merchant_id: 1, description: "somethingsomething", photo_url: "stringthing", inventory: 4, retire: false)
     @category1 = Category.create(name: "hello")
     @category2 = Category.create(name: "hello again")
   end
@@ -147,6 +147,16 @@ RSpec.describe ProductsController, type: :controller do
         expect(Product.all).to include(@product)
       end
     end
+
+    describe "GET #retire" do
+      before :each do
+        @request.env['HTTP_REFERER'] = "/merchants/:id/products"
+      end
+      it "goes back to the page it was on" do
+
+      end
+    end
+
   end
 
   describe "Merchant is logged in" do
