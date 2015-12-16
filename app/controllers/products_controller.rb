@@ -16,8 +16,10 @@ class ProductsController < ApplicationController
       products = products.where("retire = ?", false)
     elsif request.original_url.include?("merchants")
       products = Product.where("merchant_id = ?", params[:merchant_id])
+      # If merchant is logged in and is viewing their products page
       if current_user && params[:merchant_id].to_i == current_user.id
         products = Product.where("merchant_id = ?", params[:merchant_id])
+      # If merchant is logged in and is viewing another merchant's product page
       else
         products = Product.where("merchant_id = ?", params[:merchant_id])
         products = products.where("retire = ?", false)
