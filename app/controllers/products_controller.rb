@@ -36,6 +36,8 @@ class ProductsController < ApplicationController
       header = Category.find(params[:category_id]).name
     elsif request.original_url.include?("merchants")
       header = Merchant.find(params[:merchant_id]).user_name
+    elsif params[:search]
+      header = "Search Results"
     else
       header = "All Products"
     end
@@ -87,7 +89,6 @@ class ProductsController < ApplicationController
   end
 
   def update
-
     id = params[:id]
     @product = Product.find(id)
     if @product.merchant_id != @current_user.id
