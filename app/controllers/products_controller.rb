@@ -15,6 +15,8 @@ class ProductsController < ApplicationController
       products = Category.find(params[:category_id]).products
     elsif request.original_url.include?("merchants")
       products = Product.where("merchant_id = ?", params[:merchant_id])
+    elsif params[:search]
+      products = Product.search(params[:search]).order("created_at DESC")
     else
       products = Product.all
     end

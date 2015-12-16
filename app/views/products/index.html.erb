@@ -3,11 +3,22 @@
   <div class="cat-link-container">
     <%= link_to "Shop All", products_path, class: "cat-link" %>
   </div>
-  <% @categories.each do |category| %>
+  <% @categories.first(4).each do |category| %>
     <div class="cat-link-container">
       <%= link_to category.name, category_products_path(category), class: "cat-link" %>
     </div>
   <% end %>
+  <div class="dropdown">
+    <button class="merchant-dropdown" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+      More
+      <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+      <% @categories[4..@categories.length].each do |category| %>
+        <li><%= link_to category.name, category_products_path(category) %></li>
+      <% end %>
+    </ul>
+  </div>
   <div class="dropdown">
     <button class="merchant-dropdown" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
       Merchants
