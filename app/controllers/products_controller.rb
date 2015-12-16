@@ -110,10 +110,12 @@ class ProductsController < ApplicationController
   end
 
   def update_categories(product)
-    categories_array = params[:categories]
-    product.categories = []
-    categories_array.each do |category|
-      product.categories << Category.find(category)
+    if !params[:categories].nil?
+      categories_array = params[:categories]
+      product.categories = []
+      categories_array.each do |category|
+        product.categories << Category.find(category)
+      end
     end
   end
 end
