@@ -39,7 +39,7 @@
         </div>
         <div class="caption">
           <strong><%= link_to product.name, product, class: "caption-name" %></strong>
-          $<%= number_with_precision(product.price, :precision => 2, :delimiter => ',') %></h3>
+          $<%= number_with_precision(product.price, :precision => 2, :delimiter => ',') %>
 
         <% if !@current_user.nil? && @current_user.id == product.merchant_id %>
 
