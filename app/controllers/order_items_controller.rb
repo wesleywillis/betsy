@@ -7,6 +7,7 @@ class OrderItemsController < ApplicationController
     if @order_item.save
       redirect_to cart_path
     else
+      # binding.pry
       if @order_item.product.inventory == 1
         flash[:error] = "Sorry, there is only #{@order_item.product.inventory} #{@order_item.product.name} available."
       elsif @order_item.product.inventory == 0
