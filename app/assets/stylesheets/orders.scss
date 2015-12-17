@@ -37,3 +37,21 @@
   border-width: 1px;
   border-color: #bfbfbf;
 }
+
+.checkout-link-container {
+  width: 120px;
+  background-color: #000000;
+  color: #FFFFFF;
+  height: 35px;
+  margin-bottom: 30px !important;
+}
+
+.checkout-link {
+  margin: auto;
+  color: #FFFFFF;
+}
+
+.checkout-link:hover {
+  text-decoration: none;
+  color: #bfbfbf;
+}
