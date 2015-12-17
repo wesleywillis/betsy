@@ -13,10 +13,22 @@ class ProductsController < ApplicationController
   def get_products
     if request.original_url.include?("categories")
       products = Category.find(params[:category_id]).products
+      products = products.where("retire = ?", false)
     elsif request.original_url.include?("merchants")
       products = Product.where("merchant_id = ?", params[:merchant_id])
+      # If merchant is logged in and is viewing their products page
+      if current_user && params[:merchant_id].to_i == current_user.id
+        products = Product.where("merchant_id = ?", params[:merchant_id])
+      # If merchant is logged in and is viewing another merchant's product page
+      else
+        products = Product.where("merchant_id = ?", params[:merchant_id])
+        products = products.where("retire = ?", false)
+      end
+    elsif params[:search]
+      products = Product.search(params[:search]).order("created_at DESC")
+      products = products.where("retire = ?", false)
     else
-      products = Product.all
+      products = Product.where("retire = ?", false)
     end
     return products
   end
@@ -26,6 +38,8 @@ class ProductsController < ApplicationController
       header = Category.find(params[:category_id]).name
     elsif request.original_url.include?("merchants")
       header = Merchant.find(params[:merchant_id]).user_name
+    elsif params[:search]
+      header = "Search Results"
     else
       header = "All Products"
     end
@@ -77,7 +91,6 @@ class ProductsController < ApplicationController
   end
 
   def update
-
     id = params[:id]
     @product = Product.find(id)
     if @product.merchant_id != @current_user.id

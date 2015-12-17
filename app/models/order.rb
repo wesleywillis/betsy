@@ -23,13 +23,6 @@ class Order < ActiveRecord::Base
     end
   end
 
-  def complete?
-    if order_items.all? {|item| item.shipped == true}
-      update_attribute(:status, "complete")
-    end
-  end
-
-#this method would only be used by an admin, which we do not have yet
   def admin_cancel
     if status == "paid"
       update_attribute(:status, "cancelled")
@@ -37,5 +30,5 @@ class Order < ActiveRecord::Base
       flash.now[:error] = "It's too late to cancel this order!"
     end
     redirect_to :back
-  end     
+  end
 end
