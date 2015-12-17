@@ -2,20 +2,17 @@ require 'rails_helper'
 
 RSpec.describe OrderItemsController, type: :controller do
   let (:product) do
-    Product.create(name: "test thing", price: 10, merchant_id: 1, description: "hi", photo_url: "www.google.com", inventory: 4)
+    Product.create(name: "test thing1", price: 10, merchant_id: 1, description: "hi", photo_url: "www.google.com", inventory: 4)
   end
 
   let (:product2) do
-    Product.create(name: "test thing", price: 10, merchant_id: 1, description: "hi", photo_url: "www.google.com", inventory: 1)
+    Product.create(name: "test thing2", price: 10, merchant_id: 1, description: "hi", photo_url: "www.google.com", inventory: 1)
   end
 
   let (:product3) do
-    Product.create(name: "test thing", price: 10, merchant_id: 1, description: "hi", photo_url: "www.google.com", inventory: 0)
+    Product.create(name: "test thing3", price: 10, merchant_id: 1, description: "hi", photo_url: "www.google.com", inventory: 0)
   end
-  #
-  # let(:order) do
-  #   Order.create(status: "paid", order_time: Time.now, customer_name: "Minerva McGonagall", customer_email: "miverva@hogwarts.com", street_address: "Hogwarts Castle", zip_code: 12345, state: "Washington", city: "Hogwarts", card_number: 1234, customer_card_exp_month: 10, customer_card_exp_year: 2018, security_code: 1, name_on_card: "Minerva McGonagall")
-  # end
+
 
   let (:order_item) do
     OrderItem.create(quantity: 1, product_id: product.id, order_id: 1)
@@ -58,7 +55,7 @@ RSpec.describe OrderItemsController, type: :controller do
     end
 
     it "does not allow quantity of an order item to be greater than the product inventory - inventory 1" do
-      product2 = Product.create(name: "test thing", price: 10, merchant_id: 1, description: "hi", photo_url: "www.google.com", inventory: 1)
+      product2 = Product.create(name: "test thing6", price: 10, merchant_id: 1, description: "hi", photo_url: "www.google.com", inventory: 1)
       params2 =
         {
           order_item:{
@@ -70,7 +67,7 @@ RSpec.describe OrderItemsController, type: :controller do
     end
 
     it "does not allow quantity of an order item to be greater than the product inventory - inventory 0" do
-      product3 = Product.create(name: "test thing", price: 10, merchant_id: 1, description: "hi", photo_url: "www.google.com", inventory: 0)
+      product3 = Product.create(name: "test thing7", price: 10, merchant_id: 1, description: "hi", photo_url: "www.google.com", inventory: 0)
       params3 =
         {
           order_item:{
@@ -149,10 +146,17 @@ RSpec.describe OrderItemsController, type: :controller do
   end
 
   describe "PUT 'shipped'" do
-    merchant = Merchant.new(user_name: "me", email: "me@me.com")
+    before (:each) do
+      @order = Order.create(status: "pending", order_time: Time.now, customer_name: "Minerva McGonagall", customer_email: "miverva@hogwarts.com", street_address: "Hogwarts Castle", zip_code: 12345, state: "Washington", city: "Hogwarts", card_number: 1234, customer_card_exp_month: 10, customer_card_exp_year: 2018, security_code: 1, name_on_card: "Minerva McGonagall")
+      @order_item2 = OrderItem.create(quantity: 1, product_id: product.id, order_id: @order.id)
+      @order.update(status: "paid")
+      @order.save
+      @merchant = Merchant.new(user_name: "me", email: "me@me.com")
+    end
+
     it "redirects to merchant path" do
-      put :shipped, id: order_item.id
-      expect(subject).to redirect_to merchant_path(merchant)
+      put :shipped, id: @order_item2.id
+      expect(subject).to redirect_to merchant_path(@merchant)
     end
   end
 end
