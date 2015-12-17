@@ -12,6 +12,10 @@ RSpec.describe OrderItemsController, type: :controller do
   let (:product3) do
     Product.create(name: "test thing", price: 10, merchant_id: 1, description: "hi", photo_url: "www.google.com", inventory: 0)
   end
+  #
+  # let(:order) do
+  #   Order.create(status: "paid", order_time: Time.now, customer_name: "Minerva McGonagall", customer_email: "miverva@hogwarts.com", street_address: "Hogwarts Castle", zip_code: 12345, state: "Washington", city: "Hogwarts", card_number: 1234, customer_card_exp_month: 10, customer_card_exp_year: 2018, security_code: 1, name_on_card: "Minerva McGonagall")
+  # end
 
   let (:order_item) do
     OrderItem.create(quantity: 1, product_id: product.id, order_id: 1)
@@ -141,6 +145,14 @@ RSpec.describe OrderItemsController, type: :controller do
     it "redirects to the cart page once the order item is updated" do
       patch :update, update_params
       expect(subject).to redirect_to cart_path
+    end
+  end
+
+  describe "PUT 'shipped'" do
+    merchant = Merchant.new(user_name: "me", email: "me@me.com")
+    it "redirects to merchant path" do
+      put :shipped, id: order_item.id
+      expect(subject).to redirect_to merchant_path(merchant)
     end
   end
 end

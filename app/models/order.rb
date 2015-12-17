@@ -23,12 +23,14 @@ class Order < ActiveRecord::Base
     end
   end
 
-  def admin_cancel
-    if status == "paid"
-      update_attribute(:status, "cancelled")
-    else
-      flash.now[:error] = "It's too late to cancel this order!"
-    end
-    redirect_to :back
-  end
+# This method will let an admin cancel an order, but we don't have
+# functionality to do so yet.
+#   def admin_cancel
+#     if status == "paid"
+#       update_attribute(:status, "cancelled")
+#     else
+#       flash.now[:error] = "It's too late to cancel this order!"
+#     end
+#     redirect_to :back
+#   end
 end

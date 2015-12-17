@@ -288,6 +288,5 @@ RSpec.describe ProductsController, type: :controller do
         expect(subject).to redirect_to product_path(another_product)
       end
     end
-
   end
 end
