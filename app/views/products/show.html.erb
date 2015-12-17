@@ -1,12 +1,12 @@
 <% if @product.retire %>
   <h2> Sorry, this product has vanished. Don't blame the house elves.</h2>
 <% else %>
+
   <% if !flash[:error].nil? %>
     <div class="col-md-12 text-center error-message">
       <%= flash[:error] %>
     </div>
   <% end %>
-
 
   <div class="col-md-12 text-center">
     <h1> <%= @product.name %> </h1>
