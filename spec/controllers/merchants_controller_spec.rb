@@ -58,10 +58,39 @@ RSpec.describe MerchantsController, type: :controller do
     let (:merchant) do
       Merchant.create(user_name: "Hailey", email: "spiderlover222@hogwarts.com", password: "123", password_confirmation: "123")
     end
+    let(:new_merchant_params) do
+      {
+        merchant:{
+          user_name: "Hello", email: "h@hogwarts.com", password: "p", password_confirmation: "p"
+        },
+      }
+    end
 
   before (:each) do
     session[:merchant_id] = merchant.id
   end
+
+  describe "GET #new" do
+    it "is not successful and redirects" do
+      get :new
+      expect(response).to have_http_status(302)
+    end
+    it "redirects to the merchant show page" do
+      get :new
+      expect(subject).to redirect_to merchant_path(merchant)
+    end
+
+    describe "POST #create" do
+      it "redirects to merchant show page" do
+        post :create, new_merchant_params
+        expect(subject).to redirect_to merchant_path(merchant)
+      end
+      it "does not create a new merchant" do
+        original_count = Merchant.all.count
+        post :create, new_merchant_params
+        expect(Merchant.all.count).to eq original_count
+      end
+    end
     describe "GET #show" do
       it "responds successfully with an HTTP 200 status code" do
         get :show, id: merchant.id
@@ -82,6 +111,8 @@ RSpec.describe MerchantsController, type: :controller do
     #  end
     end
   end
+end
+
 end
 #  describe "GET #new" do
 #    it "responds successfully with an HTTP 200 status code" do
