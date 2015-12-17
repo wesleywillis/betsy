@@ -67,6 +67,12 @@ RSpec.describe ProductsController, type: :controller do
         get :index
         expect(response).to render_template("index")
       end
+      it "gets the name of category and makes it the header" do
+        pending "need to figure out pathing"
+        get :index, category_id: 1
+        expect(response.body).to include "hello"
+      end
+
     end
 
     describe "GET #show" do
