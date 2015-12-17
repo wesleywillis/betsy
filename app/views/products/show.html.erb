@@ -1,12 +1,12 @@
 <% if @product.retire %>
   <h2> Sorry, this product has vanished. Don't blame the house elves.</h2>
 <% else %>
+
   <% if !flash[:error].nil? %>
     <div class="col-md-12 text-center error-message">
       <%= flash[:error] %>
     </div>
   <% end %>
-
 
   <div class="col-md-12 text-center">
     <h1> <%= @product.name %> </h1>
@@ -28,7 +28,7 @@
           <%= f.hidden_field :product_id, value: @product.id %>
           <%= f.hidden_field :order_id %>
           <% if @product.inventory != 0  %>
-            <%= f.submit "Add to Cart", class: "btn btn-primary" %>
+            <%= f.submit "Add to Cart", class: "btn dk-gray-button" %>
           <% end %>
         </div>
       </div>
@@ -40,10 +40,10 @@
         <div class="alert alert-warning" role="alert">
           ITEM OUT OF STOCK
         </div>
-        <!-- <% else %> -->
-        <!-- <div class="alert alert-info input-group" role="alert"> -->
-          <!-- <%= @product.inventory %> in stock -->
-        <!-- </div> -->
+        <% else %>
+        <div class="num-in-stock" role="alert">
+          <%= @product.inventory %> in stock
+        </div>
         <% end %>
       </div>
     </div>

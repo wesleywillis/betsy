@@ -128,7 +128,7 @@ RSpec.describe OrdersController, type: :controller do
         expect(response).to have_http_status(200)
       end
 
-      it "renders the show template" do
+      it "renders the show template if there are items in the order that belong to the merchant" do
         get :show, id: order.id
         expect(subject).to render_template :show
       end

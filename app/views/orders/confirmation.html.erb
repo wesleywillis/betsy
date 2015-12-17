@@ -37,8 +37,10 @@
 <% end %>
 <br>
 <br>
+<% if @current_user.nil? %>
 <div class="row">
   <div class="col-md-12 text-center">
     <h5>Would you like to <%= link_to "signup", new_merchant_path %> to be a merchant?</h5>
   </div>
 </div>
+<% end %>

@@ -23,7 +23,9 @@
     </div>
   </div>
   <div class="col-md-12 text-center">
-    <%= link_to "CHECKOUT", checkout_path %>
+    <div class=" btn checkout-link-container">
+      <%= link_to "CHECKOUT", checkout_path, class:"checkout-link" %>
+    </div>
   </div>
 </div>
   <% @order_items.each do |order_item| %>
