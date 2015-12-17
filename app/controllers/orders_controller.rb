@@ -11,6 +11,7 @@ class OrdersController < ApplicationController
     else
     redirect_to root_path
     end
+    flash[:error] = "Sorry, you are not authorized to view the page you were trying to see.  Here is a better page for you. "
   end
 
   def cart
