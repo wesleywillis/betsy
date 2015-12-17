@@ -151,11 +151,11 @@ RSpec.describe OrderItemsController, type: :controller do
       @order_item2 = OrderItem.create(quantity: 1, product_id: product.id, order_id: @order.id)
       @order.update(status: "paid")
       @order.save
-      @merchant = Merchant.new(user_name: "me", email: "me@me.com")
+      @merchant = Merchant.create!(user_name: "me2", email: "me2@me.com", password: "p", password_confirmation: "p")
     end
 
     it "redirects to merchant path" do
-      put :shipped, id: @order_item2.id
+      put :shipped, id: @merchant.id
       expect(subject).to redirect_to merchant_path(@merchant)
     end
   end
