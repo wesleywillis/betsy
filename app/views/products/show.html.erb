@@ -64,7 +64,9 @@
 
 
     <hr>
-    <h4 class="review-title">Reviews</h4>
+    <% if !@product.reviews.empty? %>
+      <h4 class="review-title">Reviews</h4>
+    <% end %>
     <div>
       <% @product.reviews.each do |review| %>
         <ul class="review-list">
