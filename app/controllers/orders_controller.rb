@@ -2,7 +2,15 @@ class OrdersController < ApplicationController
   def show
     id = params[:id]
     @order = Order.find(id)
-    @order_items = @current_user.order_items.where(order_id: id)
+    if @current_user != nil
+      if @current_user.orders.include?(@order)
+        @order_items = @current_user.order_items.where(order_id: id)
+      else
+        redirect_to merchant_path(@current_user)
+      end
+    else
+    redirect_to root_path
+    end
   end
 
   def cart
