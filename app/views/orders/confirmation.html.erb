@@ -2,7 +2,7 @@
   <div class="col-md-12 text-center">
     <h1>ORDER CONFIRMATION</h1>
     <h4>Mischief Managed. Your order has been submitted.</h4>
-    <h5>Total Price: <%= @subtotal %></h5>
+    <h5>Total Cost: $<%= number_with_precision(@subtotal, :precision => 2, :delimiter => ',') %></h5>
     <h5>Order Status: <%= @order.status %></h5>
     <h5>Order Time: <%= @order.order_time.strftime("%m/%d/%Y %I:%M%p") %></h5>
   </div>
