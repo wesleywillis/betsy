@@ -6,7 +6,7 @@
 <% end %>
 </div>
 
-<h3 class="signup">Sell your swag. Become a merchant</h3>
+<h3 class="signup text-center">Sell your swag. Become a merchant</h3>
   <%= form_for @merchant, url: { action: "create" }, html: { class: "form-group" } do |f| %>
     <%= f.label :user_name, "Shop Name" %>
     <%= f.text_field :user_name, class: "form-control" %>
@@ -21,5 +21,7 @@
     <%= f.password_field :password_confirmation, class: "form-control" %>
 
     <br>
-    <%= f.submit "Submit", class: "btn btn-info" %>
+    <div class="col-md-12 text-center">
+      <%= f.submit "Submit", class: "btn btn-info" %>
+    </div>
   <% end %>
