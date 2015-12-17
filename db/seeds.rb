@@ -43,10 +43,10 @@ seed_products = [
   { name: "Horcrux", price: 500000, merchant_id: 4, description: "A piece of the puzzle - the ring", photo_url: "http://ecx.images-amazon.com/images/I/41vRx1M8JTL._SY300_.jpg", inventory: 1, retire: true },
   { name: "Firebolt 5", price: 1000, merchant_id: 6, description: "The finest of them all, the Firebolt 5 is faster than ever.", photo_url: "http://ii.wbshop.com/fcgi-bin/iipsrv.fcgi?FIF=/images/warnerbros/source/warnerbros/hpnbbroom.tif&wid=370&cvt=jpeg", inventory: 5, retire: false },
   { name: "Bertie Bott's", price: 5, merchant_id: 5, description: "Delicious, disgusting treats for your friends and foes", photo_url: "http://cdn-tp1.mozu.com/9046-11441/cms/11441/files/35cdea6c-8cbb-490b-97d4-be3c2fc55840", inventory: 30, retire: false },
-  { name: "Cat", price: 500, merchant_id: 7, description: "She will purr in your lap and eat your rats", photo_url: "http://ecx.images-amazon.com/images/I/41vRx1M8JTL._SY300_.jpg", inventory: 10, retire: false },
+  { name: "Cat", price: 500, merchant_id: 7, description: "She will purr in your lap and eat your rats", photo_url: "http://i.stack.imgur.com/dgcXv.png", inventory: 10, retire: false },
   { name: "Dress Robe", price: 100, merchant_id: 8, description: "A desirable robe for your finest of occasion.", photo_url: "http://images.halloweencostumes.com/products/7538/1-2/replica-harry-potter-slytherin-robe.jpg", inventory: 10, retire: false },
   { name: "Robe", price: 80, merchant_id: 8, description: "A desirable robe for everyday wear.", photo_url: "http://i684.photobucket.com/albums/vv208/lovexrwf/Wizard%20Robes/cloakseller_01/1.jpg", inventory: 10, retire: false },
-  { name: "Elder Wand", price: 80000, merchant_id: 1, description: "Straight from Dumbledore's tomb. Core of thestral hair.", photo_url: "http://i684.photobucket.com/albums/vv208/lovexrwf/Wizard%20Robes/cloakseller_01/1.jpg", inventory: 10, retire: false },
+  { name: "Elder Wand", price: 80000, merchant_id: 1, description: "Straight from Dumbledore's tomb. Core of thestral hair.", photo_url: "http://vignette4.wikia.nocookie.net/harrypotter/images/7/7d/Elder_wand.jpg/revision/latest?cb=20110721103117", inventory: 10, retire: false },
   { name: "Quill", price: 20, merchant_id: 3, description: "Durable, Made in Great Britain.", photo_url: "http://www.polyvore.com/cgi/img-thing?.out=jpg&size=l&tid=15030537", inventory: 10, retire: false },
   { name: "Frog", price: 30, merchant_id: 7, description: "Get your first year a gift they're sure to misplace, time and time again..", photo_url: "http://internal.adu.org.za/upload/uploads/20120628_kznmidlands_commonriverfrog_trevor_hardaker.jpg", inventory: 10, retire: false },
   { name: "Lemon Drops", price: 8, merchant_id: 5, description: "Dumbledore's favorite. Need we say more?", photo_url: "https://c2.staticflickr.com/2/1240/782790587_9c70da2bac.jpg", inventory: 100, retire: false }
@@ -108,7 +108,11 @@ seed_categories_products = [
   { product_id: 6, category_id: 8 },
   { product_id: 7, category_id: 6 },
   { product_id: 8, category_id: 5 },
-  { product_id: 9, category_id: 5 }
+  { product_id: 9, category_id: 5 },
+  { product_id: 10, category_id: 1 },
+  { product_id: 11, category_id: 2 },
+  { product_id: 12, category_id: 6 },
+  { product_id: 13, category_id: 8 }
 
 ]
 
