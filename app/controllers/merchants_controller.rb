@@ -10,7 +10,7 @@ class MerchantsController < ApplicationController
   end
 
   def create
-  @merchant = Merchant.create(merchant_params) if !logged_in?
+  @merchant = Merchant.create(merchant_params)
     if @merchant.save
 # makes it so they don't have to login after they sign up. Takes the session data so it can run the redirect.
       session[:merchant_id] = @merchant.id
