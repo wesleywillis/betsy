@@ -12,6 +12,7 @@ class Product < ActiveRecord::Base
   validates :inventory, numericality: { greater_than_or_equal_to: 0 }
 
   def self.search(query)
-    where("name like ? OR description like ?", "%#{query}%", "%#{query}%")
+    query = query.downcase
+    where("lower(name) like ? OR lower(description) like ?", "%#{query}%", "%#{query}%")
   end
 end

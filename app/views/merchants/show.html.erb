@@ -6,9 +6,9 @@
 
 <h1 class="text-center"><%= @merchant.user_name%></h1>
 <div class="col-md-12 text-center gray-button-container">
-  <%= link_to "Add a Product", new_product_path, :class => 'btn btn-default' %>
-  <%= link_to "View Products", merchant_products_path(@merchant), :class => 'btn btn-default' %>
-  <%= link_to "Add Categories", new_category_path, class: "btn btn-default" %>
+  <%= link_to "Add a Product", new_product_path, :class => 'btn black-button' %>
+  <%= link_to "View Products", merchant_products_path(@merchant), :class => 'btn black-button' %>
+  <%= link_to "Add Categories", new_category_path, class: "btn black-button" %>
 </div>
 
 <p>
@@ -55,11 +55,11 @@
       <tbody>
         <tr>
           <% @orders.each do |order| %>
-            <td><%= link_to order.id, order, class:"merchant-pg-link" %><br><small> Ordered on: <%= order.order_time.strftime("%m/%d/%Y %I:%M%p") %></small></td>
+            <td><%= link_to order.id, order %><br><small> Ordered on: <%= order.order_time.strftime("%m/%d/%Y %I:%M%p") %></small></td>
               <td>
                 <% order.products.each do |product| %>
                   <% if product.merchant_id == @merchant.id%>
-                    <%= link_to product.name, product, class:"merchant-pg-link" %>
+                    <%= link_to product.name, product %>
                     $<%= number_with_precision(product.price, :precision => 2, :delimiter => ',') %>
                     <% product.order_items.each do |item|%>
                       <% if item.order.id == order.id%><br>
@@ -88,10 +88,9 @@
 </div>
 
 
-  <div class="row">
+  <div class="row margin-top margin-bottom">
     <div class="col-md-8 col-md-offset-2 total-container">
       <h1 class="total-header"> SUMMARY </h2>
-      <hr class="merchant-divider">
       <div class="row">
         <div class="col-md-8 order-segments">
           <h1> Revenue</h1>
