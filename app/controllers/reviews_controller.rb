@@ -1,6 +1,6 @@
 class ReviewsController < ApplicationController
   def new
-    @review = Review.new
+    @review = Review.new(product_id: params[:product_id])
   end
 
   def create

@@ -40,7 +40,8 @@
 <% if @current_user.nil? %>
 <div class="row">
   <div class="col-md-12 text-center">
-    <h5>Would you like to <%= link_to "signup", new_merchant_path %> to be a merchant?</h5>
+    <h5>Would you like to sell your swag? <%= link_to "Register", new_merchant_path %> to be a merchant.</h5>
+    <%= link_to "SIGN UP", new_merchant_path, class:"btn black-button margin-top" %>
   </div>
 </div>
 <% end %>

@@ -224,6 +224,39 @@ hr {
   margin-bottom: 10px;
 }
 
-dk-gray-button {
-  
+a {
+  color: #006666;
+}
+
+.browse-link-container {
+  width: 170px;
+  background-color: #000000;
+  color: #FFFFFF;
+  height: 35px;
+  margin-top: 20px;
+}
+
+.dobby {
+  height: 400px;
+  width: 400px;
+  margin: auto;
+}
+
+.black-button {
+  background-color: #000000 !important;
+  color: #FFFFFF;
+}
+
+
+.black-button:hover {
+  text-decoration: none;
+  color: #bfbfbf;
+}
+
+.margin-top {
+  margin-top: 20px;
+}
+
+.margin-bottom {
+  margin-bottom: 20px;
 }
