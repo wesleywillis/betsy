@@ -55,7 +55,7 @@
       <tbody>
         <tr>
           <% @orders.each do |order| %>
-            <td><%= link_to order.id, order %><br><small> Ordered on: <%= order.order_time.strftime("%m/%d/%Y %I:%M%p") %></small></td>
+            <td><%= link_to order.id, order %><br><small> Ordered on: <%= order.order_time.strftime("%m/%d/%Y %I:%M%p") if !order.order_time.nil? %></small></td>
               <td>
                 <% order.products.each do |product| %>
                   <% if product.merchant_id == @merchant.id%>
