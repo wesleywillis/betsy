@@ -10,8 +10,12 @@ class ReviewsController < ApplicationController
       flash[:error] = "You aren't allowed to review your own products.  Stop being Slytherin."
       redirect_to product_path(@review.product_id)
     else
-      @review.save
-      redirect_to product_path(@review.product_id)
+      if !@review.save
+        render "new"
+      else
+        @review.save
+        redirect_to product_path(@review.product_id)
+      end
     end
   end
 
