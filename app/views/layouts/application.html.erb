@@ -11,9 +11,15 @@
 <body>
 <div class="container">
   <div class="row">
+    <% if @current_user.nil? %>
     <div class="col-xs-2 nav-link-container">
-      <p class= nav-link>Hello <%= @current_user.user_name if !@current_user.nil? %></p>
+      <p class= nav-link>Hello Guest</p>
     </div>
+    <% else %>
+    <div class="col-xs-2 nav-link-container">
+      <p class= nav-link>Hello <%= @current_user.user_name %></p>
+    </div>
+    <% end %>
     <div class="col-md-6 col-md-offset-1 col-xs-9 col-xs-offset-1 text-center">
       <%= link_to "SWAGRID", "/", class: "nav-header" %>
     </div>
