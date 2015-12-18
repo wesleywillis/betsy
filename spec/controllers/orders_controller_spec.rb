@@ -8,15 +8,6 @@ RSpec.describe OrdersController, type: :controller do
     end
 
     describe "inventory/quantity conflict error messages" do
-      # order = Order.create(status: "pending")
-      # p1 = Product.create(name: "testy", price: 10, merchant_id: 1, description: "hi", photo_url: "www.google.com", inventory: 1)
-      # p2 = Product.create(name: "testy", price: 10, merchant_id: 1, description: "hi", photo_url: "www.google.com", inventory: 0)
-      # p3 = Product.create(name: "testy", price: 10, merchant_id: 1, description: "hi", photo_url: "www.google.com", inventory: 2)
-      # @order_item = OrderItem.create(quantity: 5, product_id: p1.id , order_id: order.id)
-      # @order_item = OrderItem.create(quantity: 5, product_id: p2.id , order_id: order.id)
-      # @order_item = OrderItem.create(quantity: 5, product_id: p3.id , order_id: order.id)
-      # session[:order_id] = order.id
-      #
 
       it "provides the gramatically-correct error message if the item quantity is greater than the product inventory" do
         order = Order.create(status: "pending")
