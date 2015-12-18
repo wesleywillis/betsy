@@ -7,7 +7,7 @@ RSpec.describe ReviewsController, type: :controller do
         review: {
           rating: 5, description: "lovely"
         },
-        product_id: 2
+        id: 2
       }
     end
 
@@ -22,7 +22,7 @@ RSpec.describe ReviewsController, type: :controller do
 
     it "goes to the product show page if review was successful" do
       post :create, params
-      expect(subject).to redirect_to product_path(params[:product_id])
+      expect(subject).to redirect_to product_path(params[:id])
     end
 
     it "renders new page if review was not saved" do
