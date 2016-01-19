@@ -13,8 +13,17 @@
 
 <% if @order_items.size == 0 %>
   <p class="text-center">
-    There are no items in your shopping cart.  Please <%= link_to "go back", root_path %> to accio some items to your cart.
+    There are no items in your shopping cart.  Please continue shopping to accio some items to your cart.
   </p>
+  <div class="dobby">
+    <%= image_tag "dobby.png", class:"dobby" %>
+  </div>
+  <div class="col-md-12 text-center">
+    <div class=" btn browse-link-container">
+      <%= link_to "BROWSE PRODUCTS", products_path, class:"checkout-link" %>
+    </div>
+  </div>
+
 <% else %>
 <div class="row">
   <div class="row">
@@ -23,7 +32,9 @@
     </div>
   </div>
   <div class="col-md-12 text-center">
-    <%= link_to "CHECKOUT", checkout_path %>
+    <div class=" btn checkout-link-container">
+      <%= link_to "CHECKOUT", checkout_path, class:"checkout-link" %>
+    </div>
   </div>
 </div>
   <% @order_items.each do |order_item| %>
@@ -53,7 +64,6 @@
             <% end %>
           </div>
           <div class="col-md-3">
-            <!-- <span>$<%= number_with_precision(order_item.product.price, :precision => 2, :delimiter => ',') %></span> -->
             <p>Item Subtotal</p>
             <p>$<%= number_with_precision(order_item.product.price * order_item.quantity, :precision => 2, :delimiter => ',') %></p>
           </div>

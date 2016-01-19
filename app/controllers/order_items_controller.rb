@@ -7,7 +7,13 @@ class OrderItemsController < ApplicationController
     if @order_item.save
       redirect_to cart_path
     else
-      flash[:error] = "Sorry, there are only #{@order_item.product.inventory} #{@order_item.product.name.pluralize} available."
+      if @order_item.product.inventory == 1
+        flash[:error] = "Sorry, there is only #{@order_item.product.inventory} #{@order_item.product.name} available."
+      elsif @order_item.product.inventory == 0
+        flash[:error] = "Sorry, there are no #{@order_item.product.name.pluralize} available."
+      else
+        flash[:error] = "Sorry, there are only #{@order_item.product.inventory} #{@order_item.product.name.pluralize} available."
+      end
       redirect_to product_path(@order_item.product)
     end
   end
@@ -55,9 +61,16 @@ class OrderItemsController < ApplicationController
 
   def shipped
     @order_item = OrderItem.find(params[:id])
-    @order_item.update_attribute(:shipped, 'true')
     @order = Order.find(@order_item.order_id)
-    @order.complete?
+    #the conditional below prevents cancelled or pending orders from being shipped
+    if @order.status == "paid"
+      @order_item.update_attribute(:shipped, 'true')
+        if @order.order_items.all? {|item| item.shipped == true}
+          @order.update_attribute(:status, "complete")
+        end
+    else
+      flash[:error] = "You can only ship items that are in 'paid' status"
+    end
     redirect_to merchant_path
   end
 

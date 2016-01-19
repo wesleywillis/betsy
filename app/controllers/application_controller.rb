@@ -5,12 +5,12 @@ class ApplicationController < ActionController::Base
   before_action :current_user
 
   def current_order
-
     return @order if @order
     if !session[:order_id].nil?
       @order = Order.find(session[:order_id])
     else
       @order = Order.create
+      @order.update(status: "pending")
       session[:order_id] = @order.id
       return @order
     end
@@ -29,5 +29,12 @@ class ApplicationController < ActionController::Base
 
   def logged_in?
     !current_user.nil?
+  end
+
+  def redirect_if_logged_in
+    # if the session merchant id exists, find the merchant from that id and if they exist, redirect to their show_page.
+    if logged_in?
+      redirect_to merchant_path(@current_user)
+    end
   end
 end

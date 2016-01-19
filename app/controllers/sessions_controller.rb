@@ -28,12 +28,4 @@ class SessionsController < ApplicationController
     redirect_to root_path
   end
 
-  def redirect_if_logged_in
-    # if the session merchant id exists, find the merchant from that id and if they exist, redirect to their show_page.
-    if logged_in?
-      redirect_to merchant_path(@current_user)
-    end
-  end
-
-
 end

@@ -1,5 +1,6 @@
 class MerchantsController < ApplicationController
   before_action :require_user, only: [:edit, :show]
+  before_action :redirect_if_logged_in, only: [:new, :create]
 
   def index
   end
@@ -9,7 +10,7 @@ class MerchantsController < ApplicationController
   end
 
   def create
-    @merchant = Merchant.create(merchant_params)
+  @merchant = Merchant.create(merchant_params)
     if @merchant.save
 # makes it so they don't have to login after they sign up. Takes the session data so it can run the redirect.
       session[:merchant_id] = @merchant.id
@@ -18,7 +19,6 @@ class MerchantsController < ApplicationController
       flash[:error] = "Try again. Or you may already be a user. Try logging in."
       render :new
     end
-
   end
 
   def show
@@ -32,7 +32,7 @@ class MerchantsController < ApplicationController
     else
       @orders = @merchant.orders.where(status: status)
     end
-
+    @all_orders = @merchant.orders
     @pending_revenue ||= 0
     @paid_revenue ||= 0
     @complete_revenue ||= 0

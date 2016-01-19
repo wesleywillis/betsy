@@ -1,2 +1,2 @@
-class CategoriesProduct < ActiveRecord::Base
+class CategoriesProduct < ActiveRecord::Base 
 end
