@@ -21,13 +21,16 @@ class OrdersController < ApplicationController
   end
 
   def checkout
+    @order = current_order
     @order_items = current_order.order_items
     check_if_quantity_is_available(@order_items)
     @subtotal = subtotal(@order_items)
   end
 
   def estimate
+    @order = current_order
     session[:shipping] = "a thing"
+    @order.attributes = order_params
     redirect_to checkout_path
   end
 
