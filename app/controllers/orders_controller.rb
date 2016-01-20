@@ -1,4 +1,9 @@
 class OrdersController < ApplicationController
+  require "httparty"
+  require 'pry'
+
+  BASE_URI = "http:localhost/3000/rates"
+
   def show
     id = params[:id]
     @order = Order.find(id)
@@ -68,6 +73,10 @@ class OrdersController < ApplicationController
       sum += order_item.quantity * order_item.product.price
     end
     return sum
+  end
+
+  def rates
+    HTTParty.get(BASE_URI?????).parsed_response
   end
 
   private
