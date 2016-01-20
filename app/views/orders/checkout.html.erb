@@ -22,7 +22,7 @@
   </div>
 </div>
 
-<%= form_for @order, :url => "/confirmation", :action => :confirmation, :html => { :method => :post } do |f| %>
+<%= form_for @order, :url => "/checkout", :html => { :method => :post } do |f| %>
   <div class="row">
     <div class="col-md-12 text-center">
       <h2>Shipping Information</h2>
@@ -52,7 +52,7 @@
 
   </div>
 
-<% if !session[:shipping?].nil? %>
+<% if !session[:shipping].nil? %>
   <%= form_for @order, :url => "/confirmation", :action => :confirmation, :html => { :method => :post } do |f| %>
     <div class="row">
       <div class="col-md-12 text-center">

@@ -4,6 +4,7 @@ Rails.application.routes.draw do
 
   get "/cart" => "orders#cart", as: "cart"
   get "/checkout" => "orders#checkout", as: "checkout"
+  post "checkout" => "orders#estimate"
   post "/confirmation" => "orders#confirmation", as: "confirmation"
 
   resources :products do

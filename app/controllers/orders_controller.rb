@@ -26,6 +26,11 @@ class OrdersController < ApplicationController
     @subtotal = subtotal(@order_items)
   end
 
+  def estimate
+    session[:shipping] = "a thing"
+    redirect_to checkout_path
+  end
+
   def confirmation
     @order = current_order
     @order.status = "paid"
