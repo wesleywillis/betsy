@@ -34,6 +34,9 @@ gem "font-awesome-rails"
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
+
+gem 'active_shipping'
+
 group :production do
   gem 'pg'
 end
