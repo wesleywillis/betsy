@@ -44,6 +44,28 @@ RSpec.describe OrdersController, type: :controller do
     end
   end
 
+  describe "POST checkout" do
+    before :each do
+      order = Order.create(status: "pending")
+      Product.create(name: "magic stuff", price: 10, merchant_id: 1, description: "hi", photo_url: "www.google.com", inventory: 4)
+      @order_item = OrderItem.create(quantity: 1, product_id: 1, order_id: order.id)
+      session[:order_id] = order.id
+    end
+    let(:order_params) do
+      { status: "pending", order_time: Time.now, customer_name: "Minerva McGonagall", customer_email: "minverva@hogwarts.com", street_address: "Hogwarts Castle", zip_code: 12345, state: "Washington", city: "Hogwarts", country: "US"}
+    end
+    it "saves the order billing information" do
+      post :checkout, 
+      expect()
+    end
+  end
+
+  describe "GET estimate" do
+    it "sets the @estimate instance variable" do
+      
+    end
+  end
+
   describe "POST 'confirmation'" do
     let (:good_params) do
       {

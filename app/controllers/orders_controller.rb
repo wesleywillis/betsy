@@ -32,9 +32,8 @@ class OrdersController < ApplicationController
     session[:shipping] = "the address information"
     @order.attributes = order_params
     @order.save
-    # setting this call up for one orderitem
-    merchant = current_order.orderitems.first.merchant
-    origin = [merchant1.country, merchant1.city, merchant1.state, merchat1.zip]
+    merchant1 = current_order.orderitems.first.merchant
+    origin = [merchant1.country, merchant1.city, merchant1.state, merchant1.zip]
     destination = [@order.country, @order.city, @order.state, @order.zip_code]
     packages = []
     @order.orderitem.each do |orderitem|
