@@ -60,6 +60,7 @@ class OrdersController < ApplicationController
       render :checkout
     else
       update_inventory
+      session[:shipping] = nil
       session[:order_id] = nil
     end
   end
