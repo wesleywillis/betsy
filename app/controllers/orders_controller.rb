@@ -25,10 +25,11 @@ class OrdersController < ApplicationController
     @order_items = current_order.order_items
     check_if_quantity_is_available(@order_items)
     @subtotal = subtotal(@order_items)
-    @estimates = [[["UPS Ground", 2396],
-  ["UPS Next Day Air Early A.M.", 18100]],
- [["USPS Library Mail Parcel", 518],
-  ["USPS Priority Mail Express 2-Day", 5805]]]
+    @estimates = session[:estimate]
+ #    example: [[["UPS Ground", 2396],
+ #  ["UPS Next Day Air Early A.M.", 18100]],
+ # [["USPS Library Mail Parcel", 518],
+ #  ["USPS Priority Mail Express 2-Day", 5805]]]
   end
 
   def estimate
@@ -36,16 +37,20 @@ class OrdersController < ApplicationController
     session[:shipping] = "the address information"
     @order.attributes = order_params
     @order.save
-    # merchant1 = current_order.orderitems.first.merchant
-    # origin = [merchant1.country, merchant1.city, merchant1.state, merchant1.zip]
-    # destination = [@order.country, @order.city, @order.state, @order.zip_code]
-    # packages = []
-    # @order.orderitem.each do |orderitem|
-    #   packages.push [orderitem.product.dimension]
-    # end
-    # shipment = {origin: origin, destination: destination, packages: packages}.to_query
-    # session[:estimate] = HTTParty.get("/shipments/quote?=#{shipment}")
-    redirect_to checkout_path
+    origin = Merchant::MERCHANT_ADDRESS
+    destination = { country: 'US', city: @order.city, state: @order.state, zip: @order.zip_code }
+    packages = []
+    current_order.order_items.each do |orderitem|
+      packages.push [orderitem.product.dimensions]
+    end
+    shipment = { origin: origin, destination: destination, packages: packages }.to_query
+    @estimates = HTTParty.get("http://localhost:3001/shipments/quote?=#{shipment}")
+    # redirect_to checkout_path
+    @order = current_order
+    @order_items = current_order.order_items
+    check_if_quantity_is_available(@order_items)
+    @subtotal = subtotal(@order_items)
+    render :checkout
   end
 
   def change_shipping
@@ -66,6 +71,7 @@ class OrdersController < ApplicationController
       update_inventory
       session[:shipping] = nil
       session[:order_id] = nil
+      session[:estimate] = nil
     end
   end
 
