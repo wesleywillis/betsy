@@ -2,8 +2,8 @@ require 'rails_helper'
 
 RSpec.describe ProductsController, type: :controller do
   before :each do
-    @product = Product.create(name: "magic thing", price: 15.0, merchant_id: 1, description: "somethingsomething", photo_url: "stringthing", inventory: 4, retire: false)
-    @product2 = Product.create(name: "magic thing2", price: 15.0, merchant_id: 1, description: "somethingsomething", photo_url: "stringthing", inventory: 5, retire: true)
+    @product = Product.create(name: "magic thing", price: 15.0, merchant_id: 1, description: "somethingsomething", photo_url: "stringthing", inventory: 4, retire: false, dimensions: "30, 40, 50")
+    @product2 = Product.create(name: "magic thing2", price: 15.0, merchant_id: 1, description: "somethingsomething", photo_url: "stringthing", inventory: 5, retire: true, dimensions: "30, 40, 50" )
     @category1 = Category.create(name: "hello")
     @category2 = Category.create(name: "hello again")
   end
@@ -19,7 +19,7 @@ RSpec.describe ProductsController, type: :controller do
 
   let (:badupdate_params1) do
     {
-      product: { name: "magic thing", price: nil },
+      product: { name: "magic thing", price: nil, dimensions: "30, 40, 50" },
     id: @product.id,
     categories: [ 1, 2 ],
   }
@@ -27,7 +27,7 @@ RSpec.describe ProductsController, type: :controller do
 
   let (:badupdate_params2) do
     {
-      product: { inventory: -1 },
+      product: { inventory: -1, dimensions: "30, 40, 50" },
       id: @product.id,
       categories: [ 1, 2 ]
     }
@@ -35,21 +35,21 @@ RSpec.describe ProductsController, type: :controller do
 
   let (:bad_params1) do
     {
-      product: { name: "magic thing" },
+      product: { name: "magic thing", dimensions: "30, 40, 50" },
       categories: [ 1, 2 ]
     }
   end
 
   let (:bad_params2) do
     {
-      product: { inventory: -1},
+      product: { inventory: -1, dimensions: "30, 40, 50"},
       categories: [ 1, 2 ]
     }
   end
 
   let (:good_params) do
     {
-      product:{ name: "bowwow", price: 15.0, description: "hello", inventory: 100, dimensions: "30, 40, 50" },
+      product:{ name: "Wand", price: 50, merchant_id: 1, description: "Core of unicorn tail", photo_url: "http://vignette3.wikia.nocookie.net/harrypotter/images/a/ad/George_Weasley's_wand.jpg/revision/latest?cb=20110503105406", inventory: 100, retire: false, dimensions: "30, 40, 50"  },
       categories: [ 1, 2 ]
     }
 
@@ -241,7 +241,7 @@ RSpec.describe ProductsController, type: :controller do
         expect(subject).to render_template :edit
       end
       it "does not allow merchant to render edit page for another merchant's product" do
-        another_product = Product.create(name: "not mine", price: 15.0, merchant_id: 2, description: "somethingsomething", photo_url: "stringthing", inventory: 4)
+        another_product = Product.create(name: "not mine", price: 15.0, merchant_id: 2, description: "somethingsomething", photo_url: "stringthing", inventory: 4,dimensions: "30, 40, 50" )
         get :edit, merchant_id: another_product.merchant_id, id: another_product.id
         expect(subject).to redirect_to product_path(another_product)
       end
@@ -257,10 +257,10 @@ RSpec.describe ProductsController, type: :controller do
         expect(Product.find(@product.id).attributes).not_to eq @product.attributes
       end
       it "does not allow merchant to edit another merchant's product" do
-        another_product = Product.create(name: "not mine", price: 15.0, merchant_id: 2, description: "somethingsomething", photo_url: "stringthing", inventory: 4)
+        another_product = Product.create(name: "not mine", price: 15.0, merchant_id: 2, description: "somethingsomething", photo_url: "stringthing", inventory: 4,dimensions: "30, 40, 50")
         update_another_merchant_params = {
           product:{
-            name: "Screaming Mandrake", price: 15.0, merchant_id: 2, description: "hello", inventory: 100
+            name: "Screaming Mandrake", price: 15.0, merchant_id: 2, description: "hello", inventory: 100, dimensions: "30, 40, 50"
           },
           id: another_product.id
         }
@@ -288,7 +288,7 @@ RSpec.describe ProductsController, type: :controller do
         expect(Product.all).to_not include(@product)
       end
       it "does not allow merchant to delete another merchants product" do
-        another_product = Product.create(name: "not mine", price: 15.0, merchant_id: 2, description: "somethingsomething", photo_url: "stringthing", inventory: 4)
+        another_product = Product.create(name: "not mine", price: 15.0, merchant_id: 2, description: "somethingsomething", photo_url: "stringthing", inventory: 4, dimensions: "30, 40, 50")
         delete :destroy, id: another_product.id
         expect(Product.all).to include(another_product)
         expect(subject).to redirect_to product_path(another_product)

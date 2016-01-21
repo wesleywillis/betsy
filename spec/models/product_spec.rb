@@ -42,7 +42,7 @@ RSpec.describe Product, type: :model do
       expect(Product.new(name: "a", price: 1, merchant_id: 1, description: "a", photo_url: "http://example.com/picture.jpg", inventory: 0, dimensions: "33, 81, 12")).to be_valid
     end
     it "must have dimensions" do
-      expect(Product.new(name:"Hedwig", price: 1, merchant_id: 1, description:"a", photo_url: "http://example.com/picture.jpg", inventory: 1, dimensions: "33, 81, 12")).to_not be_valid
+      expect(Product.new(name:"Hedwig", price: 1, merchant_id: 1, description:"a", photo_url: "http://example.com/picture.jpg", inventory: 1)).to_not be_valid
     end
   end
 

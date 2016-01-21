@@ -2,15 +2,15 @@ require 'rails_helper'
 
 RSpec.describe OrderItemsController, type: :controller do
   let (:product) do
-    Product.create(name: "test thing1", price: 10, merchant_id: 1, description: "hi", photo_url: "www.google.com", inventory: 4)
+    Product.create(name: "test thing1", price: 10, merchant_id: 1, description: "hi", photo_url: "www.google.com", inventory: 4, dimensions: "30, 40, 50")
   end
 
   let (:product2) do
-    Product.create(name: "test thing2", price: 10, merchant_id: 1, description: "hi", photo_url: "www.google.com", inventory: 1)
+    Product.create(name: "test thing2", price: 10, merchant_id: 1, description: "hi", photo_url: "www.google.com", inventory: 1, dimensions: "30, 40, 50")
   end
 
   let (:product3) do
-    Product.create(name: "test thing3", price: 10, merchant_id: 1, description: "hi", photo_url: "www.google.com", inventory: 0)
+    Product.create(name: "test thing3", price: 10, merchant_id: 1, description: "hi", photo_url: "www.google.com", inventory: 0, dimensions: "30, 40, 50")
   end
 
 
@@ -55,7 +55,7 @@ RSpec.describe OrderItemsController, type: :controller do
     end
 
     it "does not allow quantity of an order item to be greater than the product inventory - inventory 1" do
-      product2 = Product.create(name: "test thing6", price: 10, merchant_id: 1, description: "hi", photo_url: "www.google.com", inventory: 1)
+      product2 = Product.create(name: "test thing6", price: 10, merchant_id: 1, description: "hi", photo_url: "www.google.com", inventory: 1, dimensions: "30, 40, 50")
       params2 =
         {
           order_item:{
@@ -67,7 +67,7 @@ RSpec.describe OrderItemsController, type: :controller do
     end
 
     it "does not allow quantity of an order item to be greater than the product inventory - inventory 0" do
-      product3 = Product.create(name: "test thing7", price: 10, merchant_id: 1, description: "hi", photo_url: "www.google.com", inventory: 0)
+      product3 = Product.create(name: "test thing7", price: 10, merchant_id: 1, description: "hi", photo_url: "www.google.com", inventory: 0, dimensions: "30, 40, 50"  )
       params3 =
         {
           order_item:{
