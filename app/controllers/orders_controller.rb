@@ -25,6 +25,10 @@ class OrdersController < ApplicationController
     @order_items = current_order.order_items
     check_if_quantity_is_available(@order_items)
     @subtotal = subtotal(@order_items)
+    @estimates = [[["UPS Ground", 2396],
+  ["UPS Next Day Air Early A.M.", 18100]],
+ [["USPS Library Mail Parcel", 518],
+  ["USPS Priority Mail Express 2-Day", 5805]]]
   end
 
   def estimate
@@ -36,7 +40,7 @@ class OrdersController < ApplicationController
     # origin = [merchant1.country, merchant1.city, merchant1.state, merchant1.zip]
     # destination = [@order.country, @order.city, @order.state, @order.zip_code]
     # packages = []
-    # @order.orderitem.each do |orderitem| 
+    # @order.orderitem.each do |orderitem|
     #   packages.push [orderitem.product.dimension]
     # end
     # shipment = {origin: origin, destination: destination, packages: packages}.to_query
