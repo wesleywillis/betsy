@@ -2,9 +2,8 @@ class OrdersController < ApplicationController
   require "httparty"
   require 'pry'
 
-  BASE_URI = "http:localhost/3000/rates"
-
   def show
+    shipping_estimate
     id = params[:id]
     @order = Order.find(id)
     if @current_user != nil
@@ -75,8 +74,18 @@ class OrdersController < ApplicationController
     return sum
   end
 
-  def ship
-    HTTParty.get(BASE_URI, :query => ).parsed_response
+# destination = ActiveShipping::Location.new(country: "US", state: "FL", city: "Weston", zip: "33327")
+
+  # curl -H "Content-Type: application/json" -X POST --data '{"origin" : { "city" : "Seattle", "state" : "WA", "zip" : "98133" }, "packages" : { }}' http://localhost:3000/rates
+  def shipping_estimate
+    response = HTTParty.post("http://localhost:3000/rates",
+      :headers => { "Content-Type" => "application/json" },
+      :body => {"destination" => { "country" => "US", "city" => "Seattle", "state" => "WA", "zip" => "98133" }}.to_json
+      )
+  end
+
+  def shipping_info
+
   end
 
   private
