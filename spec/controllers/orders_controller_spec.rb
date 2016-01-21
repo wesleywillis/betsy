@@ -56,7 +56,7 @@ RSpec.describe OrdersController, type: :controller do
       order: {"customer_name"=>"Person", "customer_email"=>"person@person.com", "street_address"=>"jldkfslfds", "city"=>"Seattle", "state"=>"AL", "zip_code"=>"56789"}
     }
     end
-    fit "saves the order billing information" do
+    it "saves the order billing information" do
       post :checkout, order_params
       expect(response).to render_template :checkout
     end

@@ -11,7 +11,7 @@ RSpec.describe ProductsController, type: :controller do
   let (:update_params) do
     {
       product:{
-        name: "Screaming Mandrake", price: 15.0, description: "hello", inventory: 100
+        name: "Screaming Mandrake", price: 15.0, description: "hello", inventory: 100, dimensions: "30, 40, 50"
       },
       id: @product.id,
     }
@@ -49,7 +49,7 @@ RSpec.describe ProductsController, type: :controller do
 
   let (:good_params) do
     {
-      product:{ name: "bowwow", price: 15.0, description: "hello", inventory: 100 },
+      product:{ name: "bowwow", price: 15.0, description: "hello", inventory: 100, dimensions: "30, 40, 50" },
       categories: [ 1, 2 ]
     }
 

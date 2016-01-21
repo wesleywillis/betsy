@@ -6,6 +6,5 @@ class Merchant < ActiveRecord::Base
 
   validates :user_name, presence: true, uniqueness: true, length: { maximum: 25 }
   validates :email, presence: true, uniqueness: true, length: { maximum: 50 }
-  validates_presence_of :city, :state, :country, :zip
 
 end

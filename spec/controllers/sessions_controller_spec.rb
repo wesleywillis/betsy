@@ -12,7 +12,7 @@ RSpec.describe SessionsController, type: :controller do
 
   describe "Merchant is logged in" do
     before :each do
-      @merchant = Merchant.create(user_name: "Ollie", email: "o@diagonalley.com", password: "p", password_confirmation: "p")
+      @merchant = Merchant.create(user_name: "Ollie", email: "o@diagonalley.com", password: "p", password_confirmation: "p", country: "USA", city: "Seattle", state: "WA", zip: "98125")
       session[:merchant_id] = @merchant.id
     end
     describe "GET #new" do
@@ -50,7 +50,7 @@ RSpec.describe SessionsController, type: :controller do
 
   describe "merchant is logged out" do
     before :each do
-      @test_user = Merchant.create(user_name: "Harry Potter", email: "hp@potter.gov", password: "hedwig", password_confirmation: "hedwig")
+      @test_user = Merchant.create(user_name: "Harry Potter", email: "hp@potter.gov", password: "hedwig", password_confirmation: "hedwig", country: "USA", city: "Seattle", state: "WA", zip: "98125")
     end
 
     let (:bad_login_params) do
