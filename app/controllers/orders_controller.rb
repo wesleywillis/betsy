@@ -33,11 +33,15 @@ class OrdersController < ApplicationController
     @order.attributes = order_params
     @order.save
     # setting this call up for one orderitem
-    merchant1 = current_order.orderitems.first.merchant
+    merchant = current_order.orderitems.first.merchant
     origin = [merchant1.country, merchant1.city, merchant1.state, merchat1.zip]
     destination = [@order.country, @order.city, @order.state, @order.zip_code]
     packages = []
-    session[:estimate] = HTTParty.get("/shipments/quote?=")
+    @order.orderitem.each do |orderitem|
+      packages.push [orderitem.product.dimension]
+    end
+    shipment = {origin: origin, destination: destination, packages: packages}.to_query
+    session[:estimate] = HTTParty.get("/shipments/quote?=#{shipment}")
     redirect_to checkout_path
   end
 
