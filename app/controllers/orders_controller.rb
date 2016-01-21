@@ -75,8 +75,8 @@ class OrdersController < ApplicationController
     return sum
   end
 
-  def rates
-    HTTParty.get(BASE_URI?????).parsed_response
+  def ship
+    HTTParty.get(BASE_URI, :query => ).parsed_response
   end
 
   private
