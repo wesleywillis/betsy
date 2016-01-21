@@ -31,6 +31,12 @@ class OrdersController < ApplicationController
     @order = current_order
     session[:shipping] = "a thing"
     @order.attributes = order_params
+    @order.save
+    redirect_to checkout_path
+  end
+
+  def change_shipping
+    session[:shipping] = nil
     redirect_to checkout_path
   end
 
