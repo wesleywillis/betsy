@@ -6,7 +6,7 @@ RSpec.describe Product, type: :model do
       expect(Product.new(name: nil, price: 1, merchant_id: 1, description:"a", photo_url: "http://example.com/picture.jpg", inventory: 1)).to_not be_valid
     end
     it "name must be unique" do
-      product = Product.create(name:"Hedwig", price: 1, merchant_id: 1, description:"a", photo_url: "http://example.com/picture.jpg", inventory: 1)
+      Product.create(name:"Hedwig", price: 1, merchant_id: 1, description:"a", photo_url: "http://example.com/picture.jpg", inventory: 1)
       expect(Product.new(name:"Hedwig", price: 1, merchant_id: 1, description:"a", photo_url: "http://example.com/picture.jpg", inventory: 1)).to_not be_valid
     end
     it "name can have 100 characters" do
@@ -40,6 +40,9 @@ RSpec.describe Product, type: :model do
     it "inventory must must be greater than 0" do
       expect(Product.new(name: "a", price: 1, merchant_id: 1, description: "a", photo_url: "http://example.com/picture.jpg", inventory: -1)).to_not be_valid
       expect(Product.new(name: "a", price: 1, merchant_id: 1, description: "a", photo_url: "http://example.com/picture.jpg", inventory: 0)).to be_valid
+    end
+    it "must have dimensions" do
+      expect(Product.new(name:"Hedwig", price: 1, merchant_id: 1, description:"a", photo_url: "http://example.com/picture.jpg", inventory: 1)).to_not be_valid
     end
   end
 

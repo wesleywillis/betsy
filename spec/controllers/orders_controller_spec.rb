@@ -1,4 +1,5 @@
 require 'rails_helper'
+require 'pry'
 
 RSpec.describe OrdersController, type: :controller do
   describe "GET 'checkout'" do
@@ -46,17 +47,18 @@ RSpec.describe OrdersController, type: :controller do
 
   describe "POST checkout" do
     before :each do
-      order = Order.create(status: "pending")
-      Product.create(name: "magic stuff", price: 10, merchant_id: 1, description: "hi", photo_url: "www.google.com", inventory: 4)
-      @order_item = OrderItem.create(quantity: 1, product_id: 1, order_id: order.id)
-      session[:order_id] = order.id
+      order1 = Order.create(status: "pending")
+      product = Product.create(name: "magic stuff", price: 10, merchant_id: 1, description: "hi", photo_url: "www.google.com", inventory: 4)
+      @order_item = OrderItem.create(quantity: 1, product_id: product.id, order_id: order1.id)
+      session[:order_id] = order1.id
     end
-    let(:order_params) do
-      { status: "pending", order_time: Time.now, customer_name: "Minerva McGonagall", customer_email: "minverva@hogwarts.com", street_address: "Hogwarts Castle", zip_code: 12345, state: "Washington", city: "Hogwarts", country: "US"}
+    let(:order_params) do {
+      order: {"customer_name"=>"Person", "customer_email"=>"person@person.com", "street_address"=>"jldkfslfds", "city"=>"Seattle", "state"=>"AL", "zip_code"=>"56789"}
+    }
     end
-    it "saves the order billing information" do
-      post :checkout, 
-      expect()
+    fit "saves the order billing information" do
+      post :checkout, order_params
+      expect(response).to render_template :checkout
     end
   end
 
