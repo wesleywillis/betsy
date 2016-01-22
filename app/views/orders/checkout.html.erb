@@ -79,13 +79,17 @@
     <div class="col-md-6 text-center">
       <h2>Select a Shipping Option</h2>
       <div class="col-md-offset-3 shipping-options">
-        <%= form_for @order, :url => "/confirmation", :html => { :method => :post } do |f| %>
-        <% @estimates.each do |carrier| %>
-          <% carrier.each do |estimate| %>
-              <%= radio_button_tag(:estimate, "#{estimate[0]}, #{estimate[1]}") %>
-              <%= label_tag(:estimate, "#{estimate[0]}: #{number_to_currency(estimate[1]/100)}") %>
-              <br>
+        <% if @estimate %>
+          <%= form_for @order, :url => "/confirmation", :html => { :method => :post } do |f| %>
+          <% @estimates.each do |carrier| %>
+            <% carrier.each do |estimate| %>
+                <%= radio_button_tag(:estimate, "#{estimate[0]}, #{estimate[1]}") %>
+                <%= label_tag(:estimate, "#{estimate[0]}: #{number_to_currency(estimate[1]/100)}") %>
+                <br>
+            <% end %>
           <% end %>
+        <% else %>
+          Something went wrong, there are no estimates.
         <% end %>
       </div>
     </div>
