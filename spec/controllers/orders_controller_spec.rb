@@ -134,18 +134,26 @@ RSpec.describe OrdersController, type: :controller do
     end
   end
 
-  describe "POST estimate", :vcr do
+  describe "POST estimate" do
     let (:good_params) do
       {
         order:{
-          customer_name: "Minerva McGonagall", customer_email: "miverva@hogwarts.com", street_address: "Hogwarts Castle", zip_code: 98105, state: "Washington", city: "Seattle", country: "US"
+          customer_name: "Minerva McGonagall", customer_email: "miverva@hogwarts.com", street_address: "Hogwarts Castle", zip_code: "98105", state: "Washington", city: "Seattle", country: "US"
         },
       }
     end
-      let (:bad_params) do
+      let (:bad_address_params) do
         {
           order:{
-            customer_name: "Minerva McGonagall", customer_email: "miverva@hogwarts.com", street_address: "Hogwarts Castle", zip_code: 98105, state: "Washington", city: "Seattle", country: "US"
+            customer_name: "Minerva McGonagall", customer_email: "miverva@hogwarts.com", street_address: "Hogwarts Castle", zip_code: "98105", state: "Alabama", city: "Seattle", country: "US"
+          },
+
+        }
+    end
+      let (:bad_content_params) do
+        {
+          order:{
+            customer_name: "Minerva McGonagall", customer_email: "miverva@hogwarts.com", street_address: "Hogwarts Castle", zip_code: "98105", state: "Washington", country: "US"
           },
 
         }
@@ -159,6 +167,25 @@ RSpec.describe OrdersController, type: :controller do
       it "renders checkout template" do
         post :estimate, good_params
         expect(subject).to redirect_to checkout_path
+      end
+      it "sets the @estimates instance variable" do
+        post :estimate, good_params
+        expect(assigns(:estimates)).to be_truthy
+      end
+      it "sets the @subtotal instance variable" do
+        post :estimate, good_params
+        expect(assigns(:subtotal)).to be_truthy
+        expect(assigns(:subtotal)).to be_a(Integer)
+      end
+    end
+    context "when not successful" do
+      it "returns an error if submission info is incorrect" do
+        post :estimate, bad_content_params
+        expect(flash[:error]).to include("Shipping cannot be determined for this address. Please check the address and try again.")
+      end
+      it "returns an error if submission info is incomplete" do
+        post :estimate, bad_address_params
+        expect(flash[:error]).to include("Shipping cannot be determined for this address. Please check the address and try again.")
       end
     end
 

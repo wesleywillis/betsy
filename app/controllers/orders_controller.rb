@@ -51,15 +51,11 @@ class OrdersController < ApplicationController
           :headers => { 'Content-Type' => 'application/json' } )
       }
 
-      if response.code == 400
-        session[:shipping] = nil
-        flash[:error] = "Bad info, yo."
-        redirect_to checkout_path
-      elsif response.code == 500
+      if response.code == 500
         flash[:error] = "Shipping cannot be determined for this address. Please check the address and try again."
         session[:shipping] = nil
         redirect_to checkout_path
-      elsif response.code == 200
+      else
         @order = current_order
         @order_items = current_order.order_items
         check_if_quantity_is_available(@order_items)
