@@ -76,6 +76,9 @@ class OrdersController < ApplicationController
     @order.attributes = order_params
     @order.card_number = params[:order][:card_number].last(4)
     @subtotal = subtotal(@order.order_items)
+    @shipping_info = params[:estimate].split(",")
+    @total_cost = @subtotal + @shipping_info[1].to_i/100
+    binding.pry
     @order.order_time = Time.now
     if !@order.save
       render :checkout
