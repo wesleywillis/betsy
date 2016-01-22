@@ -10,16 +10,16 @@
       <div class="col-md-6 text-center">
         <h3>UPS</h3>
         <% @ups.each do |option| %>
-          <%= f.radio_button :carrier_name, option[0] %> <%= option[0] %> : <%= f.hidden_field :shipping_price, :value => option[1] %>$<%= option[1]/100.0 %><br><br>
+          <%= f.radio_button :carrier_name, option[0] %> <%= option[0] %> : <%= hidden_field_tag 'shipping_price', option[1] %>$<%= option[1]/100.00 %><br><br>
         <% end %>
       </div>
       <div class="col-md-6 text-center">
         <h3>USPS</h3>
         <% @usps.each do |option| %>
-          <%= f.radio_button :carrier_name, option[0] %> <%= option[0] %> : <%= f.hidden_field :shipping_price, :value => option[1] %>$<%= option[1]/100.0 %><br><br>
+          <%= f.radio_button :carrier_name, option[0] %> <%= option[0] %> : <%= f.hidden_field :shipping_price, :value => option[1] %>$<%= option[1]/100.00 %><br><br>
         <% end %>
       </div>
-      <%= f.submit "Continue", :action => "confirm_order", class: "btn black-button margin-top margin-bottom" %>
+      <%= f.submit "Continue", class: "btn black-button margin-top margin-bottom" %>
     <% end %>
   </div>
 </div>

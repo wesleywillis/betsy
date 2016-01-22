@@ -29,24 +29,11 @@ class OrdersController < ApplicationController
     @subtotal = subtotal(@order_items)
   end
 
-  def confirmation
-    @order = current_order
-    @order.status = "paid"
-    @order.attributes = order_params
-    @order.card_number = params[:order][:card_number].last(4)
-    @subtotal = subtotal(@order.order_items)
-    @order.order_time = Time.now
-    if !@order.save
-      render :checkout
-    else
-      update_inventory
-      session[:order_id] = nil
-    end
-  end
-
   # curl -H "Content-Type: application/json" -X POST --data '{"origin" : { "city" : "Seattle", "state" : "WA", "zip" : "98133" }, "packages" : { }}' http://localhost:3000/rates
   def shipping_estimate
     @order = current_order
+    @order.attributes = order_params
+    @order.save
     @order_items = current_order.order_items
     @subtotal = subtotal(@order_items)
     response = HTTParty.post("http://localhost:3000/rates",
@@ -60,8 +47,24 @@ class OrdersController < ApplicationController
 
   def confirm_order
     @order = current_order
+    @order.attributes = order_params
+    @order.save
     @order_items = current_order.order_items
     @subtotal = subtotal(@order_items)
+  end
+
+  def confirmation
+    @order = current_order
+    @order.status = "paid"
+    @order.card_number = @order.card_number.to_s.split(//).last(4).join
+    @subtotal = subtotal(@order.order_items)
+    @order.order_time = Time.now
+    if !@order.save
+      render :checkout
+    else
+      update_inventory
+      session[:order_id] = nil
+    end
   end
 
   def check_if_quantity_is_available(order_items)
@@ -92,7 +95,7 @@ class OrdersController < ApplicationController
       sum += order_item.quantity * order_item.product.price
     end
     if @order.shipping_price
-      sum += @order.shipping_price
+      sum += @order.shipping_price/100.0
     end
     #add in shipping cost
     return sum
@@ -102,7 +105,7 @@ class OrdersController < ApplicationController
 
   def order_params
     params.require(:order).permit(:customer_name, :customer_email, :customer_card_exp_month, :security_code,
-    :customer_card_exp_year, :street_address, :zip_code, :state, :city, :name_on_card, :billing_zip_code, :carrier_name, :shipping_price)
+    :customer_card_exp_year, :card_number, :street_address, :zip_code, :state, :city, :name_on_card, :billing_zip_code, :carrier_name, :shipping_price)
   end
 
 end
