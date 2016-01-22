@@ -50,7 +50,11 @@ class OrdersController < ApplicationController
       if response.code == 400
         # code to handle error message
         session[:shipping] = nil
-        flash[:error] = response[0]
+        flash[:error] = "Bad info, yo."
+        redirect_to checkout_path
+      elsif response.code == 500
+        flash[:error] = "Shipping cannot be determined for this address. Please check the address and try again."
+        session[:shipping] = nil
         redirect_to checkout_path
       else
         @order = current_order
@@ -58,9 +62,6 @@ class OrdersController < ApplicationController
         check_if_quantity_is_available(@order_items)
         @subtotal = subtotal(@order_items)
         @estimates = response
-        if @estimates.code == 500
-          @error = "Shipping cannot be determined for this address. Please check the address and try again."
-        end
         render :checkout
       end
   end
