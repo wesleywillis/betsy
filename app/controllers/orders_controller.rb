@@ -42,7 +42,7 @@ class OrdersController < ApplicationController
       packages.push({weight: orderitem.product.weight, dimensions: orderitem.product.dimensions})
     end
 
-    response = Timeout::timeout(1) {
+    response = Timeout::timeout(5) {
       HTTParty.get("http://localhost:3001/shipments/quote",
           :body => { :origin => origin,
                      :destination => destination,
@@ -69,7 +69,7 @@ class OrdersController < ApplicationController
       end
 
     rescue Timeout::Error
-      binding.pry
+      flash[:error] = "Response on shipping estimates timed out. Please try again."
       redirect_to checkout_path
   end
 
