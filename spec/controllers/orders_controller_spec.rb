@@ -134,21 +134,26 @@ RSpec.describe OrdersController, type: :controller do
     end
   end
 
-  describe "POST estimate" do
+  describe "POST estimate", :vcr do
     let (:good_params) do
       {
         order:{
-          customer_name: "Minerva McGonagall", customer_email: "miverva@hogwarts.com", street_address: "Hogwarts Castle", zip_code: 12345, state: "Washington", city: "Hogwarts", card_number: 1234567812345678, customer_card_exp_month: 10, customer_card_exp_year: 2018, security_code: 123, name_on_card: "Minerva McGonagall", billing_zip_code: 12345
+          customer_name: "Minerva McGonagall", customer_email: "miverva@hogwarts.com", street_address: "Hogwarts Castle", zip_code: 98105, state: "Washington", city: "Seattle", country: "US"
         },
       }
     end
       let (:bad_params) do
         {
           order:{
-            customer_name: "Minerva McGonagall", customer_email: "miverva@hogwarts.com", street_address: "Hogwarts Castle", zip_code: 12345, state: "Washington", city: "Hogwarts", card_number: 1234567812345678, customer_card_exp_month: 10, customer_card_exp_year: 2018, security_code: 123, name_on_card: "Minerva McGonagall", billing_zip_code: 12345
+            customer_name: "Minerva McGonagall", customer_email: "miverva@hogwarts.com", street_address: "Hogwarts Castle", zip_code: 98105, state: "Washington", city: "Seattle", country: "US"
           },
 
         }
+    end
+    it "sets session[:shipping] to nil" do
+      session[:shipping] = true
+      post :estimate, good_params
+      expect(session[:shipping]).to be_falsey
     end
     context "when successful" do
       it "renders checkout template" do
@@ -156,5 +161,6 @@ RSpec.describe OrdersController, type: :controller do
         expect(subject).to redirect_to checkout_path
       end
     end
+
   end
 end
