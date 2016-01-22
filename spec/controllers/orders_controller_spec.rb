@@ -133,4 +133,28 @@ RSpec.describe OrdersController, type: :controller do
       end
     end
   end
+
+  describe "POST estimate" do
+    let (:good_params) do
+      {
+        order:{
+          customer_name: "Minerva McGonagall", customer_email: "miverva@hogwarts.com", street_address: "Hogwarts Castle", zip_code: 12345, state: "Washington", city: "Hogwarts", card_number: 1234567812345678, customer_card_exp_month: 10, customer_card_exp_year: 2018, security_code: 123, name_on_card: "Minerva McGonagall", billing_zip_code: 12345
+        },
+      }
+    end
+      let (:bad_params) do
+        {
+          order:{
+            customer_name: "Minerva McGonagall", customer_email: "miverva@hogwarts.com", street_address: "Hogwarts Castle", zip_code: 12345, state: "Washington", city: "Hogwarts", card_number: 1234567812345678, customer_card_exp_month: 10, customer_card_exp_year: 2018, security_code: 123, name_on_card: "Minerva McGonagall", billing_zip_code: 12345
+          },
+
+        }
+    end
+    context "when successful" do
+      it "renders checkout template" do
+        post :estimate, good_params
+        expect(subject).to render_template :checkout
+      end
+    end
+  end
 end
