@@ -36,16 +36,19 @@ class OrdersController < ApplicationController
     @order.card_number = params[:order][:card_number].last(4)
     @subtotal = subtotal(@order.order_items)
     @order.order_time = Time.now
+    @order.save
     redirect_to :shipping_estimate
   end
 
   # curl -H "Content-Type: application/json" -X POST --data '{"origin" : { "city" : "Seattle", "state" : "WA", "zip" : "98133" }, "packages" : { }}' http://localhost:3000/rates
   def shipping_estimate
+    @order = current_order
     @order_items = current_order.order_items
     @subtotal = subtotal(@order_items)
     response = HTTParty.post("http://localhost:3000/rates",
       :headers => { "Content-Type" => "application/json" },
-      :body => {"destination" => { "country" => "US", "city" => "Seattle", "state" => "WA", "zip" => "98133" }}.to_json
+      #TODO: not hardcode in US destinations?
+      :body => {"destination" => { "country" => "US", "city" => "#{@order.city}", "state" => "#{@order.state}", "zip" => "#{@order.zip_code}" }}.to_json
       )
       @ups = response["ups"]
       @usps = response["usps"]
@@ -90,6 +93,7 @@ class OrdersController < ApplicationController
     order_items.each do |order_item|
       sum += order_item.quantity * order_item.product.price
     end
+    #add in shipping cost
     return sum
   end
 
