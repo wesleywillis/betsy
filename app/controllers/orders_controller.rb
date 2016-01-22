@@ -41,11 +41,16 @@ class OrdersController < ApplicationController
     destination = { country: 'US', city: @order.city, state: @order.state, zip: @order.zip_code }
     packages = []
     current_order.order_items.each do |orderitem|
-      packages.push [orderitem.product.dimensions]
+      packages.push [orderitem.product.weight, orderitem.product.dimensions]
     end
-    shipment = { origin: origin, destination: destination, packages: packages }.to_query
-    response = HTTParty.get("http://localhost:3001/shipments/quote?=#{shipment}")
-    # binding.pry
+
+    response = HTTParty.get("http://localhost:3001/shipments/quote",
+        :body => { :origin => origin,
+                   :destination => destination,
+                   :packages => packages,
+                 }.to_json,
+        :headers => { 'Content-Type' => 'application/json' } )
+
     if response.code == 400
       # code to handle error message
       session[:shipping] = nil
