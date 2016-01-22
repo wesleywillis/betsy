@@ -1,4 +1,6 @@
 class OrdersController < ApplicationController
+  require 'timeout'
+
   def show
     id = params[:id]
     @order = Order.find(id)
@@ -39,30 +41,29 @@ class OrdersController < ApplicationController
     current_order.order_items.each do |orderitem|
       packages.push({weight: orderitem.product.weight, dimensions: orderitem.product.dimensions})
     end
-
-    response = HTTParty.get("http://localhost:3001/shipments/quote",
-        :body => { :origin => origin,
-                   :destination => destination,
-                   :packages => packages,
-                 }.to_json,
-        :headers => { 'Content-Type' => 'application/json' } )
-
-    if response.code == 400
-      # code to handle error message
-      session[:shipping] = nil
-      flash[:error] = response[0]
-      redirect_to checkout_path
-    else
-      @order = current_order
-      @order_items = current_order.order_items
-      check_if_quantity_is_available(@order_items)
-      @subtotal = subtotal(@order_items)
-      @estimates = response
-
-      render :checkout
-    end
-
-
+      response = HTTParty.get("http://localhost:3001/shipments/quote",
+          :body => { :origin => origin,
+                     :destination => destination,
+                     :packages => packages,
+                   }.to_json,
+          :headers => { 'Content-Type' => 'application/json' } )
+      if response.code == 400
+        # code to handle error message
+        session[:shipping] = nil
+        flash[:error] = "Bad info, yo."
+        redirect_to checkout_path
+      elsif response.code == 500
+        flash[:error] = "Shipping cannot be determined for this address. Please check the address and try again."
+        session[:shipping] = nil
+        redirect_to checkout_path
+      else
+        @order = current_order
+        @order_items = current_order.order_items
+        check_if_quantity_is_available(@order_items)
+        @subtotal = subtotal(@order_items)
+        @estimates = response
+        render :checkout
+      end
   end
 
   def change_shipping

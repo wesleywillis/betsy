@@ -76,10 +76,15 @@
       <%= link_to "Change Shipping Information", change_shipping_path %>
     </div>
 
+<% if @error %>
+<div class="col-md-6 text-center">
+  <%= @error %>
+</div>
+<% else %>
+  <% if @estimates %>
     <div class="col-md-6 text-center">
       <h2>Select a Shipping Option</h2>
       <div class="col-md-offset-3 shipping-options">
-        <% if @estimates %>
           <%= form_for @order, :url => "/confirmation", :html => { :method => :post } do |f| %>
             <% @estimates.each do |carrier| %>
               <% carrier.each do |estimate| %>
@@ -123,7 +128,9 @@
             <%= f.submit "Submit Order", :action => "confirmation", class: "btn black-button margin-top margin-bottom" %>
           </div>
         <% end %>
+        <% else %>
+          Something went wrong, there are no estimates.
+        <% end %>
       <% end %>
-    <% else %>
-      Something went wrong, there are no estimates.
-    <% end %>
+<% end %>
+
