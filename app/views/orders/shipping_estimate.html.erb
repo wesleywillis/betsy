@@ -2,4 +2,24 @@
   <div class="col-md-12 text-center">
     <h1>Choose a Shipping Method</h1>
   </div>
+  <div>
+    <p>
+      Your current total is $<%= @subtotal %>
+    </p>
+    <p>
+      Please pick a shipping method
+    </p>
+  </div>
+  <div class="col-md-6 text-center">
+    <h3>UPS</h3>
+    <% @ups.each do |option| %>
+      <li> <%= option[0] %> : $<%= option[1]/100.0 %></li>
+    <% end %>
+  </div>
+  <div class="col-md-6 text-center">
+    <h3>USPS</h3>
+    <% @usps.each do |option| %>
+      <li> <%= option[0] %> : $<%= option[1]/100.0 %></li>
+    <% end %>
+  </div>
 </div>

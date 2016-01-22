@@ -31,11 +31,31 @@ class OrdersController < ApplicationController
 
   def confirmation
     @order = current_order
-    @order.status = "paid"
+    # @order.status = "paid"
     @order.attributes = order_params
     @order.card_number = params[:order][:card_number].last(4)
     @subtotal = subtotal(@order.order_items)
     @order.order_time = Time.now
+    redirect_to :shipping_estimate
+  end
+
+  # curl -H "Content-Type: application/json" -X POST --data '{"origin" : { "city" : "Seattle", "state" : "WA", "zip" : "98133" }, "packages" : { }}' http://localhost:3000/rates
+  def shipping_estimate
+    @order_items = current_order.order_items
+    @subtotal = subtotal(@order_items)
+    response = HTTParty.post("http://localhost:3000/rates",
+      :headers => { "Content-Type" => "application/json" },
+      :body => {"destination" => { "country" => "US", "city" => "Seattle", "state" => "WA", "zip" => "98133" }}.to_json
+      )
+      @ups = response["ups"]
+      @usps = response["usps"]
+  end
+
+  def shipping_info
+
+  end
+
+  def final_confirmation
     if !@order.save
       render :checkout
     else
@@ -71,20 +91,6 @@ class OrdersController < ApplicationController
       sum += order_item.quantity * order_item.product.price
     end
     return sum
-  end
-
-# destination = ActiveShipping::Location.new(country: "US", state: "FL", city: "Weston", zip: "33327")
-
-  # curl -H "Content-Type: application/json" -X POST --data '{"origin" : { "city" : "Seattle", "state" : "WA", "zip" : "98133" }, "packages" : { }}' http://localhost:3000/rates
-  def shipping_estimate
-    response = HTTParty.post("http://localhost:3000/rates",
-      :headers => { "Content-Type" => "application/json" },
-      :body => {"destination" => { "country" => "US", "city" => "Seattle", "state" => "WA", "zip" => "98133" }}.to_json
-      )
-  end
-
-  def shipping_info
-
   end
 
   private
