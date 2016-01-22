@@ -48,7 +48,7 @@ RSpec.describe OrdersController, type: :controller do
     let (:good_params) do
       {
         order:{
-          customer_name: "Minerva McGonagall", customer_email: "miverva@hogwarts.com", street_address: "Hogwarts Castle", zip_code: 12345, state: "Washington", city: "Hogwarts", card_number: 1234567812345678, customer_card_exp_month: 10, customer_card_exp_year: 2018, security_code: 123, name_on_card: "Minerva McGonagall", billing_zip_code: 12345
+          customer_name: "Minerva McGonagall", customer_email: "miverva@hogwarts.com", street_address: "Hogwarts Castle", zip_code: 12345, state: "Washington", city: "Hogwarts", card_number: 3333, customer_card_exp_month: 10, customer_card_exp_year: 2018, security_code: 123, name_on_card: "Minerva McGonagall", billing_zip_code: 12345
         }
       }
     end
@@ -81,6 +81,34 @@ RSpec.describe OrdersController, type: :controller do
     it "updates inventory if validations pass" do
       post :confirmation, good_params
       expect(@order_item.product.inventory).to eq 3
+    end
+  end
+
+  describe "POST 'confirm_order'" do
+    let (:good_params) do
+      {
+        order:{
+          customer_name: "Minerva McGonagall", customer_email: "miverva@hogwarts.com", street_address: "Hogwarts Castle", zip_code: 12345, state: "Washington", city: "Hogwarts", card_number: 3333, customer_card_exp_month: 10, customer_card_exp_year: 2018, security_code: 123, name_on_card: "Minerva McGonagall", billing_zip_code: 12345, carrier_name: "UPS", shipping_price: 300
+        }
+      }
+    end
+    it "renders the confirm_order template" do
+      post :confirm_order, good_params
+      expect(response).to render_template :confirm_order
+    end
+  end
+
+  describe "GET" 'shipping_estimate' do
+    let (:good_params) do
+      {
+        order:{
+          customer_name: "Minerva McGonagall", customer_email: "miverva@hogwarts.com", street_address: "Hogwarts Castle", zip_code: 12345, state: "Washington", city: "Hogwarts", card_number: 3333, customer_card_exp_month: 10, customer_card_exp_year: 2018, security_code: 123, name_on_card: "Minerva McGonagall", billing_zip_code: 12345
+        }
+      }
+    end
+    it "renders the shipping_estimate template" do
+      get :shipping_estimate, good_params
+      expect(response).to render_template :shipping_estimate
     end
   end
 
