@@ -79,7 +79,7 @@
     <div class="col-md-6 text-center">
       <h2>Select a Shipping Option</h2>
       <div class="col-md-offset-3 shipping-options">
-        <% if @estimate %>
+        <% if @estimates %>
           <%= form_for @order, :url => "/confirmation", :html => { :method => :post } do |f| %>
             <% @estimates.each do |carrier| %>
               <% carrier.each do |estimate| %>
@@ -127,4 +127,3 @@
     <% else %>
       Something went wrong, there are no estimates.
     <% end %>
-
