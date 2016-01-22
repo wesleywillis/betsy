@@ -12,6 +12,10 @@ class Order < ActiveRecord::Base
   validates :customer_card_exp_year, presence: true, numericality: { greater_than: 0 }, on: :update, if: :paid?
   validates :billing_zip_code, presence: true, length: {minimum: 5 }, on: :update, if: :paid?
   validates :security_code, presence: true, length: {minimum: 3 }, on: :update, if: :paid?
+  validates :subtotal, presence: true, on: :update, if: :paid?
+  validates :shipping_cost, presence: true, on: :update, if: :paid?
+  validates :total_cost, presence: true, on: :update, if: :paid?
+  validates :shipping_method, presence: true, on: :update, if: :paid?
   #validate :expiration_date_cannot_be_in_the_past
 
   #this validation ruined all our specs and we can't tell why. Leaving this in to ask Charles why it had that effect
