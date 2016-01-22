@@ -153,7 +153,7 @@ RSpec.describe OrdersController, type: :controller do
     context "when successful" do
       it "renders checkout template" do
         post :estimate, good_params
-        expect(subject).to render_template :checkout
+        expect(subject).to redirect_to checkout_path
       end
     end
   end
