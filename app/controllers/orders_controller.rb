@@ -58,8 +58,8 @@ class OrdersController < ApplicationController
         check_if_quantity_is_available(@order_items)
         @subtotal = subtotal(@order_items)
         @estimates = response
-        if @estimates.include?("Failure")
-          @error = "This is an error."
+        if @estimates.code == 500
+          @error = "Shipping cannot be determined for this address. Please check the address and try again."
         end
         render :checkout
       end
