@@ -3,7 +3,6 @@ class OrdersController < ApplicationController
   require 'pry'
 
   def show
-    shipping_estimate
     id = params[:id]
     @order = Order.find(id)
     if @current_user != nil
