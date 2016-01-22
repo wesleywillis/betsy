@@ -27,11 +27,12 @@ class OrdersController < ApplicationController
     @order_items = current_order.order_items
     check_if_quantity_is_available(@order_items)
     @subtotal = subtotal(@order_items)
+    session[:shipping] = nil
   end
 
   def estimate
     @order = current_order
-    session[:shipping] = "the address information"
+    session[:shipping] = true
     @order.attributes = order_params
     @order.save
     origin = Merchant::MERCHANT_ADDRESS
