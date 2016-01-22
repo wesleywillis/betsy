@@ -27,7 +27,6 @@ class OrdersController < ApplicationController
     @order_items = current_order.order_items
     check_if_quantity_is_available(@order_items)
     @subtotal = subtotal(@order_items)
-    @estimates = session[:estimate]
   end
 
   def estimate
@@ -41,14 +40,17 @@ class OrdersController < ApplicationController
     current_order.order_items.each do |orderitem|
       packages.push({weight: orderitem.product.weight, dimensions: orderitem.product.dimensions})
     end
-      response = HTTParty.get("http://localhost:3001/shipments/quote",
+
+    response = Timeout::timeout(1) {
+      HTTParty.get("http://localhost:3001/shipments/quote",
           :body => { :origin => origin,
                      :destination => destination,
                      :packages => packages,
                    }.to_json,
           :headers => { 'Content-Type' => 'application/json' } )
+      }
+
       if response.code == 400
-        # code to handle error message
         session[:shipping] = nil
         flash[:error] = "Bad info, yo."
         redirect_to checkout_path
@@ -56,7 +58,7 @@ class OrdersController < ApplicationController
         flash[:error] = "Shipping cannot be determined for this address. Please check the address and try again."
         session[:shipping] = nil
         redirect_to checkout_path
-      else
+      elsif response.code == 200
         @order = current_order
         @order_items = current_order.order_items
         check_if_quantity_is_available(@order_items)
@@ -64,6 +66,10 @@ class OrdersController < ApplicationController
         @estimates = response
         render :checkout
       end
+
+    rescue Timeout::Error
+      binding.pry
+      redirect_to checkout_path
   end
 
   def change_shipping
