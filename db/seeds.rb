@@ -22,14 +22,14 @@ seed_categories.each do |seed|
 end
 
 seed_merchants = [
-  { user_name: "Ollivanders", email: "ollie@diagonalley.com", password: "p", password_confirmation: "p" },
-  { user_name: "George Weasley", email: "RIPfred@diagonalley.com", password: "p", password_confirmation: "p" },
-  { user_name: "Flourish and Blotts", email: "booksandwands@diagonalley.com", password: "p", password_confirmation: "p" },
-  { user_name: "Borgin and Burkes", email: "antiques@knockturnalley.com", password: "p", password_confirmation: "p" },
-  { user_name: "Honeydukes", email: "sweets@hogsmeade.com", password: "p", password_confirmation: "p" },
-  { user_name: "Quality Quidditch Goods", email: "quidditch@diagonalley.com", password: "p", password_confirmation: "p" },
-  { user_name: "Magical Menagerie", email: "animals@diagonalley.com", password: "p", password_confirmation: "p" },
-  { user_name: "Madam Malkin's", email: "robes@diagonalley.com", password: "p", password_confirmation: "p" }
+  { user_name: "Ollivanders", email: "ollie@diagonalley.com", password: "p", password_confirmation: "p", city: "University Place", state: "WA", zip: "98466", country: "US"},
+  { user_name: "George Weasley", email: "RIPfred@diagonalley.com", password: "p", password_confirmation: "p", city: "Seattle", state: "WA", zip: "98104", country: "US" },
+  { user_name: "Flourish and Blotts", email: "booksandwands@diagonalley.com", password: "p", password_confirmation: "p", city: "Gig Harbor", state: "WA", zip: "98335", country: "US" },
+  { user_name: "Borgin and Burkes", email: "antiques@knockturnalley.com", password: "p", password_confirmation: "p", city: "Richmond", state: "IN", zip: "47374", country: "US" },
+  { user_name: "Honeydukes", email: "sweets@hogsmeade.com", password: "p", password_confirmation: "p", city: "Chicago", state: "IL", zip: "60607", country: "US"},
+  { user_name: "Quality Quidditch Goods", email: "quidditch@diagonalley.com", password: "p", password_confirmation: "p", city: "Atlanta", state: "GA", zip: "30307", country: "US" },
+  { user_name: "Magical Menagerie", email: "animals@diagonalley.com", password: "p", password_confirmation: "p", city: "Oxford", state: "OH", zip: "45056", country: "US" },
+  { user_name: "Madam Malkin's", email: "robes@diagonalley.com", password: "p", password_confirmation: "p", city: "Oxnard", state: "CA", zip: "93030", country: "US" }
 ]
 
 seed_merchants.each do |seed|

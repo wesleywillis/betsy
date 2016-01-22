@@ -7,7 +7,7 @@ class Order < ActiveRecord::Base
   validates :city, presence: true, on: :update, if: :paid?
   validates :zip_code, presence: true, length: {minimum: 5 }, on: :update, if: :paid?
   validates :name_on_card, presence: true, on: :update, if: :paid?
-  validates :card_number, presence: true, on: :update, if: :paid?
+  # validates :card_number, presence: true, on: :update, if: :paid?
   validates :customer_card_exp_month, presence: true, numericality: { greater_than: 0 }, on: :update, if: :paid?
   validates :customer_card_exp_year, presence: true, numericality: { greater_than: 0 }, on: :update, if: :paid?
   validates :billing_zip_code, presence: true, length: {minimum: 5 }, on: :update, if: :paid?

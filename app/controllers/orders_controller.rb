@@ -1,4 +1,7 @@
 class OrdersController < ApplicationController
+  require "httparty"
+  require 'pry'
+
   def show
     id = params[:id]
     @order = Order.find(id)
@@ -26,11 +29,34 @@ class OrdersController < ApplicationController
     @subtotal = subtotal(@order_items)
   end
 
+  # curl -H "Content-Type: application/json" -X POST --data '{"origin" : { "city" : "Seattle", "state" : "WA", "zip" : "98133" }, "packages" : { }}' http://localhost:3000/rates
+  def shipping_estimate
+    @order = current_order
+    @order.attributes = order_params
+    @order.save
+    @order_items = current_order.order_items
+    @subtotal = subtotal(@order_items)
+    response = HTTParty.post("http://localhost:3000/rates",
+      :headers => { "Content-Type" => "application/json" },
+      #TODO: not hardcode in US destinations?
+      :body => {"destination" => { "country" => "US", "city" => "#{@order.city}", "state" => "#{@order.state}", "zip" => "#{@order.zip_code}" }}.to_json
+      )
+      @ups = response["ups"]
+      @usps = response["usps"]
+  end
+
+  def confirm_order
+    @order = current_order
+    @order.attributes = order_params
+    @order.save
+    @order_items = current_order.order_items
+    @subtotal = subtotal(@order_items)
+  end
+
   def confirmation
     @order = current_order
     @order.status = "paid"
-    @order.attributes = order_params
-    @order.card_number = params[:order][:card_number].last(4)
+    @order.card_number = @order.card_number.to_s.split(//).last(4).join
     @subtotal = subtotal(@order.order_items)
     @order.order_time = Time.now
     if !@order.save
@@ -63,10 +89,15 @@ class OrdersController < ApplicationController
   end
 
   def subtotal(order_items)
+    @order = current_order
     sum = 0
     order_items.each do |order_item|
       sum += order_item.quantity * order_item.product.price
     end
+    if @order.shipping_price
+      sum += @order.shipping_price/100.0
+    end
+    #add in shipping cost
     return sum
   end
 
@@ -74,7 +105,7 @@ class OrdersController < ApplicationController
 
   def order_params
     params.require(:order).permit(:customer_name, :customer_email, :customer_card_exp_month, :security_code,
-    :customer_card_exp_year, :street_address, :zip_code, :state, :city, :name_on_card, :billing_zip_code)
+    :customer_card_exp_year, :card_number, :street_address, :zip_code, :state, :city, :name_on_card, :billing_zip_code, :carrier_name, :shipping_price)
   end
 
 end
