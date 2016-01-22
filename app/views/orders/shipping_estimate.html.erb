@@ -1,25 +1,25 @@
 <div class="row">
   <div class="col-md-12 text-center">
-    <h1>Choose a Shipping Method</h1>
-  </div>
-  <div>
-    <p>
-      Your current total is $<%= @subtotal %>
-    </p>
-    <p>
-      Please pick a shipping method
-    </p>
-  </div>
-  <div class="col-md-6 text-center">
-    <h3>UPS</h3>
-    <% @ups.each do |option| %>
-      <li> <%= option[0] %> : $<%= option[1]/100.0 %></li>
-    <% end %>
-  </div>
-  <div class="col-md-6 text-center">
-    <h3>USPS</h3>
-    <% @usps.each do |option| %>
-      <li> <%= option[0] %> : $<%= option[1]/100.0 %></li>
+    <h3>Your current total is $<%= @subtotal %></h3>
+    <%= form_for @order, :url => "/confirm", :action => :confirm_order, :html => { :method => :post } do |f| %>
+    <div class="row">
+      <div class="col-md-12 text-center">
+        <h2>Choose A Shipping Method</h2>
+      </div>
+    </div>
+      <div class="col-md-6 text-center">
+        <h3>UPS</h3>
+        <% @ups.each do |option| %>
+          <%= f.radio_button :carrier_name, option[0] %> <%= option[0] %> : <%= f.hidden_field :shipping_price, :value => option[1] %>$<%= option[1]/100.0 %><br><br>
+        <% end %>
+      </div>
+      <div class="col-md-6 text-center">
+        <h3>USPS</h3>
+        <% @usps.each do |option| %>
+          <%= f.radio_button :carrier_name, option[0] %> <%= option[0] %> : <%= f.hidden_field :shipping_price, :value => option[1] %>$<%= option[1]/100.0 %><br><br>
+        <% end %>
+      </div>
+      <%= f.submit "Continue", :action => "confirm_order", class: "btn black-button margin-top margin-bottom" %>
     <% end %>
   </div>
 </div>

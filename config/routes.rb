@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   get "/checkout" => "orders#checkout", as: "checkout"
   post "/confirmation" => "orders#confirmation", as: "confirmation"
   get "/shipping_estimate" => "orders#shipping_estimate", as: "shipping_estimate"
+  post "/confirm" => "orders#confirm_order", as: "confirm"
 
   resources :products do
     resources :reviews, except: [:index]

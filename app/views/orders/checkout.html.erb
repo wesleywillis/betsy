@@ -22,7 +22,7 @@
   </div>
 </div>
 
-<%= form_for @order, :url => "/confirmation", :action => :confirmation, :html => { :method => :post } do |f| %>
+<%= form_for @order, :url => "/shipping_estimate", :action => :shipping_estimate, :html => { :method => :get } do |f| %>
   <div class="row">
     <div class="col-md-12 text-center">
       <h2>Shipping Information</h2>
@@ -74,7 +74,7 @@
     <%= f.label :billing_zip_code %>
     <%= f.number_field :billing_zip_code, class: "form-control" %>
     <div class="col-md-12 text-center">
-      <%= f.submit "Submit Order", :action => "confirmation", class: "btn black-button margin-top margin-bottom" %>
+      <%= f.submit "Continue", :action => "shipping_estimate", class: "btn black-button margin-top margin-bottom" %>
     </div>
   </div>
 <% end %>
