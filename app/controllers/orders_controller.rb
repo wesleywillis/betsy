@@ -26,10 +26,6 @@ class OrdersController < ApplicationController
     check_if_quantity_is_available(@order_items)
     @subtotal = subtotal(@order_items)
     @estimates = session[:estimate]
- #    example: [[["UPS Ground", 2396],
- #  ["UPS Next Day Air Early A.M.", 18100]],
- # [["USPS Library Mail Parcel", 518],
- #  ["USPS Priority Mail Express 2-Day", 5805]]]
   end
 
   def estimate

@@ -4,7 +4,7 @@ RSpec.describe OrderItem, type: :model do
 
   describe ".validates" do
     let (:product) do
-      Product.create(name: "magical thing", price: 10, merchant_id: 1, description: "hi", photo_url: "www.google.com", inventory: 4, dimensions: "30, 40, 50")
+      Product.create(name: "magical thing", price: 10, merchant_id: 1, description: "hi", photo_url: "www.google.com", inventory: 4, dimensions: "30, 40, 50", weight: 5)
     end
 
     it "creates a new order item with order id, product id and quantity" do
