@@ -2,23 +2,10 @@
   <div class="col-md-12 text-center">
     <h1>ORDER CONFIRMATION</h1>
     <h4>Mischief Managed. Your order has been submitted.</h4>
-  </div>
-</div>
-<div class="row">
-  <div class="col-md-6 text-center">
-    <h5>Shipping Cost: $<%= number_with_precision(@shipping_cost, :precision => 2, :delimiter => ',') %></h5>
     <h5>Total Cost: $<%= number_with_precision(@total_cost, :precision => 2, :delimiter => ',') %></h5>
-
-  </div>
-  <div class="col-md-6 text-center">
-    <h5>Order Status: <%= @order.status %></h5>
+    <h5>Shipping Cost: $<%= number_with_precision(@shipping_cost, :precision => 2, :delimiter => ',') %> - <%= @shipping_method %></h5>
     <h5>Order Time: <%= @order.order_time.strftime("%m/%d/%Y %I:%M%p") %></h5>
-    <h5>Shipping Method: <%= @shipping_method %></h5>
-  </div>
-</div>
-
-
-
+    <h5>Order Status: <%= @order.status %></h5>
   </div>
 </div>
 <br>

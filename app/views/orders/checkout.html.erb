@@ -66,7 +66,7 @@
 <% if session[:shipping] %>
 
   <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-6 text-center">
       <h2>Shipping Information</h2>
       <%= @order.customer_name %><br>
       <%= @order.street_address %><br>
@@ -76,16 +76,18 @@
       <%= link_to "Change Shipping Information", change_shipping_path %>
     </div>
 
-    <div class="col-md-6">
+    <div class="col-md-6 text-center">
       <h2>Select a Shipping Option</h2>
-      <%= form_for @order, :url => "/confirmation", :html => { :method => :post } do |f| %>
-      <% @estimates.each do |carrier| %>
-        <% carrier.each do |estimate| %>
-            <%= radio_button_tag(:estimate, "#{estimate[0]}, #{estimate[1]}") %>
-            <%= label_tag(:estimate, "#{estimate[0]}: #{number_to_currency(estimate[1]/100)}") %>
-            <br>
+      <div class="col-md-offset-3 shipping-options">
+        <%= form_for @order, :url => "/confirmation", :html => { :method => :post } do |f| %>
+        <% @estimates.each do |carrier| %>
+          <% carrier.each do |estimate| %>
+              <%= radio_button_tag(:estimate, "#{estimate[0]}, #{estimate[1]}") %>
+              <%= label_tag(:estimate, "#{estimate[0]}: #{number_to_currency(estimate[1]/100)}") %>
+              <br>
+          <% end %>
         <% end %>
-      <% end %>
+      </div>
     </div>
   </div>
 

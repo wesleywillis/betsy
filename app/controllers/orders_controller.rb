@@ -37,7 +37,7 @@ class OrdersController < ApplicationController
     destination = { country: 'US', city: @order.city, state: @order.state, zip: @order.zip_code }
     packages = []
     current_order.order_items.each do |orderitem|
-      packages.push [orderitem.product.weight, orderitem.product.dimensions]
+      packages.push({weight: orderitem.product.weight, dimensions: orderitem.product.dimensions})
     end
 
     response = HTTParty.get("http://localhost:3001/shipments/quote",
