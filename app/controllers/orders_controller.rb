@@ -44,13 +44,24 @@ class OrdersController < ApplicationController
       packages.push [orderitem.product.dimensions]
     end
     shipment = { origin: origin, destination: destination, packages: packages }.to_query
-    @estimates = HTTParty.get("http://localhost:3001/shipments/quote?=#{shipment}")
-    # redirect_to checkout_path
-    @order = current_order
-    @order_items = current_order.order_items
-    check_if_quantity_is_available(@order_items)
-    @subtotal = subtotal(@order_items)
-    render :checkout
+    response = HTTParty.get("http://localhost:3001/shipments/quote?=#{shipment}")
+    # binding.pry
+    if response.code == 400
+      # code to handle error message
+      session[:shipping] = nil
+      flash[:error] = response[0]
+      redirect_to checkout_path
+    else
+      @order = current_order
+      @order_items = current_order.order_items
+      check_if_quantity_is_available(@order_items)
+      @subtotal = subtotal(@order_items)
+      @estimates = response
+
+      render :checkout
+    end
+
+
   end
 
   def change_shipping
