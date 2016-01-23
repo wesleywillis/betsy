@@ -32,5 +32,8 @@ RSpec.describe Merchant, type: :model do
     it "password confirmation must match password" do
       expect(Merchant.new(user_name: "a", email: "a@y.com", password: "a", password_confirmation:"abb")).to_not be_valid
     end
+    it "must have a city" do
+      
+    end
   end
 end

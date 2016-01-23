@@ -10,4 +10,10 @@ class Product < ActiveRecord::Base
   validates :price, presence: true, numericality: { greater_than: 0 }
   validates :merchant_id, presence: true
   validates :inventory, numericality: { greater_than_or_equal_to: 0 }
+  validates_presence_of :dimensions, :weight
+
+  def self.search(query)
+    query = query.downcase
+    where("lower(name) like ? OR lower(description) like ?", "%#{query}%", "%#{query}%")
+  end
 end

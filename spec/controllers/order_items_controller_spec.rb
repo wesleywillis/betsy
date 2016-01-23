@@ -2,8 +2,17 @@ require 'rails_helper'
 
 RSpec.describe OrderItemsController, type: :controller do
   let (:product) do
-    Product.create(name: "testy", price: 10, merchant_id: 1, description: "hi", photo_url: "www.google.com", inventory: 4)
+    Product.create(name: "test thing1", price: 10, merchant_id: 1, description: "hi", photo_url: "www.google.com", inventory: 4, dimensions: "30, 40, 50", weight: 5)
   end
+
+  let (:product2) do
+    Product.create(name: "test thing2", price: 10, merchant_id: 1, description: "hi", photo_url: "www.google.com", inventory: 1, dimensions: "30, 40, 50", weight: 5)
+  end
+
+  let (:product3) do
+    Product.create(name: "test thing3", price: 10, merchant_id: 1, description: "hi", photo_url: "www.google.com", inventory: 0, dimensions: "30, 40, 50", weight: 5)
+  end
+
 
   let (:order_item) do
     OrderItem.create(quantity: 1, product_id: product.id, order_id: 1)
@@ -33,7 +42,7 @@ RSpec.describe OrderItemsController, type: :controller do
       expect(OrderItem.find(order_item3.id).quantity).to eq order_item3.quantity + 1
     end
 
-    it "does not allow quantity of an order item to be greater than the product inventory" do
+    it "does not allow quantity of an order item to be greater than the product inventory - inventory greater than 1" do
       params =
         {
           order_item:{
@@ -43,6 +52,30 @@ RSpec.describe OrderItemsController, type: :controller do
 
       post :create, params
       expect(Order.find(params[:order_item][:order_id]).order_items.count).to eq 0
+    end
+
+    it "does not allow quantity of an order item to be greater than the product inventory - inventory 1" do
+      product2 = Product.create(name: "test thing6", price: 10, merchant_id: 1, description: "hi", photo_url: "www.google.com", inventory: 1, dimensions: "30, 40, 50", weight: 5)
+      params2 =
+        {
+          order_item:{
+            quantity: 2, product_id: product2.id, order_id: 1
+          }
+        }
+      post :create, params2
+      expect(Order.find(params2[:order_item][:order_id]).order_items.count).to eq 0
+    end
+
+    it "does not allow quantity of an order item to be greater than the product inventory - inventory 0" do
+      product3 = Product.create(name: "test thing7", price: 10, merchant_id: 1, description: "hi", photo_url: "www.google.com", inventory: 0, dimensions: "30, 40, 50", weight: 5)
+      params3 =
+        {
+          order_item:{
+            quantity: 2, product_id: product3.id, order_id: 1
+          }
+        }
+      post :create, params3
+      expect(Order.find(params3[:order_item][:order_id]).order_items.count).to eq 0
     end
 
     it "redirects to cart once order item is added" do
@@ -73,9 +106,23 @@ RSpec.describe OrderItemsController, type: :controller do
       }
     end
 
+    let (:update_params2) do
+      {
+        order_item:{
+          quantity: 5, product_id: product.id, order_id: 1
+        },
+        id: order_item.id
+      }
+    end
+
     it "updates the quantity of the order item" do
       patch :update, update_params
       expect(OrderItem.find(order_item.id).quantity).to eq update_params[:order_item][:quantity]
+    end
+
+    it "does not save the order_item if the user attempts to update the quantity to a value higher than the inventory" do
+      patch :update, update_params2
+      expect(OrderItem.find(order_item.id).quantity).to eq order_item.quantity
     end
 
     # Need to refactor test so this works.
@@ -95,6 +142,21 @@ RSpec.describe OrderItemsController, type: :controller do
     it "redirects to the cart page once the order item is updated" do
       patch :update, update_params
       expect(subject).to redirect_to cart_path
+    end
+  end
+
+  describe "PUT 'shipped'" do
+    before (:each) do
+      @order = Order.create(status: "pending", order_time: Time.now, customer_name: "Minerva McGonagall", customer_email: "miverva@hogwarts.com", street_address: "Hogwarts Castle", zip_code: 12345, state: "Washington", city: "Hogwarts", card_number: 1234, customer_card_exp_month: 10, customer_card_exp_year: 2018, security_code: 1, name_on_card: "Minerva McGonagall")
+      @order_item2 = OrderItem.create(quantity: 1, product_id: product.id, order_id: @order.id)
+      @order.update(status: "paid")
+      @order.save
+      @merchant = Merchant.create!(user_name: "me2", email: "me2@me.com", password: "p", password_confirmation: "p")
+    end
+
+    it "redirects to merchant path" do
+      put :shipped, id: @merchant.id
+      expect(subject).to redirect_to merchant_path(@merchant)
     end
   end
 end

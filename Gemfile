@@ -27,12 +27,17 @@ gem 'bcrypt', '~> 3.1.7'
 
 gem 'bootstrap-sass', '~> 3.3.6'
 gem "font-awesome-rails"
+gem 'httparty'
+
 
 # Use Unicorn as the app server
 # gem 'unicorn'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
+
+
+gem 'active_shipping'
 
 group :production do
   gem 'pg'

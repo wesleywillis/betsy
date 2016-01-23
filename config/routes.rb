@@ -4,16 +4,20 @@ Rails.application.routes.draw do
 
   get "/cart" => "orders#cart", as: "cart"
   get "/checkout" => "orders#checkout", as: "checkout"
+  get '/changeshipping' => "orders#change_shipping", as: "change_shipping"
+  post "checkout" => "orders#estimate"
+  post "/confirmation" => "orders#confirmation", as: "confirmation"
 
   resources :products do
     resources :reviews, except: [:index]
+    get :retire, on: :member
   end
 
   resources :merchants do
     resources :products, only: [:index]
   end
 
-  resources :categories do
+  resources :categories, only: [:new, :create] do
     resources :products, only: [:index]
   end
 
