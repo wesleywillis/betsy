@@ -168,15 +168,6 @@ RSpec.describe OrdersController, type: :controller do
         post :estimate, good_params
         expect(subject).to redirect_to checkout_path
       end
-      it "sets the @estimates instance variable" do
-        post :estimate, good_params
-        expect(assigns(:estimates)).to be_truthy
-      end
-      it "sets the @subtotal instance variable" do
-        post :estimate, good_params
-        expect(assigns(:subtotal)).to be_truthy
-        expect(assigns(:subtotal)).to be_a(Integer)
-      end
     end
     context "when not successful" do
       it "returns an error if submission info is incorrect" do
