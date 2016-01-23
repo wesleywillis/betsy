@@ -43,7 +43,7 @@ class OrdersController < ApplicationController
     end
 
     response = Timeout::timeout(5) {
-      HTTParty.get("http://localhost:3001/shipments/quote",
+      HTTParty.get("http://rtownshipping.herokuapp.com/shipments/quote",
           :body => { :origin => origin,
                      :destination => destination,
                      :packages => packages,
