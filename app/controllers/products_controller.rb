@@ -1,6 +1,6 @@
 class ProductsController < ApplicationController
 
-  before_action :require_user, only: [:new, :create, :edit, :update, :destroy]
+  before_action :require_user, only: [:new, :create, :edit, :update, :destroy, :retire]
 
   def index
     @products = get_products
@@ -108,10 +108,12 @@ class ProductsController < ApplicationController
 
   def retire
     item = Product.find(params[:id])
-    if item.retire == false
-      item.update(retire: true)
-    else
-      item.update(retire: false)
+    if item.merchant_id == @current_user.id
+      if item.retire == false
+        item.update(retire: true)
+      else
+        item.update(retire: false)
+      end
     end
     redirect_to :back
   end

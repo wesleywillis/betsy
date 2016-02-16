@@ -4,6 +4,7 @@ RSpec.describe ProductsController, type: :controller do
   before :each do
     @product = Product.create(name: "magic thing", price: 15.0, merchant_id: 1, description: "somethingsomething", photo_url: "stringthing", inventory: 4, retire: false)
     @product2 = Product.create(name: "magic thing2", price: 15.0, merchant_id: 1, description: "somethingsomething", photo_url: "stringthing", inventory: 5, retire: true)
+    @another_product = Product.create(name: "not mine", price: 15.0, merchant_id: 2, description: "somethingsomething", photo_url: "stringthing", inventory: 4, retire: false)
     @category1 = Category.create(name: "hello")
     @category2 = Category.create(name: "hello again")
   end
@@ -159,13 +160,17 @@ RSpec.describe ProductsController, type: :controller do
       before :each do
         @request.env['HTTP_REFERER'] = "/products/:id"
       end
-      it "goes back to the page it was on" do
+      it "does not allow product to be retired if merchant logged in" do
         get :retire, id: @product.id
-        expect(response).to redirect_to "/products/:id"
+        expect(response).to have_http_status(302)
       end
-      it "goes back to the page it was on" do
-        get :retire, id: @product2.id
-        expect(response).to redirect_to "/products/:id"
+      it "does not retire the product" do
+        get :retire, id: @product.id
+        expect(@product.retire).to be_falsy
+      end
+      it "redirects to the log in page" do
+        get :retire, id: @product.id
+        expect(subject).to redirect_to new_session_path
       end
     end
 
@@ -241,9 +246,8 @@ RSpec.describe ProductsController, type: :controller do
         expect(subject).to render_template :edit
       end
       it "does not allow merchant to render edit page for another merchant's product" do
-        another_product = Product.create(name: "not mine", price: 15.0, merchant_id: 2, description: "somethingsomething", photo_url: "stringthing", inventory: 4)
-        get :edit, merchant_id: another_product.merchant_id, id: another_product.id
-        expect(subject).to redirect_to product_path(another_product)
+        get :edit, merchant_id: @another_product.merchant_id, id: @another_product.id
+        expect(subject).to redirect_to product_path(@another_product)
       end
     end
 
@@ -257,16 +261,15 @@ RSpec.describe ProductsController, type: :controller do
         expect(Product.find(@product.id).attributes).not_to eq @product.attributes
       end
       it "does not allow merchant to edit another merchant's product" do
-        another_product = Product.create(name: "not mine", price: 15.0, merchant_id: 2, description: "somethingsomething", photo_url: "stringthing", inventory: 4)
         update_another_merchant_params = {
           product:{
             name: "Screaming Mandrake", price: 15.0, merchant_id: 2, description: "hello", inventory: 100
           },
-          id: another_product.id
+          id: @another_product.id
         }
         patch :update, update_another_merchant_params
-        expect(Product.find(another_product.id).attributes).to eq another_product.attributes
-        expect(subject).to redirect_to product_path(another_product)
+        expect(Product.find(@another_product.id).attributes).to eq @another_product.attributes
+        expect(subject).to redirect_to product_path(@another_product)
       end
       it "renders edit template on error" do
         patch :update, badupdate_params1
@@ -288,11 +291,32 @@ RSpec.describe ProductsController, type: :controller do
         expect(Product.all).to_not include(@product)
       end
       it "does not allow merchant to delete another merchants product" do
-        another_product = Product.create(name: "not mine", price: 15.0, merchant_id: 2, description: "somethingsomething", photo_url: "stringthing", inventory: 4)
-        delete :destroy, id: another_product.id
-        expect(Product.all).to include(another_product)
-        expect(subject).to redirect_to product_path(another_product)
+        delete :destroy, id: @another_product.id
+        expect(Product.all).to include(@another_product)
+        expect(subject).to redirect_to product_path(@another_product)
       end
     end
+
+    describe "GET #retire" do
+      before :each do
+        @request.env['HTTP_REFERER'] = "/products/:id"
+      end
+      it "retires the product and goes back to the page it was on" do
+        get :retire, id: @product.id
+        expect(Product.find(@product.id).retire).to be_truthy
+        expect(response).to redirect_to "/products/:id"
+      end
+      it "activates the product and goes back to the page it was on" do
+        get :retire, id: @product2.id
+        expect(Product.find(@product.id).retire).to be_falsy
+        expect(response).to redirect_to "/products/:id"
+      end
+      it "does not allow a merchant to retire another merchant's product" do
+        get :retire, id: @another_product.id
+        expect(Product.find(@another_product.id).retire).to be_falsy
+        expect(response).to redirect_to "/products/:id"
+      end
+    end
+
   end
 end

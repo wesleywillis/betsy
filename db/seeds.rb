@@ -27,7 +27,7 @@ seed_merchants = [
   { user_name: "Flourish and Blotts", email: "booksandwands@diagonalley.com", password: "p", password_confirmation: "p" },
   { user_name: "Borgin and Burkes", email: "antiques@knockturnalley.com", password: "p", password_confirmation: "p" },
   { user_name: "Honeydukes", email: "sweets@hogsmeade.com", password: "p", password_confirmation: "p" },
-  { user_name: "Quality Quidditch Goods", email: "quidditch@diagonalley.com", password: "p", password_confirmation: "p" },
+  { user_name: "Quality Quidditch Goods", email: " ", password: "p", password_confirmation: "p" },
   { user_name: "Magical Menagerie", email: "animals@diagonalley.com", password: "p", password_confirmation: "p" },
   { user_name: "Madam Malkin's", email: "robes@diagonalley.com", password: "p", password_confirmation: "p" }
 ]
