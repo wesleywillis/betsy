@@ -1,4 +1,7 @@
 <div class="row">
+  <div class="col-md-12 text-center">
+    <h1>Write Your Review for <%= @review.product.name %></h1>
+  </div>
   <div class="checkout-errors">
     <ul>
       <% @review.errors.full_messages.each do |message| %>
@@ -21,7 +24,7 @@
     <%= f.text_area :description, class: "form-control" %>
 
     <div class="col-md-12 text-center">
-      <%= f.submit "Submit Review", class: "btn btn-default" %>
+      <%= f.submit "Submit Review", class: "btn black-button margin-top" %>
     </div>
     <% end %>
   </div>

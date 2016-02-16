@@ -7,7 +7,7 @@ RSpec.describe ReviewsController, type: :controller do
         review: {
           rating: 5, description: "lovely"
         },
-        product_id: 2
+        product_id: 1
       }
     end
 
@@ -19,12 +19,6 @@ RSpec.describe ReviewsController, type: :controller do
         product_id: 1
       }
     end
-
-    # it "goes to the product show page if a merchant types in the URL to review their product" do
-    #   merchant = Merchant.create(user_name: "Honeydukes", email: "sweets@hogsmeade.com", password: "p", password_confirmation: "p")
-    #   post :create, params
-    #   expect(merchant.id).to redirect_to product_path(params[:product_id])
-    # end
 
     it "renders new page if review was not saved" do
       post :create, bad_review_params
