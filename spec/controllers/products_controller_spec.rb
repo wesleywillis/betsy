@@ -160,7 +160,7 @@ RSpec.describe ProductsController, type: :controller do
       before :each do
         @request.env['HTTP_REFERER'] = "/products/:id"
       end
-      it "does not allow product to be retired if merchant logged in" do
+      it "does not allow product to be retired if merchant logged out" do
         get :retire, id: @product.id
         expect(response).to have_http_status(302)
       end

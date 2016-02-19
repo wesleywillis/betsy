@@ -101,6 +101,7 @@ class ProductsController < ApplicationController
       if @product.save
         redirect_to product_path(@product.id)
       else
+        @categories = Category.all
         render "edit"
       end
     end

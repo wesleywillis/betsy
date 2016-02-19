@@ -12,7 +12,7 @@ class CategoriesController < ApplicationController
       if params[:commit] == "Save and Add Another"
         redirect_to new_category_path
       else
-      redirect_to merchant_path(@current_user)
+        redirect_to merchant_path(@current_user)
       end
     else
       render "new"
